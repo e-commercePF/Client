@@ -1,14 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import Detail  from './Components/Detail'
 import Home from './componentes/Home';
-
 
 function App() {
   return (
- <div>
-<Route exact path="/Home" component={Home}/>    
-  </div>
-  );
+    <div className="App">
+    <Route exact path="/Home" component={Home}/>    
+     <Detail />
+    </div>
+   );
 }
 
 export default App;
