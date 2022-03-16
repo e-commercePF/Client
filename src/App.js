@@ -1,9 +1,4 @@
-
 import './App.css';
-
-import NavBar from './navBar/navBar';
-import Detail from './Components/Detail'
-
 import React from "react";
 import Detail from './Components/Detail';
 import Home from './Components/Home';
