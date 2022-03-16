@@ -1,5 +1,5 @@
 import Detail  from './Components/Detail'
-import Home from './componentes/Home';
+import Home from './Components/Home';
 
 function App() {
   return (
