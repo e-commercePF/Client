@@ -1,0 +1,32 @@
+.header {
+   display: flex;
+   background-color: rgb(98, 183, 209);
+   flex-direction: column;
+}
+.imagen1{
+    margin-left: 30px;
+}
+
+.imagen2{
+    margin-right: 30px;
+}
+
+.logostitulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-around;
+    width: 100%;
+    justify-content:space-between;
+}
+
+.inputsearch{
+    width: 100%;
+}
+
+.bnavbar{
+    margin-top: 10px;
+    justify-content: space-between;
+    width: 100%;
+
+}
