@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,7 +12,7 @@ import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
-export default function productcard() {
+export default function productcard( ) {
 
     const myProduct = {
         "id": 1,
@@ -37,8 +38,14 @@ export default function productcard() {
             <FavoriteIcon />
           </IconButton>
         }
-        title={myProduct.title}
-        subheader= {myProduct.price}
+        title={
+            <Link to={`/product/${myProduct.id}`}  style={{textDecoration:"none"}}>
+            {myProduct.title}
+            </Link>}
+        subheader= {
+                <Typography variant="body2" color="text.secondary">
+                 ${myProduct.price}
+                </Typography>}
       />
 
       <CardMedia
