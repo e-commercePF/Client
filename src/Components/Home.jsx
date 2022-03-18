@@ -14,7 +14,7 @@ export default function Home() {
 
 
     const { product, haveResult } = useSelector(state => state)
-    console.log(111, product)
+    //console.log(111, product)
 
 
 
