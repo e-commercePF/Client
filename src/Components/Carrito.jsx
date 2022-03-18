@@ -23,14 +23,53 @@ export default function Carrito(){
     const deleteOneItemFromMyCart = (id)=> {       
         dispatch(deleteOneItemFromCart(id))        
     }
+
+    //obtener cantidad de un articulo en particular 
+    const countMyItem = ()=> {
+        let myItemName = shopingCart.map(x=> Object.assign({
+            id: x.id,
+            piece: 1,
+            name: x.name,
+            price: x.price,
+        }))
+        let myCartWithoutTwoItems = myItemName.reduce((acc, el)=> {
+            let existingElement = acc.find(e=> e.id === el.id)
+            if(existingElement){
+                return acc.map(x=> {
+                    if(x.id === el.id){
+                        return {
+                            ...x,
+                            piece: x.piece + el.piece
+                        }
+                    }
+                    return x
+                })
+            }
+            return [...acc, el]
+        }, [])
+     
+        return myCartWithoutTwoItems
+    }
+
+    let countMyItemResult = shopingCart.length > 0 ? countMyItem() : null 
+
+    //calcular el total de la compra 
+    const myPayToStore = ()=> {
+        let myItemPrice =shopingCart.map(x=> x.price)
+         let myFinallPay = myItemPrice.reduce((x,y)=> x + y)
+         return myFinallPay
+    }  
+
+    let myPay = shopingCart.length > 0 ? myPayToStore() : null 
  
     return (
         <div>
             <h2> Tus compras: </h2>
             {
-               shopingCart.length > 0 ? shopingCart.map(x=> {
+               shopingCart.length > 0 ? countMyItemResult.map(x=> {
                    return <div> <h4>{x.name}</h4> 
-                                <h5> $ { x.price } </h5>
+                                <h5> $ {x.price} </h5>
+                                <h5>Cantidad: {x.piece} </h5>
                                 <Button variant="contained" color="secondary" onClick={()=> deleteOneItemFromMyCart(x.id)}> X </Button>
                         
                      </div>
@@ -39,7 +78,12 @@ export default function Carrito(){
             
             }
 
+             {  shopingCart.length > 0 ? <h4> El total a pagar es: $ { myPay } </h4> : null }
+
              {  shopingCart.length > 0 ?   <Button variant="contained" color="primary" onClick={clearMyCart}>
+
+             
+
                 Vaciar Carrito
             </Button> : null}
         </div>
