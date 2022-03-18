@@ -13,7 +13,6 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 export default function productcard({ id, price, name, description, img, rating }) {
-  console.log(1111, id)
 
   return (
 

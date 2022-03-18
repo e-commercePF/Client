@@ -3,6 +3,7 @@ const initialState = {
     product: [],
     detailproduct: {},
     shopingCart: [],
+    haveResult: false,
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -14,11 +15,22 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case SEARCH_PRODUCTS:
-            console.log(1111, action.payload)
-            return {
-                ...state,
-                product: action.payload
+            console.log()
+            if (!action.payload[0]) {
+                return {
+                    ...state,
+                    product: action.payload,
+                    haveResult: true
+                }
+            } else {
+
+                return {
+                    ...state,
+                    product: action.payload,
+                    haveResult: false
+                }
             }
+
 
         case GET_DETAILS:
             return {
@@ -33,7 +45,7 @@ export default function rootReducer(state = initialState, action) {
                 shopingCart: [...state.shopingCart, action.payload]
             }
 
-        case CLEAR_CART: 
+        case CLEAR_CART:
             return {
                 ...state,
                 shopingCart: []

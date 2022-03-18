@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addCart, detailProduct } from "../Redux/actions";
 import { useState } from "react";
+import Home from "./Home";
 
 
 export default function Detail() {
@@ -18,15 +19,15 @@ export default function Detail() {
     const [carro, setCarro] = useState([])
 
     console.log('carro:  ' + carro)
-  
 
-    const handleAddCart = (e)=> {
+
+    const handleAddCart = (e) => {
         e.preventDefault()
         setCarro(detailproduct)
         dispatch(addCart(detailproduct))
         console.log('todo salio bien')
     }
-    
+
     return (
         <div>
 
@@ -42,13 +43,14 @@ export default function Detail() {
 
             </div>
 
-            <Button variant="contained" color="primary" onClick={e=>handleAddCart(e) }>
+            <Button variant="contained" color="primary" onClick={e => handleAddCart(e)}>
                 Agregar al carrito
             </Button>
 
             <h5> Stock Actual: x </h5>
 
 
+            <Home />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { Login, Home, ShoppingCart, Search } from '@mui/icons-material';
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
+import { Link } from 'react-router-dom';
 import Carrito from "../Carrito";
 
 export default function NavBar() {
@@ -16,40 +17,46 @@ export default function NavBar() {
     }
 
     const [isDisable, setIsDisable] = useState(false)
-    const isDisableChange = (e)=> {
-        e.preventDefault()         
-         setIsDisable(!isDisable)
-        
+    const isDisableChange = (e) => {
+        e.preventDefault()
+        setIsDisable(!isDisable)
+
     }
-        console.log(isDisable)
+    console.log(isDisable)
 
     return (<div className="header">
 
         <div className="bnavbar">
-            <Button
-                color="secondary"
-                variant="contained"
-                endIcon={<Home />}>
-                Home
-            </Button>
-            <Button
-                color="secondary"
-                variant="contained"
-                endIcon={<Login />}>
-                Login
-            </Button>
+            <Link to="/" style={{ textDecoration: "none" }}>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    endIcon={<Home />}>
+                    Home
+                </Button>
+            </Link>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    endIcon={<Login />}>
+                    Login
+                </Button>
+
+            </Link>
+
             <Button
                 color="secondary"
                 variant="contained"
                 endIcon={<ShoppingCart />}
-                onClick={(e)=> isDisableChange(e)}
+                onClick={(e) => isDisableChange(e)}
             >
                 Carrito
-            </Button>       
+            </Button>
 
-            { isDisable === false ? <Carrito /> : null}            
+            {isDisable === false ? <Carrito /> : null}
 
-            
+
 
         </div>
 
