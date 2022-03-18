@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import Carrito from "../Carrito";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
     const [search, setSearch] = useState()
@@ -27,13 +28,16 @@ export default function NavBar() {
     return (<div className="header">
 
         <div className="bnavbar">
+
             <Link to="/" style={{ textDecoration: "none" }}>
+
                 <Button
                     color="secondary"
                     variant="contained"
                     endIcon={<Home />}>
                     Home
                 </Button>
+
             </Link>
             <Link to="/login" style={{ textDecoration: "none" }}>
                 <Button
@@ -44,6 +48,14 @@ export default function NavBar() {
                 </Button>
 
             </Link>
+
+            </Link> 
+            <Button
+                color="secondary"
+                variant="contained"
+                endIcon={<Login />}>
+                Login
+            </Button>
 
             <Button
                 color="secondary"

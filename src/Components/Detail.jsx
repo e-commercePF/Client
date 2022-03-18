@@ -16,14 +16,9 @@ export default function Detail() {
         dispatch(detailProduct(id))
     }, [])
 
-    const [carro, setCarro] = useState([])
 
-    console.log('carro:  ' + carro)
-
-
-    const handleAddCart = (e) => {
-        e.preventDefault()
-        setCarro(detailproduct)
+    const handleAddCart = (e)=> {
+        e.preventDefault()       
         dispatch(addCart(detailproduct))
         console.log('todo salio bien')
     }
