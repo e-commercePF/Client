@@ -1,9 +1,11 @@
+import { Delete } from '@mui/icons-material';
 import axios from 'axios';
 export const GET_PRODUCTS = "GET_PRODUCTS"
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
 export const GET_DETAILS = "GET_DETAILS"
 export const ADD_CART = "ADD_CART"
 export const CLEAR_CART = "CLEAR_CART"
+export const DELETE_ONE_ITEM_FROM_CART = "DELETE_ONE_ITEM_FROM_CART"
 
 
 export function getAllProducts() {
@@ -67,11 +69,23 @@ export function clearCart(){
   return function(dispatch){
     try{
       return dispatch({
-        type:   CLEAR_CART,
-        
+        type:   CLEAR_CART,        
       })
     }catch(e) { console.log(e) }
   }
-
-
 }
+
+  export function deleteOneItemFromCart(id){
+    return function(dispatch){
+      try{
+        return dispatch({
+          type: DELETE_ONE_ITEM_FROM_CART,
+          payload: id,
+
+        })       
+
+      }catch(e){console.log(e)}
+    } 
+  }
+
+

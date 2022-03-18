@@ -1,21 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { clearCart } from "../Redux/actions";
+import { clearCart, deleteOneItemFromCart } from "../Redux/actions";
 
 export default function Carrito(){
     const dispatch = useDispatch()
 
-    const  miCarrito  = useSelector(state=> state.shopingCart) // []
+   
     const { shopingCart } = useSelector(state=> state)
 
     useEffect(() => {
-        console.log(111, shopingCart)
+       // console.log(111, shopingCart)
     }, [shopingCart])
 
       
-    const vaciarCarrito = ()=> {
+    const clearMyCart = ()=> {
         dispatch(clearCart())
+    }
+
+   // console.log(shopingCart)
+
+    const deleteOneItemFromMyCart = (id)=> {       
+        dispatch(deleteOneItemFromCart(id))        
     }
  
     return (
@@ -25,6 +31,7 @@ export default function Carrito(){
                shopingCart.length > 0 ? shopingCart.map(x=> {
                    return <div> <h4>{x.name}</h4> 
                                 <h5> $ { x.price } </h5>
+                                <Button variant="contained" color="secondary" onClick={()=> deleteOneItemFromMyCart(x.id)}> X </Button>
                         
                      </div>
                    
@@ -32,7 +39,7 @@ export default function Carrito(){
             
             }
 
-             {  shopingCart.length > 0 ?   <Button variant="contained" color="primary" onClick={vaciarCarrito}>
+             {  shopingCart.length > 0 ?   <Button variant="contained" color="primary" onClick={clearMyCart}>
                 Vaciar Carrito
             </Button> : null}
         </div>
