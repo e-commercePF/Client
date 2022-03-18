@@ -3,6 +3,7 @@ export const GET_PRODUCTS = "GET_PRODUCTS"
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
 export const GET_DETAILS = "GET_DETAILS"
 export const ADD_CART = "ADD_CART"
+export const CLEAR_CART = "CLEAR_CART"
 
 
 export function getAllProducts() {
@@ -51,7 +52,7 @@ export function detailProduct(id) {
 }
 
 export function addCart(product){
-  console.log(product)
+  //console.log(product)
   return function (dispatch){
   try{
     return dispatch({
@@ -60,4 +61,17 @@ export function addCart(product){
       })
     } catch(e) {console.log(e)}
   }
+}
+
+export function clearCart(){
+  return function(dispatch){
+    try{
+      return dispatch({
+        type:   CLEAR_CART,
+        
+      })
+    }catch(e) { console.log(e) }
+  }
+
+
 }
