@@ -1,8 +1,27 @@
 import { Button, Input } from "@material-ui/core"
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search } from '@mui/icons-material';
+import { useState } from "react";
+import { useDispatch } from "react-redux"
+import { searchProduct } from "../../Redux/actions";
+import Carrito from "../Carrito";
 
 export default function NavBar() {
+    const [search, setSearch] = useState()
+    const dispatch = useDispatch()
+
+    function onHandleSearch(event) {
+        event.preventDefault()
+        setSearch(event.target.value)
+    }
+
+    const [isDisable, setIsDisable] = useState(false)
+    const isDisableChange = (e)=> {
+        e.preventDefault()         
+         setIsDisable(!isDisable)
+        
+    }
+        console.log(isDisable)
 
     return (<div className="header">
 
@@ -23,9 +42,15 @@ export default function NavBar() {
                 color="secondary"
                 variant="contained"
                 endIcon={<ShoppingCart />}
+                onClick={(e)=> isDisableChange(e)}
             >
                 Carrito
-            </Button>
+            </Button>       
+
+            { isDisable === false ? <Carrito /> : null}            
+
+            
+
         </div>
 
         <header className="logostitulo">
@@ -37,10 +62,22 @@ export default function NavBar() {
         <div className="inputsearch">
             <Input
                 placeholder="¿Qué estás buscando?"
+                onChange={(event) => onHandleSearch(event)}
+                value={search}
             ></Input><Button
                 color="primary"
                 variant="contained"
                 startIcon={<Search />}
+
+                onClick={() => {
+                    if (!search) {
+                        alert("Debes ingresar tu búsqueda")
+                    } else {
+                        dispatch(searchProduct(search))
+                        setSearch("")
+                    }
+                }}
+
             >
                 Buscar
             </Button>

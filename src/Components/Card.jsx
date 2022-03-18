@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,57 +12,50 @@ import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
-export default function productcard() {
-
-    const myProduct = {
-        "id": 1,
-        "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-        "price": 109.95,
-        "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-        "category": "men's clothing",
-        "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-        "rating": {
-        "rate": 3.5,
-        "count": 120
-        },
-    }
-
+export default function productcard({ id, price, name, description, img, rating }) {
+  console.log(1111, id)
 
   return (
 
     <Card sx={{ maxWidth: 345 }}>
-      
+
       <CardHeader
-        action={    
-          <IconButton  onClick={() => console.log("addFavorite")}>
+        action={
+          <IconButton onClick={() => console.log("addFavorite")}>
             <FavoriteIcon />
           </IconButton>
         }
-        title={myProduct.title}
-        subheader= {myProduct.price}
+        title={
+          <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
+            {name}
+          </Link>}
+        subheader={
+          <Typography variant="body2" color="text.secondary">
+            ${price}
+          </Typography>}
       />
 
       <CardMedia
         component="img"
         height="194"
-        image={myProduct.image}
+        image={img}
         alt="myProduct"
       />
-      
+
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-            {myProduct.description}
+          {description}
         </Typography>
       </CardContent>
 
 
       <CardActions disableSpacing>
-      
+
         <IconButton aria-label="addShop">
-            <AddShoppingCartIcon/>
+          <AddShoppingCartIcon />
         </IconButton>
 
-        <Rating name="half-rating-read" value={myProduct.rating.rate} precision={0.5} readOnly /> 
+        <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
       </CardActions>
 
     </Card>
