@@ -23,7 +23,7 @@ export default function NavBar() {
         setIsDisable(!isDisable)
 
     }
-    console.log(isDisable)
+   // console.log(isDisable)
 
     return (<div className="header">
 
