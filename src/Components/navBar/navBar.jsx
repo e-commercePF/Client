@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
 import Carrito from "../Carrito";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
     const [search, setSearch] = useState()
@@ -26,12 +27,14 @@ export default function NavBar() {
     return (<div className="header">
 
         <div className="bnavbar">
-            <Button
-                color="secondary"
-                variant="contained"
-                endIcon={<Home />}>
-                Home
-            </Button>
+            <Link to='/'>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    endIcon={<Home />}>
+                    Home
+                </Button>
+            </Link> 
             <Button
                 color="secondary"
                 variant="contained"
