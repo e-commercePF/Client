@@ -3,7 +3,8 @@ import Rating from '@material-ui/lab/Rating';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { detailProduct } from "../Redux/actions";
+import { addCart, detailProduct } from "../Redux/actions";
+import { useState } from "react";
 
 
 export default function Detail() {
@@ -13,6 +14,19 @@ export default function Detail() {
     useEffect(() => {
         dispatch(detailProduct(id))
     }, [])
+
+    const [carro, setCarro] = useState([])
+
+    console.log('carro:  ' + carro)
+  
+
+    const handleAddCart = (e)=> {
+        e.preventDefault()
+        setCarro(detailproduct)
+        dispatch(addCart(detailproduct))
+        console.log('todo salio bien')
+    }
+    
     return (
         <div>
 
@@ -28,7 +42,7 @@ export default function Detail() {
 
             </div>
 
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={e=>handleAddCart(e) }>
                 Agregar al carrito
             </Button>
 

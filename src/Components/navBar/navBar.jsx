@@ -4,6 +4,7 @@ import { Login, Home, ShoppingCart, Search } from '@mui/icons-material';
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
+import Carrito from "../Carrito";
 
 export default function NavBar() {
     const [search, setSearch] = useState()
@@ -13,6 +14,14 @@ export default function NavBar() {
         event.preventDefault()
         setSearch(event.target.value)
     }
+
+    const [isDisable, setIsDisable] = useState(false)
+    const isDisableChange = (e)=> {
+        e.preventDefault()         
+         setIsDisable(!isDisable)
+        
+    }
+        console.log(isDisable)
 
     return (<div className="header">
 
@@ -33,9 +42,15 @@ export default function NavBar() {
                 color="secondary"
                 variant="contained"
                 endIcon={<ShoppingCart />}
+                onClick={(e)=> isDisableChange(e)}
             >
                 Carrito
-            </Button>
+            </Button>       
+
+            { isDisable === false ? <Carrito /> : null}            
+
+            
+
         </div>
 
         <header className="logostitulo">

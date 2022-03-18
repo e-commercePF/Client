@@ -1,7 +1,8 @@
-import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS } from "./actions"
+import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART } from "./actions"
 const initialState = {
     product: [],
     detailproduct: {},
+    shopingCart: [],
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -23,6 +24,13 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 detailproduct: action.payload
+            }
+
+        case ADD_CART:
+            console.log(action.payload)
+            return {
+                ...state,
+                shopingCart: [...state.shopingCart, action.payload]
             }
 
         default:
