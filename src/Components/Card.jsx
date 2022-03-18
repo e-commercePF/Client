@@ -10,10 +10,18 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { useDispatch } from 'react-redux';
+import { addCart } from '../Redux/actions';
 
 
-export default function productcard({ id, price, name, description, img, rating }) {
-  console.log(1111, id)
+export default function Productcard({ id, price, name, description, img, rating }) {
+  // console.log(1111, id)
+  const dispatch = useDispatch()
+
+  const funcionParaAgregarAlCarrito = ()=> {
+    let myProduct = {id, name, price, img, rating}
+    dispatch(addCart(myProduct))
+  }
 
   return (
 
@@ -52,7 +60,7 @@ export default function productcard({ id, price, name, description, img, rating 
       <CardActions disableSpacing>
 
         <IconButton aria-label="addShop">
-          <AddShoppingCartIcon />
+          <AddShoppingCartIcon onClick={funcionParaAgregarAlCarrito}/>
         </IconButton>
 
         <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
