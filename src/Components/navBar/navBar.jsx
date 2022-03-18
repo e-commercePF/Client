@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import Carrito from "../Carrito";
-import { Link } from "react-router-dom";
+
 
 export default function NavBar() {
     const [search, setSearch] = useState()
@@ -49,7 +49,7 @@ export default function NavBar() {
 
             </Link>
 
-            </Link> 
+             
             <Button
                 color="secondary"
                 variant="contained"
@@ -68,7 +68,7 @@ export default function NavBar() {
 
             {isDisable === false ? <Carrito /> : null}
 
-
+        
 
         </div>
 
