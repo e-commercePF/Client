@@ -13,7 +13,7 @@ export default function Home() {
     }, [])
 
 
-    const { product } = useSelector(state => state)
+    const { product, haveResult } = useSelector(state => state)
     console.log(111, product)
 
 
@@ -44,6 +44,12 @@ export default function Home() {
                     ))
                     : <h1> Loading</h1>
             }
+
+            {(haveResult) ? <div>
+                <img src="https://cdn-icons-png.flaticon.com/512/6134/6134116.png" alt="img" />
+                <h2>No hemos encontrado un producto </h2>
+
+            </div> : <></>}
         </div>
     )
 }

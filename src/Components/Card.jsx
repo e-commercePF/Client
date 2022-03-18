@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { addCart } from '../Redux/actions';
 
 
+
 export default function Productcard({ id, price, name, description, img, rating }) {
   // console.log(1111, id)
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ export default function Productcard({ id, price, name, description, img, rating 
     let myProduct = {id, name, price, img, rating}
     dispatch(addCart(myProduct))
   }
+
 
   return (
 
