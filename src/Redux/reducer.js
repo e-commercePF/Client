@@ -18,7 +18,7 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case SEARCH_PRODUCTS:
-            console.log()
+           // console.log()
             if (!action.payload[0]) {
                 return {
                     ...state,
@@ -36,13 +36,14 @@ export default function rootReducer(state = initialState, action) {
 
 
         case GET_DETAILS:
+           // console.log(action.payload)
             return {
                 ...state,
                 detailproduct: action.payload
             }
 
         case ADD_CART:
-           // console.log(action.payload)
+           // console.log(state.shopingCart)
             return {
                 ...state,
                 shopingCart: [...state.shopingCart, action.payload]
@@ -55,7 +56,7 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case DELETE_ONE_ITEM_FROM_CART:
-            let myDeleteProduct = state.shopingCart.find(product=> product.id === action.payload)
+            let myDeleteProduct = state.shopingCart.find(product=> product._id === action.payload)
             let myFilterProducts = state.shopingCart.filter(product=> product !== myDeleteProduct)
             return {
                 ...state,

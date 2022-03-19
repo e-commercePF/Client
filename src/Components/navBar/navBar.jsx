@@ -17,7 +17,7 @@ export default function NavBar() {
         setSearch(event.target.value)
     }
 
-    const [isDisable, setIsDisable] = useState(false)
+    const [isDisable, setIsDisable] = useState(true)
     const isDisableChange = (e) => {
         e.preventDefault()
         setIsDisable(!isDisable)
