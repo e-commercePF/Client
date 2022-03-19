@@ -7,6 +7,7 @@ import { searchProduct } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import Carrito from "../Carrito";
 
+
 export default function NavBar() {
     const [search, setSearch] = useState()
     const dispatch = useDispatch()
@@ -16,13 +17,13 @@ export default function NavBar() {
         setSearch(event.target.value)
     }
 
-    const [isDisable, setIsDisable] = useState(false)
+    const [isDisable, setIsDisable] = useState(true)
     const isDisableChange = (e) => {
         e.preventDefault()
         setIsDisable(!isDisable)
 
     }
-    console.log(isDisable)
+    // console.log(isDisable)
 
     return (<div className="header">
 
@@ -59,6 +60,8 @@ export default function NavBar() {
             </Button>
 
             {isDisable === false ? <Carrito /> : null}
+
+
 
         </div>
 

@@ -1,4 +1,7 @@
-import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART } from "./actions"
+import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, 
+    DELETE_ONE_ITEM_FROM_CART
+
+} from "./actions"
 const initialState = {
     product: [],
     detailproduct: {},
@@ -16,7 +19,7 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case SEARCH_PRODUCTS:
-            console.log()
+           // console.log()
             if (!action.payload[0]) {
                 return {
                     ...state,
@@ -34,13 +37,14 @@ export default function rootReducer(state = initialState, action) {
 
 
         case GET_DETAILS:
+           // console.log(action.payload)
             return {
                 ...state,
                 detailproduct: action.payload
             }
 
         case ADD_CART:
-            console.log(action.payload)
+           // console.log(state.shopingCart)
             return {
                 ...state,
                 shopingCart: [...state.shopingCart, action.payload]
@@ -50,6 +54,14 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 shopingCart: []
+            }
+
+        case DELETE_ONE_ITEM_FROM_CART:
+            let myDeleteProduct = state.shopingCart.find(product=> product._id === action.payload)
+            let myFilterProducts = state.shopingCart.filter(product=> product !== myDeleteProduct)
+            return {
+                ...state,
+                shopingCart: myFilterProducts,
             }
 
         default:
