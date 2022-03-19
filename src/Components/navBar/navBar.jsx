@@ -17,13 +17,13 @@ export default function NavBar() {
         setSearch(event.target.value)
     }
 
-    const [isDisable, setIsDisable] = useState(false)
+    const [isDisable, setIsDisable] = useState(true)
     const isDisableChange = (e) => {
         e.preventDefault()
         setIsDisable(!isDisable)
 
     }
-   // console.log(isDisable)
+    // console.log(isDisable)
 
     return (<div className="header">
 
@@ -39,6 +39,7 @@ export default function NavBar() {
                 </Button>
 
             </Link>
+
             <Link to="/login" style={{ textDecoration: "none" }}>
                 <Button
                     color="secondary"
@@ -48,14 +49,6 @@ export default function NavBar() {
                 </Button>
 
             </Link>
-
-             
-            <Button
-                color="secondary"
-                variant="contained"
-                endIcon={<Login />}>
-                Login
-            </Button>
 
             <Button
                 color="secondary"
@@ -68,7 +61,7 @@ export default function NavBar() {
 
             {isDisable === false ? <Carrito /> : null}
 
-        
+
 
         </div>
 
@@ -83,27 +76,27 @@ export default function NavBar() {
                 placeholder="¿Qué estás buscando?"
                 onChange={(event) => onHandleSearch(event)}
                 value={search}
-            ></Input><Button
-                color="primary"
-                variant="contained"
-                startIcon={<Search />}
+            ></Input>
+            <Link to="/result" style={{ textDecoration: "none" }}>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    startIcon={<Search />}
 
-                onClick={() => {
-                    if (!search) {
-                        alert("Debes ingresar tu búsqueda")
-                    } else {
-                        dispatch(searchProduct(search))
-                        setSearch("")
-                    }
-                }}
+                    onClick={() => {
+                        if (!search) {
+                            alert("Debes ingresar tu búsqueda")
+                        } else {
+                            dispatch(searchProduct(search))
+                            setSearch("")
+                        }
+                    }}
 
-            >
-                Buscar
-            </Button>
+                >
+                    Buscar
+                </Button>
+            </Link>
         </div>
 
-
-
-
-    </div >)
+    </div>)
 }

@@ -9,26 +9,30 @@ import Home from "./Home";
 
 
 export default function Detail() {
-    const { id } = useParams()
+    const { _id } = useParams()
     const { detailproduct } = useSelector(state => state)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(detailProduct(id))
+        dispatch(detailProduct(_id))
     }, [])
 
 
-    const handleAddCart = (e)=> {
-        e.preventDefault()       
+
+    const handleAddCart = (e) => {
+        e.preventDefault()
+        let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
         dispatch(addCart(detailproduct))
-        console.log('todo salio bien')
+        //   console.log(myProduct)
     }
+
+    let stock = detailproduct.quantity
 
     return (
         <div>
 
             <div>
                 <h1> {detailproduct.name} </h1>
-                <img src={detailproduct.image} alt="img" width='500px' height='500px' /> <br />
+                <img src={detailproduct.img} alt="img" w_idth='500px' height='500px' /> <br />
                 <category> <b> Categoria: </b> {detailproduct.category} </category>
                 {/* <h4>Rating:
                     <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
@@ -42,10 +46,9 @@ export default function Detail() {
                 Agregar al carrito
             </Button>
 
-            <h5> Stock Actual: x </h5>
+            <h5> Stock Actual: {stock} </h5>
 
 
-            <Home />
         </div>
     )
 }
