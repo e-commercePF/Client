@@ -16,11 +16,11 @@ import { addCart } from '../Redux/actions';
 
 
 export default function Productcard({ id, price, name, description, img, rating }) {
-  // console.log(1111, id)
+ //  console.log(1111, id)
   const dispatch = useDispatch()
-
   const functionToAddProductsToMyCart = ()=> {
-    let myProduct = {id, name, price, img, rating}
+    const _id = id
+    let myProduct = {_id, name, price, img, rating}
     dispatch(addCart(myProduct))
   }
 
