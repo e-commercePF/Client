@@ -17,18 +17,17 @@ export default function Detail() {
     }, [])
 
 
-    const handleAddCart = (e)=> {
-        e.preventDefault()       
+    const handleAddCart = (e) => {
+        e.preventDefault()
         dispatch(addCart(detailproduct))
         console.log('todo salio bien')
     }
-
     return (
         <div>
 
             <div>
                 <h1> {detailproduct.name} </h1>
-                <img src={detailproduct.image} alt="img" width='500px' height='500px' /> <br />
+                <img src={detailproduct.img} alt="img" width='500px' height='500px' /> <br />
                 <category> <b> Categoria: </b> {detailproduct.category} </category>
                 {/* <h4>Rating:
                     <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
@@ -45,7 +44,6 @@ export default function Detail() {
             <h5> Stock Actual: x </h5>
 
 
-            <Home />
         </div>
     )
 }

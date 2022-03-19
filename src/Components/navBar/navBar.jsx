@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import Carrito from "../Carrito";
-import { Link } from "react-router-dom";
 
 export default function NavBar() {
     const [search, setSearch] = useState()
@@ -39,6 +38,7 @@ export default function NavBar() {
                 </Button>
 
             </Link>
+
             <Link to="/login" style={{ textDecoration: "none" }}>
                 <Button
                     color="secondary"
@@ -48,14 +48,6 @@ export default function NavBar() {
                 </Button>
 
             </Link>
-
-            </Link> 
-            <Button
-                color="secondary"
-                variant="contained"
-                endIcon={<Login />}>
-                Login
-            </Button>
 
             <Button
                 color="secondary"
@@ -67,8 +59,6 @@ export default function NavBar() {
             </Button>
 
             {isDisable === false ? <Carrito /> : null}
-
-
 
         </div>
 
@@ -83,27 +73,27 @@ export default function NavBar() {
                 placeholder="¿Qué estás buscando?"
                 onChange={(event) => onHandleSearch(event)}
                 value={search}
-            ></Input><Button
-                color="primary"
-                variant="contained"
-                startIcon={<Search />}
+            ></Input>
+            <Link to="/result" style={{ textDecoration: "none" }}>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    startIcon={<Search />}
 
-                onClick={() => {
-                    if (!search) {
-                        alert("Debes ingresar tu búsqueda")
-                    } else {
-                        dispatch(searchProduct(search))
-                        setSearch("")
-                    }
-                }}
+                    onClick={() => {
+                        if (!search) {
+                            alert("Debes ingresar tu búsqueda")
+                        } else {
+                            dispatch(searchProduct(search))
+                            setSearch("")
+                        }
+                    }}
 
-            >
-                Buscar
-            </Button>
+                >
+                    Buscar
+                </Button>
+            </Link>
         </div>
 
-
-
-
-    </div >)
+    </div>)
 }
