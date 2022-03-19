@@ -16,16 +16,16 @@ export default function Detail() {
         dispatch(detailProduct(_id))
     }, [])
 
- 
-    
-    const handleAddCart = (e)=> {
+
+
+    const handleAddCart = (e) => {
         e.preventDefault()
-        let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }      
+        let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
         dispatch(addCart(detailproduct))
-     //   console.log(myProduct)
+        //   console.log(myProduct)
     }
 
-  let stock = detailproduct.quantity
+    let stock = detailproduct.quantity
 
     return (
         <div>
@@ -46,10 +46,9 @@ export default function Detail() {
                 Agregar al carrito
             </Button>
 
-            <h5> Stock Actual: {stock} </h5>      
+            <h5> Stock Actual: {stock} </h5>
 
 
-            <Home />
         </div>
     )
 }

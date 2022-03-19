@@ -7,6 +7,7 @@ const initialState = {
     detailproduct: {},
     shopingCart: [],
     haveResult: false,
+    resultSearch: []
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -22,14 +23,14 @@ export default function rootReducer(state = initialState, action) {
             if (!action.payload[0]) {
                 return {
                     ...state,
-                    product: action.payload,
+                    resultSearch: action.payload,
                     haveResult: true
                 }
             } else {
 
                 return {
                     ...state,
-                    product: action.payload,
+                    resultSearch: action.payload,
                     haveResult: false
                 }
             }
