@@ -1,5 +1,7 @@
 import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, 
-    DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES
+    DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES, 
+    DELETE_ALL_SINGLE_ITEM_FROM_CART
+
 
 } from "./actions"
 const initialState = {
@@ -63,6 +65,14 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 shopingCart: myFilterProducts,
+            }
+
+        case DELETE_ALL_SINGLE_ITEM_FROM_CART: 
+            let theItem = action.payload            
+            let itemsWithoutTheItem = state.shopingCart.filter(x=> x._id !== theItem._id)
+            return {
+                ...state,
+                shopingCart: itemsWithoutTheItem
             }
 
         case ADD_TO_FAVORITES:      
