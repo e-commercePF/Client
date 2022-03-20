@@ -11,29 +11,44 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useDispatch } from 'react-redux';
-import { addCart } from '../Redux/actions';
+import { addCart, addToFavorites, deleteFromFavorites } from '../Redux/actions';
+import { useState } from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
-
-
-export default function Productcard({ id, price, name, description, img, rating }) {
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+export default function Productcard({ id, price, name, description, img, rating, quantity }) {
  //  console.log(1111, id)
   const dispatch = useDispatch()
-  const functionToAddProductsToMyCart = ()=> {
-    const _id = id
-    let myProduct = {_id, name, price, img, rating}
-    dispatch(addCart(myProduct))
+
+  //let stock = quantity
+  //const [cartItem, setCardItem] = useState(0)
+  const _id = id
+  let myProduct = {_id, name, price, img, rating}  
+  const functionToAddProductsToMyCart = ()=> {  
+    dispatch(addCart(myProduct)) 
+  }
+
+  
+  const [addFavorite, setAddFavorite] = useState(true)
+  const addMyFavoriteProduct = ()=> {
+    setAddFavorite(!addFavorite)
+    addFavorite ? dispatch(addToFavorites(myProduct)) : 
+    dispatch(deleteFromFavorites(myProduct))
   }
 
 
   return (
 
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }}>    
 
       <CardHeader
+      
         action={
-          <IconButton onClick={() => console.log("addFavorite")}>
+          <IconButton onClick={addMyFavoriteProduct}>
             <FavoriteIcon />
-          </IconButton>
+          </IconButton>         
         }
         title={
           <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
