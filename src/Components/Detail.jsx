@@ -16,16 +16,17 @@ export default function Detail() {
         dispatch(detailProduct(_id))
     }, [])
 
-
-
-    const handleAddCart = (e) => {
-        e.preventDefault()
-        let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
-        dispatch(addCart(detailproduct))
-        //   console.log(myProduct)
-    }
-
     let stock = detailproduct.quantity
+   
+    
+    const handleAddCart = (e) => {        
+        e.preventDefault()       
+       // let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
+        dispatch(addCart(detailproduct))        
+    }
+    
+  
+   
 
     return (
         <div>
