@@ -74,8 +74,8 @@ export default function Carrito(){
             {
                shopingCart.length > 0 ? countMyItemResult.map(x=> {
                    return <div> <h4>{x.name}</h4> 
-                                <h5> $ {x.price} </h5>
-                                <div style={{display: 'flex'}}>
+                                <h5> $ {x.price.toFixed(2)} </h5>
+                                <div style={{display: 'flex', marginLeft: 660}}>
                                     <Button variant="contained" color="secondary" size='small'style={{height: 15, marginTop: 20}} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
                                         <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
                                     <Button variant="contained" color="primary" size='small' style={{height: 15, marginTop: 20}} onClick={()=> addOneItem(x)}> + </Button>
