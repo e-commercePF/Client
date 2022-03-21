@@ -26,7 +26,6 @@ export default function NavBar() {
 
     }
 
-
     return (<div className="header">
 
 
@@ -47,7 +46,9 @@ export default function NavBar() {
             <Toolbar>
 
 
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: "none" }}
+                    onClick={() => dispatch(cleanDetail())}
+                >
                     <Button
                         color="default"
                         variant="contained"
@@ -56,7 +57,8 @@ export default function NavBar() {
                     </Button>
                 </Link>
 
-                {/* <Link to="/login" style={{ textDecoration: "none" }}>
+                {/* <Link to="/login" style={{ textDecoration: "none" }}
+                >
                 <Button
                     color="default"
                     variant="contained"
@@ -100,7 +102,9 @@ export default function NavBar() {
                         onChange={(event) => onHandleSearch(event)}
                         value={search}
                     ></Input>
-                    <Link to="/result" style={{ textDecoration: "none" }}>
+                    <Link to="/result" style={{ textDecoration: "none" }}
+                    >
+
                         <Button
                             type="submit"
                             color="primary"

@@ -10,6 +10,7 @@ export const DELETE_FROM_FAVORITES = 'DELETE_FROM_FAVORITES'
 export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES'
 export const DELETE_ALL_SINGLE_ITEM_FROM_CART = 'DELETE_ALL_SINGLE_ITEM_FROM_CART'
 export const Get_ALL_FAVORITES = 'Get_ALL_FAVORITES'
+export const CLEAN_DETAIL = "CLEAN_DETAIL"
 
 
 export function getAllProducts() {
@@ -57,92 +58,102 @@ export function detailProduct(id) {
   }
 }
 
-export function addCart(product){
+export function addCart(product) {
   //console.log(product)
-  return function (dispatch){
-  try{
-    return dispatch({
-      type: ADD_CART,
-      payload: product, 
-      })
-    } catch(e) {console.log(e)}
-  }
-}
-
-export function clearCart(){
-  return function(dispatch){
-    try{
+  return function (dispatch) {
+    try {
       return dispatch({
-        type: CLEAR_CART,        
+        type: ADD_CART,
+        payload: product,
       })
-    }catch(e) { console.log(e) }
+    } catch (e) { console.log(e) }
   }
 }
 
-  export function deleteOneItemFromCart(id){
-    return function(dispatch){
-      try{
-        return dispatch({
-          type: DELETE_ONE_ITEM_FROM_CART,
-          payload: id,
-
-        })       
-
-      }catch(e){ console.log(e) }
-    } 
+export function clearCart() {
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: CLEAR_CART,
+      })
+    } catch (e) { console.log(e) }
   }
-  export function deleteAllSingleItemFromCart(id){
-    return function dispatch(dispatch){
-      try{
-        return dispatch({
-          type: DELETE_ALL_SINGLE_ITEM_FROM_CART,
-          payload: id,
-        })
-      } catch(e) { console.log(e) }
+}
+
+export function deleteOneItemFromCart(id) {
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: DELETE_ONE_ITEM_FROM_CART,
+        payload: id,
+
+      })
+
+    } catch (e) { console.log(e) }
+  }
+}
+export function deleteAllSingleItemFromCart(id) {
+  return function dispatch(dispatch) {
+    try {
+      return dispatch({
+        type: DELETE_ALL_SINGLE_ITEM_FROM_CART,
+        payload: id,
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function addToFavorites(id) {
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: ADD_TO_FAVORITES,
+        payload: id,
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function deleteFromFavorites(id) {
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: DELETE_FROM_FAVORITES,
+        payload: id,
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function getMyFavorites() {
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: Get_ALL_FAVORITES
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function userGmail(user) {
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: SET_USER,
+        payolad: user,
+      })
+    } catch (e) {
+      console.log(e)
     }
   }
+}
 
-  export function addToFavorites(id){
-    return function(dispatch){
-      try{
-        return dispatch({
-          type: ADD_TO_FAVORITES,
-          payload: id,
-        })
-      } catch(e) { console.log(e) }
-    } 
-  }
-
-  export function deleteFromFavorites(id){
-    return function(dispatch){
-      try{
-        return dispatch({
-          type: DELETE_FROM_FAVORITES,
-          payload: id,
-        })
-      } catch(e) { console.log(e) }
+export function cleanDetail() {
+  try {
+    return {
+      type: CLEAN_DETAIL
     }
-  }
-
-  export function getMyFavorites(){
-    return function(dispatch){
-      try{
-        return dispatch({
-          type: Get_ALL_FAVORITES
-        })
-      } catch(e) { console.log(e) }
-    }
-  }
-
-export function userGmail(user){
-return function(dispatch){
-  try{
-    return dispatch({
-      type: SET_USER,
-      payolad:user,
-    })
-  }catch(e){
+  } catch (e) {
     console.log(e)
   }
-}
 }
