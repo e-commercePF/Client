@@ -8,13 +8,16 @@ import Login from './Components/Login';
 import ResultSearch from './Components/ResultSearch';
 import CreatePage from './Components/CreatePage';
 import Favorites from './Components/Favorites';
+import  { ThemeProvider } from '@mui/material';
+import CustomTheme from './assets/CustomTheme'
 
 
 
 function App() {
   return (
-    <div className="App">
 
+    <ThemeProvider  theme={CustomTheme}>
+    <div className="App">
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -23,9 +26,9 @@ function App() {
         <Route path="/result" element={<ResultSearch />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path='/favorites' element={<Favorites />} />
-
       </Routes>
     </div>
+    </ThemeProvider>
   );
 }
 
