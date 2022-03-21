@@ -1,4 +1,3 @@
-import { Delete } from '@mui/icons-material';
 import axios from 'axios';
 export const GET_PRODUCTS = "GET_PRODUCTS"
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
@@ -84,8 +83,50 @@ export function clearCart(){
 
         })       
 
-      }catch(e){console.log(e)}
+      }catch(e){ console.log(e) }
     } 
+  }
+  export function deleteAllSingleItemFromCart(id){
+    return function dispatch(dispatch){
+      try{
+        return dispatch({
+          type: DELETE_ALL_SINGLE_ITEM_FROM_CART,
+          payload: id,
+        })
+      } catch(e) { console.log(e) }
+    }
+  }
+
+  export function addToFavorites(id){
+    return function(dispatch){
+      try{
+        return dispatch({
+          type: ADD_TO_FAVORITES,
+          payload: id,
+        })
+      } catch(e) { console.log(e) }
+    } 
+  }
+
+  export function deleteFromFavorites(id){
+    return function(dispatch){
+      try{
+        return dispatch({
+          type: DELETE_FROM_FAVORITES,
+          payload: id,
+        })
+      } catch(e) { console.log(e) }
+    }
+  }
+
+  export function getMyFavorites(){
+    return function(dispatch){
+      try{
+        return dispatch({
+          type: Get_ALL_FAVORITES
+        })
+      } catch(e) { console.log(e) }
+    }
   }
 
 export function userGmail(user){
@@ -100,4 +141,4 @@ return function(dispatch){
 
   }
 }
-}
+

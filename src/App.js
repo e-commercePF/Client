@@ -7,6 +7,7 @@ import NavBar from './Components/navBar/navBar'
 import Login from './Components/Login';
 import ResultSearch from './Components/ResultSearch';
 import CreatePage from './Components/CreatePage';
+import Favorites from './Components/Favorites';
 
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/result" element={<ResultSearch />} />
         <Route path="/create" element={<CreatePage />} />
+        <Route path='/favorites' element={<Favorites />} />
 
       </Routes>
     </div>
