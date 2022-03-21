@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { clearCart, deleteOneItemFromCart } from "../Redux/actions";
+import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
 
 export default function Carrito(){
     const dispatch = useDispatch()
@@ -17,11 +17,18 @@ export default function Carrito(){
         dispatch(clearCart())
     }
 
-    const deleteOneItemFromMyCart = (id)=> { 
-        console.log(id)      
+    const deleteOneItemFromMyCart = (id)=> {      
         dispatch(deleteOneItemFromCart(id))        
     }
 
+    const addOneItem = (id)=> {
+        dispatch(addCart(id))
+    }
+
+    const deleteAllSingleItems = (e)=> {
+        dispatch(deleteAllSingleItemFromCart(e))
+    }
+     
     //obtener cantidad de un articulo en particular 
     const countMyItem = ()=> {
         let myItemName = shopingCart.map(x=> Object.assign({
@@ -59,7 +66,7 @@ export default function Carrito(){
          return myFinallPay
     }  
 
-    let myPay = shopingCart.length > 0 ? myPayToStore() : null 
+    let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
  
     return (
         <div>
@@ -68,8 +75,13 @@ export default function Carrito(){
                shopingCart.length > 0 ? countMyItemResult.map(x=> {
                    return <div> <h4>{x.name}</h4> 
                                 <h5> $ {x.price} </h5>
-                                <h5>Cantidad: {x.piece} </h5>
-                                <Button variant="contained" color="secondary" onClick={()=> deleteOneItemFromMyCart(x._id)}> X </Button>
+                                <div style={{display: 'flex'}}>
+                                    <Button variant="contained" color="secondary" size='small'style={{height: 15, marginTop: 20}} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
+                                        <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
+                                    <Button variant="contained" color="primary" size='small' style={{height: 15, marginTop: 20}} onClick={()=> addOneItem(x)}> + </Button>
+                                </div>
+
+                                <Button variant="contained" color="secondary" onClick={()=> deleteAllSingleItems(x)}> X </Button>
                         
                      </div>
                    
@@ -80,9 +92,6 @@ export default function Carrito(){
              {  shopingCart.length > 0 ? <h4> El total a pagar es: $ { myPay } </h4> : null }
 
              {  shopingCart.length > 0 ?   <Button variant="contained" color="primary" onClick={clearMyCart}>
-
-             
-
                 Vaciar Carrito
             </Button> : null}
         </div>

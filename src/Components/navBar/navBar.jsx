@@ -4,11 +4,13 @@ import { Login, Home, ShoppingCart, Search } from '@mui/icons-material';
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 export default function NavBar() {
+    const navigate = useNavigate()
     const [search, setSearch] = useState()
     const dispatch = useDispatch()
 
@@ -53,6 +55,15 @@ export default function NavBar() {
             <Button
                 color="secondary"
                 variant="contained"
+                endIcon={<FavoriteBorderIcon />}
+                onClick={(e) => navigate('./favorites')}
+            >
+                Mis favoritos
+            </Button>
+
+            <Button
+                color="secondary"
+                variant="contained"
                 endIcon={<ShoppingCart />}
                 onClick={(e) => isDisableChange(e)}
             >
@@ -61,7 +72,7 @@ export default function NavBar() {
 
             {isDisable === false ? <Carrito /> : null}
 
-
+          
 
         </div>
 
