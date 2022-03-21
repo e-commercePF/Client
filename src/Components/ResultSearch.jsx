@@ -28,12 +28,12 @@ export default function ResultSearch() {
                     </div>
 
                 ))
-                : <div> Loading </div>
+                : ((!haveResult) ? <div> Loading </div> : <></>)
         }
 
 
         {(haveResult) ? <div>
-            <img src="https://cdn-icons-png.flaticon.com/512/6134/6134116.png" alt="img" />
+            <img src="https://cdn-icons-png.flaticon.com/512/6134/6134116.png" alt="img" width={300} style={{ marginTop: 50 }} />
             <h2>No hemos encontrado un producto </h2>
 
         </div> : <></>}
