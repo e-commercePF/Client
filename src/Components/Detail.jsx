@@ -17,18 +17,18 @@ export default function Detail() {
     }, [])
 
     let stock = detailproduct.quantity
-    const myProduct = {_id: detailproduct._id, name: detailproduct.name, price: detailproduct.price, img: detailproduct.img, rating: detailproduct.rating }
-   
-    
-    const handleAddCart = () => {        
-      //  e.preventDefault()       
-       // let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
-        dispatch(addCart(myProduct))        
+    const myProduct = { _id: detailproduct._id, name: detailproduct.name, price: detailproduct.price, img: detailproduct.img, rating: detailproduct.rating }
+
+
+    const handleAddCart = () => {
+        //  e.preventDefault()       
+        // let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
+        dispatch(addCart(myProduct))
     }
-    
-  
-   let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
-   console.log(pricetoshow)
+
+
+    let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
+    //console.log(pricetoshow)
 
     return (
         <div>
