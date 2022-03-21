@@ -1,6 +1,9 @@
 import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, 
+
+
     DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES, 
-    DELETE_ALL_SINGLE_ITEM_FROM_CART
+    DELETE_ALL_SINGLE_ITEM_FROM_CART,SET_USER
+
 
 
 } from "./actions"
@@ -10,7 +13,8 @@ const initialState = {
     shopingCart: [],
     haveResult: false,
     resultSearch: [],
-    favoriteItems: [],
+    favoriteItems: [], 
+  user2:{},
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -97,8 +101,16 @@ export default function rootReducer(state = initialState, action) {
                 ...state    
             }
 
+        case SET_USER:
+            return {
+                ...state,
+                user2:action.payolad
+            } 
+                 
+                 
         default:
             return state
     }
+       
 
 }
