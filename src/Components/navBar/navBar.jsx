@@ -1,6 +1,6 @@
-import { Button, Input } from "@material-ui/core"
+import { Button, Input ,AppBar , Toolbar} from "@material-ui/core"
 import "./navBar.css"
-import { Login, Home, ShoppingCart, Search } from '@mui/icons-material';
+import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct } from "../../Redux/actions";
@@ -25,26 +25,40 @@ export default function NavBar() {
         setIsDisable(!isDisable)
 
     }
-    // console.log(isDisable)
 
+    
     return (<div className="header">
 
-        <div className="bnavbar">
+    
+        <AppBar style={
+            {
+            flexDirection:"row",
+            flexWrap:"wrap",
+            justifyContent:"space-between",
+            backgroundColor:"black"
+            }
+      }>
 
+            <h1> 
+            <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
+            SportsMarket
+            </h1>
+
+            <Toolbar>
+                
+           
             <Link to="/" style={{ textDecoration: "none" }}>
-
                 <Button
-                    color="secondary"
+                    color= "default"
                     variant="contained"
                     endIcon={<Home />}>
                     Home
                 </Button>
-
             </Link>
 
             <Link to="/login" style={{ textDecoration: "none" }}>
                 <Button
-                    color="secondary"
+                    color="default"
                     variant="contained"
                     endIcon={<Login />}>
                     Login
@@ -53,7 +67,7 @@ export default function NavBar() {
             </Link>
 
             <Button
-                color="secondary"
+               color="default"
                 variant="contained"
                 endIcon={<FavoriteBorderIcon />}
                 onClick={(e) => navigate('./favorites')}
@@ -62,7 +76,7 @@ export default function NavBar() {
             </Button>
 
             <Button
-                color="secondary"
+                color="default"
                 variant="contained"
                 endIcon={<ShoppingCart />}
                 onClick={(e) => isDisableChange(e)}
@@ -72,18 +86,15 @@ export default function NavBar() {
 
             {isDisable === false ? <Carrito /> : null}
 
-          
-
-        </div>
-
-        <header className="logostitulo">
-            <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
-            <h1>Sport Store </h1>
-            <img className="imagen2" src="https://www.freeiconspng.com/uploads/sport-activities-tennis-icon-512x512-pixel-9.png" width="50" alt="Sport Activities Tennis icon 512x512 pixel" />
-        </header >
+        </Toolbar>
 
         <div className="inputsearch">
             <Input
+                style={{
+                    backgroundColor:"white",
+                    borderRadius:"5px",
+                    height:"2.2em"
+                }}
                 placeholder="¿Qué estás buscando?"
                 onChange={(event) => onHandleSearch(event)}
                 value={search}
@@ -108,6 +119,7 @@ export default function NavBar() {
                 </Button>
             </Link>
         </div>
-
+        </AppBar>
+        <div className="offset"></div>
     </div>)
 }
