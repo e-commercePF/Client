@@ -27,7 +27,8 @@ export default function Detail() {
     }
     
   
-   
+   let pricetoshow = myProduct.price.toFixed(2)
+   console.log(pricetoshow)
 
     return (
         <div>
@@ -40,7 +41,7 @@ export default function Detail() {
                     <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
                 </h4> */}
                 <span> <b> Descripción: </b>  {detailproduct.description} </span>
-                <h5> Precio: $ {detailproduct.price} </h5>
+                <h5> Precio: $ {pricetoshow} </h5>
 
             </div>
 

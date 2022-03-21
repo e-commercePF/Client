@@ -10,6 +10,7 @@ import CreatePage from './Components/CreatePage';
 import Favorites from './Components/Favorites';
 import  { ThemeProvider } from '@mui/material';
 import CustomTheme from './assets/CustomTheme'
+import Carrito from './Components/Carrito'
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/result" element={<ResultSearch />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path='/favorites' element={<Favorites />} />
+        <Route path='/carrito' element={ <Carrito />} />
       </Routes>
     </div>
     </ThemeProvider>

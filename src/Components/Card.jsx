@@ -56,7 +56,7 @@ export default function Productcard({ id, price, name, description, img, rating,
           </Link>}
         subheader={
           <Typography variant="body2" color="text.secondary">
-            ${price}
+            ${price.toFixed(2)}
           </Typography>}
       />
 
