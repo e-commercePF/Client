@@ -6,7 +6,7 @@ export const GET_DETAILS = "GET_DETAILS"
 export const ADD_CART = "ADD_CART"
 export const CLEAR_CART = "CLEAR_CART"
 export const DELETE_ONE_ITEM_FROM_CART = "DELETE_ONE_ITEM_FROM_CART"
-
+export const SET_USER = "SET_USER"
 
 export function getAllProducts() {
 
@@ -88,4 +88,16 @@ export function clearCart(){
     } 
   }
 
+export function userGmail(user){
+return function(dispatch){
+  try{
+    return dispatch({
+      type: SET_USER,
+      payolad:user,
+    })
+  }catch(e){
+    console.log(e)
 
+  }
+}
+}

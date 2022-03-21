@@ -1,5 +1,5 @@
 import { GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, 
-    DELETE_ONE_ITEM_FROM_CART
+    DELETE_ONE_ITEM_FROM_CART, SET_USER
 
 } from "./actions"
 const initialState = {
@@ -7,7 +7,8 @@ const initialState = {
     detailproduct: {},
     shopingCart: [],
     haveResult: false,
-    resultSearch: []
+    resultSearch: [],
+    user2:{},
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -63,7 +64,12 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 shopingCart: myFilterProducts,
             }
-
+            case SET_USER:
+               return {
+                   ...state,
+                   user2:action.payolad
+                } 
+             
         default:
             return state
     }
