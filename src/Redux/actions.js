@@ -73,7 +73,7 @@ export function clearCart(){
   return function(dispatch){
     try{
       return dispatch({
-        type:   CLEAR_CART,        
+        type: CLEAR_CART,        
       })
     }catch(e) { console.log(e) }
   }
@@ -143,7 +143,6 @@ return function(dispatch){
     })
   }catch(e){
     console.log(e)
-
-   }
   }
+}
 }
