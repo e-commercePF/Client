@@ -27,7 +27,7 @@ export default function Detail() {
     }
     
   
-   let pricetoshow = myProduct.price.toFixed(2)
+   let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
    console.log(pricetoshow)
 
     return (
