@@ -32,24 +32,25 @@ export default function Detail() {
 
     return (
         <div>
-
-            <div>
-                <h1> {detailproduct.name} </h1>
-                <img src={detailproduct.img} alt="img" w_idth='500px' height='500px' /> <br />
-                <category> <b> Categoria: </b> {detailproduct.category} </category>
-                {/* <h4>Rating:
+            {(detailproduct.name) ?
+                <div>
+                    <h1> {detailproduct.name} </h1>
+                    <img src={detailproduct.img} alt="img" w_idth='500px' height='500px' /> <br />
+                    <category> <b> Categoria: </b> {detailproduct.category} </category>
+                    {/* <h4>Rating:
                     <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
                 </h4> */}
-                <span> <b> Descripción: </b>  {detailproduct.description} </span>
-                <h5> Precio: $ {pricetoshow} </h5>
+                    <span> <b> Descripción: </b>  {detailproduct.description} </span>
+                    <h5> Precio: $ {pricetoshow} </h5>
 
-            </div>
 
-            <Button variant="contained" color="primary" onClick={() => handleAddCart()}>
-                Agregar al carrito
-            </Button>
+                    <Button variant="contained" color="primary" onClick={() => handleAddCart()}>
+                        Agregar al carrito
+                    </Button>
 
-            <h5> Stock Actual: {stock} </h5>
+                    <h5> Stock Actual: {stock} </h5>
+                </div> : <div style={{ marginTop: 500 }} >Loading...</div>}
+
 
 
         </div>
