@@ -100,13 +100,17 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state    
             }
+
+        case SET_USER:
+            return {
+                ...state,
+                user2:action.payolad
+            } 
+                 
+                 
         default:
             return state
     }
-       case SET_USER:
-               return {
-                   ...state,
-                   user2:action.payolad
-                } 
+       
 
 }
