@@ -22,6 +22,7 @@ export default function Carrito(){
     }
 
     const addOneItem = (id)=> {
+        console.log('soy el carro + ' + id)
         dispatch(addCart(id))
     }
 
@@ -36,6 +37,7 @@ export default function Carrito(){
             piece: 1,
             name: x.name,
             price: x.price,
+            quantity: x.quantity,
         }))
     
         let myCartWithoutTwoItems = myItemName.reduce((acc, el)=> {

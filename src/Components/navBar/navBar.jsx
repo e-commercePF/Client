@@ -3,7 +3,7 @@ import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import { useState } from "react";
 import { useDispatch } from "react-redux"
-import { searchProduct } from "../../Redux/actions";
+import { searchProduct, cleanDetail } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
