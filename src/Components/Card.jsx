@@ -10,12 +10,11 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import { addCart, addToFavorites, deleteFromFavorites } from '../Redux/actions';
 import { useState } from 'react';
-import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
+
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function Productcard({ id, price, name, description, img, rating, quantity }) {
@@ -24,13 +23,15 @@ export default function Productcard({ id, price, name, description, img, rating,
 
   //let stock = quantity
   //const [cartItem, setCardItem] = useState(0)
+
+  const { favoriteItems } = useSelector(state=> state)
+
   const _id = id
   let myProduct = {_id, name, price, img, rating}  
   const functionToAddProductsToMyCart = ()=> {  
     dispatch(addCart(myProduct)) 
   }
 
-  
   const [addFavorite, setAddFavorite] = useState(true)
   const addMyFavoriteProduct = ()=> {
     setAddFavorite(!addFavorite)
@@ -38,6 +39,19 @@ export default function Productcard({ id, price, name, description, img, rating,
     dispatch(deleteFromFavorites(myProduct))
   }
 
+  console.log(favoriteItems)
+  
+//  function checkAvailability(arr, val) {
+//     let mapArr = arr.map(arrVal => arrVal !== null)
+  
+//     if(val !== null){
+//     return mapArr.some(arrVal => val === arrVal._id);}
+
+//   }
+
+//   console.log( _id ? checkAvailability(favoriteItems, _id): "no hay id")
+
+//  const isFaved = _id ? checkAvailability(favoriteItems, _id): false
 
   return (
 
@@ -46,8 +60,13 @@ export default function Productcard({ id, price, name, description, img, rating,
       <CardHeader
       
         action={
+
           <IconButton onClick={addMyFavoriteProduct}>
-            <FavoriteIcon />
+              { addFavorite ? 
+              <FavoriteBorder/>
+           : 
+              <FavoriteIcon/>
+          }
           </IconButton>         
         }
         title={
