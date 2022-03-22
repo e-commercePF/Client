@@ -27,7 +27,7 @@ export default function Productcard({ id, price, name, description, img, rating,
   const { favoriteItems } = useSelector(state=> state)
 
   const _id = id
-  let myProduct = {_id, name, price, img, rating}  
+  let myProduct = {_id, name, price, img, rating, quantity}  
   const functionToAddProductsToMyCart = ()=> {  
     dispatch(addCart(myProduct)) 
   }
@@ -75,7 +75,7 @@ export default function Productcard({ id, price, name, description, img, rating,
           </Link>}
         subheader={
           <Typography variant="body2" color="text.secondary">
-            ${price}
+            ${price.toFixed(2)}
           </Typography>}
       />
 
