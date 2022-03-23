@@ -31,9 +31,6 @@ export default function Productcard({ id, price, name, description, img, rating,
   const classes = useStyles();
 
  
-
-  const { favoriteItems } = useSelector(state=> state)
-
   const _id = id
   let myProduct = {_id, name, price, img, rating, quantity}  
   const functionToAddProductsToMyCart = ()=> {  
@@ -65,10 +62,7 @@ export default function Productcard({ id, price, name, description, img, rating,
   
  
 
-  const addMyFavoriteProduct = (e)=> {  
-    e.preventDefault()    
-    dispatch(addToFavorites(myProduct))   
-  }
+
   const deleteMyFavoriteProduct = ()=> {
 
 
@@ -77,7 +71,7 @@ export default function Productcard({ id, price, name, description, img, rating,
     if(find){
       dispatch(deleteFromFavorites(deleteItem))
     } else console.log('hubo un problema')
-
+  }
 
   return (
 
@@ -131,5 +125,5 @@ export default function Productcard({ id, price, name, description, img, rating,
       </CardActions>
 
     </Card>
-  );
-}
+);
+        }
