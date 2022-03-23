@@ -14,12 +14,20 @@ import { useDispatch , useSelector } from 'react-redux';
 import { addCart, addToFavorites, deleteFromFavorites } from '../Redux/actions';
 import { useState } from 'react';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+}));
+
+
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function Productcard({ id, price, name, description, img, rating, quantity }) {
  //  console.log(1111, id)
   const dispatch = useDispatch()
+  const classes = useStyles();
 
   //let stock = quantity
   //const [cartItem, setCardItem] = useState(0)
@@ -41,24 +49,11 @@ export default function Productcard({ id, price, name, description, img, rating,
 
   console.log(favoriteItems)
   
-//  function checkAvailability(arr, val) {
-//     let mapArr = arr.map(arrVal => arrVal !== null)
-  
-//     if(val !== null){
-//     return mapArr.some(arrVal => val === arrVal._id);}
-
-//   }
-
-//   console.log( _id ? checkAvailability(favoriteItems, _id): "no hay id")
-
-//  const isFaved = _id ? checkAvailability(favoriteItems, _id): false
-
   return (
 
-    <Card sx={{ maxWidth: 345 }}>    
+    <Card sx={{ maxWidth: 345}}>    
 
       <CardHeader
-      
         action={
 
           <IconButton onClick={addMyFavoriteProduct}>
