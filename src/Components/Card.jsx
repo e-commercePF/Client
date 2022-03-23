@@ -10,17 +10,16 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useDispatch , useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCart, addToFavorites, deleteFromFavorites } from '../Redux/actions';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme) => ({
 }));
-
-
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -47,8 +46,21 @@ export default function Productcard({ id, price, name, description, img, rating,
     dispatch(deleteFromFavorites(myProduct))
   }
 
+
   console.log(favoriteItems)
+
+  const { favoriteItems } = useSelector(state=> state)
+  useEffect(() => {
+  }, [favoriteItems])
   
+  let showHeart = new Array 
+  favoriteItems.forEach(x=> x !== null ? showHeart.push(x) : null)
+
+
+  let boolean = showHeart.find(x=> x._id === _id)
+
+
+ main
   return (
 
     <Card sx={{ maxWidth: 345}}>    
@@ -56,12 +68,21 @@ export default function Productcard({ id, price, name, description, img, rating,
       <CardHeader
         action={
 
+
           <IconButton onClick={addMyFavoriteProduct}>
               { addFavorite ? 
               <FavoriteBorder/>
            : 
               <FavoriteIcon/>
           }
+
+          <IconButton onClick={addMyFavoriteProduct}>  
+            
+            {
+              boolean === undefined ? <FavoriteBorder /> : <FavoriteIcon />
+            }
+
+
           </IconButton>         
         }
         title={
