@@ -16,6 +16,7 @@ import { useState, useEffect } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import Button from "@material-ui/core/Button";
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -31,41 +32,55 @@ export default function Productcard({ id, price, name, description, img, rating,
     dispatch(addCart(myProduct)) 
   }
 
-  
-  const [addFavorite, setAddFavorite] = useState(true)
-  const addMyFavoriteProduct = ()=> {
-    setAddFavorite(!addFavorite)
-    addFavorite ? dispatch(addToFavorites(myProduct)) : 
-    dispatch(deleteFromFavorites(myProduct))
-  }
-
   const { favoriteItems } = useSelector(state=> state)
   useEffect(() => {
   }, [favoriteItems])
   
-  let showHeart = new Array 
+  
+   let showHeart = new Array 
   favoriteItems.forEach(x=> x !== null ? showHeart.push(x) : null)
 
 
   let boolean = showHeart.find(x=> x._id === _id)
+  
+ 
+
+  const addMyFavoriteProduct = (e)=> {  
+    e.preventDefault()    
+    dispatch(addToFavorites(myProduct))   
+  }
+  const deleteMyFavoriteProduct = ()=> {
+
+    let find = favoriteItems.some(x=> x._id === myProduct._id)
+    const deleteItem = favoriteItems.find(x=> x._id === myProduct._id)
+    if(find){
+      dispatch(deleteFromFavorites(deleteItem))
+    } else console.log('hubo un problema')
+
+
+  }
+
+
 
 
   return (
 
-    <Card sx={{ maxWidth: 345 }}>    
-
+    <Card sx={{ maxWidth: 345 }}>     
+    
       <CardHeader
       
         action={
-          <IconButton onClick={addMyFavoriteProduct}>  
+           <IconButton >          
             
             {
-              boolean === undefined ? <FavoriteBorder /> : <FavoriteIcon />
-            }
+              boolean === undefined ? <FavoriteBorder onClick={(e)=> addMyFavoriteProduct(e)}/> : <FavoriteIcon onClick={deleteMyFavoriteProduct}/>
+            }  
 
             
           </IconButton>         
         }
+
+        
         title={
           <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
             {name}

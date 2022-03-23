@@ -13,11 +13,13 @@ export default function Favorites (){
     useEffect(() => {
     }, [favoriteItems])
 
-    console.log(111, favoriteItems)
-    let productsToShow = favoriteItems.filter(x=> x !== null)
+    //console.log(111, favoriteItems)
+    //let productsToShow = favoriteItems.filter(x=> x !== null)
+    let productsToShow = favoriteItems
     console.log(productsToShow)
 
     const deletemyProduct = (e)=> {
+       // console.log(111, e)
         dispatch(deleteFromFavorites(e))
     }
 
