@@ -17,20 +17,40 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import Button from "@material-ui/core/Button";
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+}));
+
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function Productcard({ id, price, name, description, img, rating, quantity }) {
- //  console.log(1111, id)
   const dispatch = useDispatch()
+  const classes = useStyles();
 
-  //let stock = quantity
-  //const [cartItem, setCardItem] = useState(0)
+ 
+
+  const { favoriteItems } = useSelector(state=> state)
+
   const _id = id
   let myProduct = {_id, name, price, img, rating, quantity}  
   const functionToAddProductsToMyCart = ()=> {  
     dispatch(addCart(myProduct)) 
   }
+
+
+
+  const [addFavorite, setAddFavorite] = useState(true)
+  const addMyFavoriteProduct = ()=> {
+    setAddFavorite(!addFavorite)
+    addFavorite ? dispatch(addToFavorites(myProduct)) : 
+    dispatch(deleteFromFavorites(myProduct))
+  }
+
+
+
 
   const { favoriteItems } = useSelector(state=> state)
   useEffect(() => {
@@ -51,6 +71,7 @@ export default function Productcard({ id, price, name, description, img, rating,
   }
   const deleteMyFavoriteProduct = ()=> {
 
+
     let find = favoriteItems.some(x=> x._id === myProduct._id)
     const deleteItem = favoriteItems.find(x=> x._id === myProduct._id)
     if(find){
@@ -58,25 +79,20 @@ export default function Productcard({ id, price, name, description, img, rating,
     } else console.log('hubo un problema')
 
 
-  }
-
-
-
-
   return (
 
     <Card sx={{ maxWidth: 345 }}>     
     
-      <CardHeader
-      
-        action={
+      <CardHeader        
+
+          action={
            <IconButton >          
             
             {
               boolean === undefined ? <FavoriteBorder onClick={(e)=> addMyFavoriteProduct(e)}/> : <FavoriteIcon onClick={deleteMyFavoriteProduct}/>
             }  
+     
 
-            
           </IconButton>         
         }
 

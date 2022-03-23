@@ -107,7 +107,7 @@ export default function NavBar() {
 
                         <Button
                             type="submit"
-                            color="primary"
+                            color="default"
                             variant="contained"
                             startIcon={<Search />}
 
