@@ -15,29 +15,39 @@ import { addCart, addToFavorites, deleteFromFavorites } from '../Redux/actions';
 import { useState, useEffect } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+}));
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function Productcard({ id, price, name, description, img, rating, quantity }) {
  //  console.log(1111, id)
   const dispatch = useDispatch()
+  const classes = useStyles();
 
   //let stock = quantity
   //const [cartItem, setCardItem] = useState(0)
+
+  const { favoriteItems } = useSelector(state=> state)
+
   const _id = id
   let myProduct = {_id, name, price, img, rating, quantity}  
   const functionToAddProductsToMyCart = ()=> {  
     dispatch(addCart(myProduct)) 
   }
 
-  
   const [addFavorite, setAddFavorite] = useState(true)
   const addMyFavoriteProduct = ()=> {
     setAddFavorite(!addFavorite)
     addFavorite ? dispatch(addToFavorites(myProduct)) : 
     dispatch(deleteFromFavorites(myProduct))
   }
+
+
+  console.log(favoriteItems)
 
   const { favoriteItems } = useSelector(state=> state)
   useEffect(() => {
@@ -50,20 +60,29 @@ export default function Productcard({ id, price, name, description, img, rating,
   let boolean = showHeart.find(x=> x._id === _id)
 
 
+ main
   return (
 
-    <Card sx={{ maxWidth: 345 }}>    
+    <Card sx={{ maxWidth: 345}}>    
 
       <CardHeader
-      
         action={
+
+
+          <IconButton onClick={addMyFavoriteProduct}>
+              { addFavorite ? 
+              <FavoriteBorder/>
+           : 
+              <FavoriteIcon/>
+          }
+
           <IconButton onClick={addMyFavoriteProduct}>  
             
             {
               boolean === undefined ? <FavoriteBorder /> : <FavoriteIcon />
             }
 
-            
+
           </IconButton>         
         }
         title={
