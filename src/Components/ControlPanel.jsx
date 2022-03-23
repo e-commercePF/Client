@@ -1,37 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux/actions";
+import Stock from "./Stock";
+import Button from "@material-ui/core/Button";
 
 
 export default function ControlPanel(){
+    const [stock, setStock] = useState(false)
+    const handleShowStock = ()=> {
+        setStock(!stock)
+    }
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllProducts())
-    }, [])
-
-    const { product } = useSelector(state => state)
-
-//    let productsValue = []
-//    product.forEach(x=> productsValue.push(x.quantity * x.price))
-    let productsValue = product.map(x=> x.quantity * x.price)
-
-   let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
+    
+    
     
     return <div>
                  <h1>Bienvenido Administrador</h1>
+                 <div>
+                     <Button variant="contained" color="primary" onClick={handleShowStock}> Stock </Button>
+                 </div>
+                 {stock ? <Stock /> : null}
+            
 
-                    <h3> Tu Inventario actual: </h3>
 
-                 {
-                    product.map(x=> {
-                        return <div>
-                            <span> {x.name} : </span> 
-                            <span> cantidad {x.quantity} </span>
-                            <span> costo por unidad: $ {x.price} </span>                            
-                        </div>                        
-                    })   
-                  }     
-                    <h1> Tu inversion en SportsMarket: <b> $ {investment}</b> </h1>
+                   
+                   
            </div>
 }

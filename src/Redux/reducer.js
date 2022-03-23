@@ -1,6 +1,6 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
-    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL
+    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT
 } from "./actions"
 const initialState = {
     product: [],
@@ -119,6 +119,11 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 detailproduct: {}
+            }
+
+        case EDIT_THE_PRODUCT: 
+            return {
+                ...state
             }
 
 
