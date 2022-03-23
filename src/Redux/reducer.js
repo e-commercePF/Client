@@ -46,10 +46,20 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case ADD_CART:
-            // console.log(state.shopingCart)
+            let myItem = action.payload
+            let myCartQuantity = myItem.quantity
+            let sum = 0
+           for(let i=0; i<state.shopingCart.length;i++){
+               if(state.shopingCart[i]._id === myItem._id){
+                sum ++
+               }
+           }  
+
+           let result = sum < myCartQuantity ? [...state.shopingCart, myItem] : [...state.shopingCart]
+            
             return {
                 ...state,
-                shopingCart: [...state.shopingCart, action.payload]
+                shopingCart: result
             }
 
         case CLEAR_CART:

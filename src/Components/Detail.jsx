@@ -17,7 +17,7 @@ export default function Detail() {
     }, [])
 
     let stock = detailproduct.quantity
-    const myProduct = { _id: detailproduct._id, name: detailproduct.name, price: detailproduct.price, img: detailproduct.img, rating: detailproduct.rating }
+    const myProduct = { _id: detailproduct._id, name: detailproduct.name, price: detailproduct.price, img: detailproduct.img, rating: detailproduct.rating, quantity: detailproduct.quantity }
 
 
     const handleAddCart = () => {
@@ -28,7 +28,7 @@ export default function Detail() {
 
 
     let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
-    console.log(pricetoshow)
+    //console.log(pricetoshow)
 
     return (
         <div>

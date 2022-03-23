@@ -11,13 +11,14 @@ import Favorites from './Components/Favorites';
 import  { ThemeProvider } from '@mui/material';
 import CustomTheme from './assets/CustomTheme'
 import Carrito from './Components/Carrito'
+import { Container } from '@mui/material';
 
 
 
 function App() {
   return (
 
-    <ThemeProvider  theme={CustomTheme}>
+    <Container>
     <div className="App">
       <NavBar />
       <Routes>
@@ -30,7 +31,7 @@ function App() {
         <Route path='/carrito' element={ <Carrito />} />
       </Routes>
     </div>
-    </ThemeProvider>
+  </Container>
   );
 }
 
