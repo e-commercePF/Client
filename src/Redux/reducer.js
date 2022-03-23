@@ -86,16 +86,19 @@ export default function rootReducer(state = initialState, action) {
 
         case ADD_TO_FAVORITES:
             let myProductFavorite = action.payload
+            state.favoriteItems = state.favoriteItems.filter(x=> x !== null)
             let findProduct = state.favoriteItems.find(x => x._id === myProductFavorite._id)
             findProduct ? myProductFavorite = null : myProductFavorite = action.payload
+            state.favoriteItems = state.favoriteItems.filter(x=> x !== null)
             return {
                 ...state,
                 favoriteItems: [...state.favoriteItems, myProductFavorite]
             }
 
         case DELETE_FROM_FAVORITES:
-            let myProductFavoriteToDelete = action.payload
-            let myFilterFavoriteProducts = state.favoriteItems.filter(x => x !== myProductFavoriteToDelete)
+           //let myProductFavoriteToDelete = action.payload
+            console.log(action.payload)
+            let myFilterFavoriteProducts = state.favoriteItems.filter(x => x !== action.payload)
             return {
                 ...state,
                 favoriteItems: myFilterFavoriteProducts
