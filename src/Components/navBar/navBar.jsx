@@ -1,4 +1,5 @@
-import { Button, Input, AppBar, Toolbar } from "@material-ui/core"
+import { Input, AppBar, Toolbar } from "@material-ui/core"
+import { Button , Typography} from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import { useState } from "react";
@@ -8,6 +9,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LogoutButton from "../LogoutButton "
+import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 
 export default function NavBar() {
     const navigate = useNavigate()
@@ -26,6 +29,13 @@ export default function NavBar() {
 
     }
 
+    const useStyles = makeStyles({
+    });
+    const classes = useStyles()
+
+    const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
+  
     return (<div className="header">
 
 
@@ -38,11 +48,12 @@ export default function NavBar() {
             }
         }>
 
-            <h1>
-                <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
-                SportsMarket
-            </h1>
+        <Typography variant="h4" component="div"  sx={{m:2}} >
+            <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
+            SportsMarket
+         </Typography>
 
+          
             <Toolbar>
 
 
@@ -50,7 +61,7 @@ export default function NavBar() {
                     onClick={() => dispatch(cleanDetail())}
                 >
                     <Button
-                        color="default"
+                        color="navBtnColor"
                         variant="contained"
                         endIcon={<Home />}>
                         Home
@@ -72,7 +83,7 @@ export default function NavBar() {
                  </Link> 
     */}
                 <Button
-                    color="default"
+                    color="navBtnColor"
                     variant="contained"
                     endIcon={<FavoriteBorderIcon />}
                     onClick={(e) => navigate('./favorites')}
@@ -81,7 +92,7 @@ export default function NavBar() {
                 </Button>
 
                 <Button
-                    color="default"
+                    color="navBtnColor"
                     variant="contained"
                     endIcon={<ShoppingCart />}
                     onClick={(e) => navigate('./carrito')}
@@ -99,7 +110,8 @@ export default function NavBar() {
                         style={{
                             backgroundColor: "white",
                             borderRadius: "5px",
-                            height: "2.2em"
+                            height: "2.2em",
+                            margin:"5px"
                         }}
                         placeholder="¿Qué estás buscando?"
                         onChange={(event) => onHandleSearch(event)}
@@ -110,7 +122,7 @@ export default function NavBar() {
 
                         <Button
                             type="submit"
-                            color="default"
+                            color="navBtnColor"
                             variant="contained"
                             startIcon={<Search />}
 
@@ -130,6 +142,7 @@ export default function NavBar() {
                 </form>
             </div>
         </AppBar>
-        <div className="offset"></div>
+        {/* <div className={classes.offset}></div> */}
+        <Offset/>
     </div>)
 }

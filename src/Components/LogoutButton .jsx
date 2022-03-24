@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '@mui/icons-material';
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 export default function LogoutButton() {
 
 const navigate = useNavigate()
@@ -17,7 +17,7 @@ const LoginButton =() => {
     <Link to="/login" style={{ textDecoration: "none" }}
     >
     <Button
-        color="default"
+        color="navBtnColor"
         variant="contained"
         endIcon={<Login />} >
      Login
@@ -35,7 +35,7 @@ const handleLogout = e => {
 const  Logout = () => {
    return ( 
     <Button
-        color="default"
+        color="navBtnColor"
         variant="contained"
         endIcon={<Login />}
         onClick= { (e) => handleLogout()} >   

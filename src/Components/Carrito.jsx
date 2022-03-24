@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "@material-ui/core/Button";
+import { Button } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
 
 export default function Carrito(){

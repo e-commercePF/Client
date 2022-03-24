@@ -83,15 +83,15 @@ export default function Productcard({ id, price, name, description, img, rating,
           <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
             {name}
           </Link>}
-        subheader={
-          <Typography variant="body2" color="text.secondary">
-            ${price.toFixed(2)}
-          </Typography>}
+        
       />
+      <Typography variant="body2" color="text.secondary">
+            ${price.toFixed(2)}
+      </Typography>
 
       <CardMedia
         component="img"
-        height="194"
+        height="200"
         image={img}
         alt="myProduct"
       />
