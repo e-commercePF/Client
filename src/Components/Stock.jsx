@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 
 
 export default function Stock(){
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
@@ -13,23 +13,6 @@ export default function Stock(){
     const { product } = useSelector(state => state)
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
-   // console.log(product)
-
-    const [edit, setEdit] = useState(false)
-    const handleEditProduct = ()=> {
-        setEdit(!edit)
-    }
-
-    const [price, setPrice] = useState(0)
-    const handleSelectPrice= (e)=> {
-        setPrice(Number(e))
-    }
-
-    const [quant, setQuant] = useState(0)
-    const handleSelectQuant= (e)=> {
-        setQuant(Number(e))
-    }
-    
 
     const [myNewDataProduct, setMyNewDataProduct] = useState({
         brand: "",
@@ -45,6 +28,22 @@ export default function Stock(){
         _id: "",
     })
 
+    const [edit, setEdit] = useState(false)
+    const handleEditProduct = ()=> {
+        setEdit(!edit)
+    }
+
+    const [price, setPrice] = useState(0)
+    const handleSelectPrice= (e)=> {
+        setPrice(Number(e))
+        
+    }
+
+    const [quant, setQuant] = useState(0)
+    const handleSelectQuant= (e)=> {
+        setQuant(Number(e))
+    }
+
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
             brand: x.brand,
@@ -52,10 +51,8 @@ export default function Stock(){
             img: x.img,
             isOnStock: x.isOnStock,
             name: x.name,
-
             price: price,
-            quantity: quant,
-            
+            quantity: quant,            
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
@@ -63,15 +60,19 @@ export default function Stock(){
         })
     }
 
-    const handleSubmitChanges = (x)=> { 
-          //console.log(myNewDataProduct) 
-        handleChangeProduct(x)   
-        let check = window.confirm("¿estas seguro que deseas modificar la base de datos?")  
-        console.log(check)
-        if(check)  {
-        dispatch(editTheProduct(myNewDataProduct))
-        alert("La base de datos se ha actualizado")
-        }      
+    const handleSubmitChanges = (x)=> {
+
+       handleChangeProduct(x) 
+
+        let check2 = myNewDataProduct._id !== ''
+        if(check2){
+            let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
+            if(check){
+                dispatch(editTheProduct(myNewDataProduct))
+                alert("La base de datos se ha actualizado")
+                window.location.reload()
+                }  
+        }
      }
 
     return (
@@ -83,9 +84,10 @@ export default function Stock(){
             return <div>                    
                  <span> {x.name} : </span> 
              
-                { edit ? <span> Cantidad: <input type="number" name='quantity'  placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
+                { edit ? <span> Cantidad: <input type="number" name='quantity' defaultValue={x.quantity} placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
             
-                {edit ? <span> Costo por unidad: <input type="number" name='price'  placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> costo por unidad: $ {x.price} </span>}
+                {edit ? <span> Precio: <input type="number" name='price' defaultValue={x.price} placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
+               
                 { edit ? <Button variant="contained" color="secondary" onClick={()=> handleSubmitChanges(x)}>
                     Guardar Cambios
                 </Button> : <Button variant="contained" color="primary" onClick={()=> handleEditProduct()}>

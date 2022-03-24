@@ -24,7 +24,6 @@ export default function Home() {
     }, [])
     
     const { product, haveResult } = useSelector(state => state)
-    console.log(product)
 
     const classes = useStyles();
 
@@ -34,7 +33,6 @@ export default function Home() {
             productToShow.push(x)
         }
     })
-    console.log(productToShow)
 
 
     return (
