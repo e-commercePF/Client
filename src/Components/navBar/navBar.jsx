@@ -102,7 +102,7 @@ export default function NavBar() {
 
                 {isDisable === false ? <Carrito /> : null}
 
-            </Toolbar>
+            </Toolbar> 
 
             <div className="inputsearch">
                 <form>
