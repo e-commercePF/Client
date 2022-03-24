@@ -13,6 +13,7 @@ export default function Stock(){
     const { product } = useSelector(state => state)
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
+   // console.log(product)
 
     const [edit, setEdit] = useState(false)
     const handleEditProduct = ()=> {
@@ -42,7 +43,6 @@ export default function Stock(){
         sku: "",
         __v: 0,
         _id: "",
-
     })
 
     const handleChangeProduct = (x)=> {
@@ -53,8 +53,8 @@ export default function Stock(){
             isOnStock: x.isOnStock,
             name: x.name,
 
-            price: price ? price : x.target.value,
-            quantity: quant ? quant : x.target.value,
+            price: price,
+            quantity: quant,
             
             rating: x.rating,
             sku: x.sku,
@@ -65,9 +65,13 @@ export default function Stock(){
 
     const handleSubmitChanges = (x)=> { 
           //console.log(myNewDataProduct) 
-        handleChangeProduct(x)       
+        handleChangeProduct(x)   
+        let check = window.confirm("¿estas seguro que deseas modificar la base de datos?")  
+        console.log(check)
+        if(check)  {
         dispatch(editTheProduct(myNewDataProduct))
-
+        alert("La base de datos se ha actualizado")
+        }      
      }
 
     return (
@@ -87,8 +91,6 @@ export default function Stock(){
                 </Button> : <Button variant="contained" color="primary" onClick={()=> handleEditProduct()}>
                     Editar Producto
                 </Button> }
-                
-
             </div>                        
                 })   
             }     
