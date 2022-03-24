@@ -57,16 +57,16 @@ export default function NavBar() {
                     </Button>
                 </Link>
 
-                {/* <Link to="/login" style={{ textDecoration: "none" }}
+             <Link to="/login" style={{ textDecoration: "none" }}
                 >
                 <Button
                     color="default"
                     variant="contained"
                     endIcon={<Login />}>
                     Login
-                </Button> */}
+                </Button> 
 
-                {/* </Link> */}
+                 </Link> 
 
                 <Button
                     color="default"

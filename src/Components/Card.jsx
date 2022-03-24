@@ -19,10 +19,8 @@ import Favorite from '@mui/icons-material/Favorite';
 import Button from "@material-ui/core/Button";
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme) => ({
 }));
-
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -30,7 +28,6 @@ export default function Productcard({ id, price, name, description, img, rating,
   const dispatch = useDispatch()
   const classes = useStyles();
 
- 
   const _id = id
   let myProduct = {_id, name, price, img, rating, quantity}  
   const functionToAddProductsToMyCart = ()=> {  
@@ -38,16 +35,9 @@ export default function Productcard({ id, price, name, description, img, rating,
   }
 
 
-
-  const [addFavorite, setAddFavorite] = useState(true)
-  const addMyFavoriteProduct = ()=> {
-    setAddFavorite(!addFavorite)
-    addFavorite ? dispatch(addToFavorites(myProduct)) : 
-    dispatch(deleteFromFavorites(myProduct))
+  const addMyFavoriteProduct = ()=> {   
+    dispatch(addToFavorites(myProduct)) 
   }
-
-
-
 
   const { favoriteItems } = useSelector(state=> state)
   useEffect(() => {
@@ -60,9 +50,6 @@ export default function Productcard({ id, price, name, description, img, rating,
 
   let boolean = showHeart.find(x=> x._id === _id)
   
- 
-
-
   const deleteMyFavoriteProduct = ()=> {
 
 
@@ -71,8 +58,8 @@ export default function Productcard({ id, price, name, description, img, rating,
     if(find){
       dispatch(deleteFromFavorites(deleteItem))
     } else console.log('hubo un problema')
-  }
 
+  }
   return (
 
     <Card sx={{ maxWidth: 345 }}>     
