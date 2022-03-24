@@ -22,8 +22,11 @@ export default function Home() {
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
+
+
     
     const { product, haveResult } = useSelector(state => state)
+
 
 
     const classes = useStyles();
