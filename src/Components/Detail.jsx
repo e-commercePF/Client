@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import { addCart, detailProduct } from "../Redux/actions";
 import { useState } from "react";
 import Home from "./Home";
+import { makeStyles } from '@mui/styles';
+
+
 
 
 export default function Detail() {

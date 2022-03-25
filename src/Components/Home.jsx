@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Card from "./Card"
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-
+import  Menu from  './Menu'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,7 +39,6 @@ export default function Home() {
 
     return (
         <div className={classes.root}>
-        <div ></div>
         <Grid container spacing={2}> 
                 {
                     (product.length !== 0) ?
