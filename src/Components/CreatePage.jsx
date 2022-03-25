@@ -3,6 +3,6 @@ export default function CreatePage() {
 
     return (<div>
 
-        Hola desde Create
+        Hola desde Createasdsadasd
     </div>)
 }
