@@ -6,8 +6,8 @@ export const ADD_CART = "ADD_CART"
 export const CLEAR_CART = "CLEAR_CART"
 export const DELETE_ONE_ITEM_FROM_CART = "DELETE_ONE_ITEM_FROM_CART"
 export const SET_USER = "SET_USER"
-export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES'
 export const DELETE_FROM_FAVORITES = 'DELETE_FROM_FAVORITES'
+export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES'
 export const DELETE_ALL_SINGLE_ITEM_FROM_CART = 'DELETE_ALL_SINGLE_ITEM_FROM_CART'
 export const Get_ALL_FAVORITES = 'Get_ALL_FAVORITES'
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
@@ -158,9 +158,12 @@ export function cleanDetail() {
     return {
       type: CLEAN_DETAIL
     }
-  } catch (e) { console.log(e) }   
-  
+
+  } catch (e) {
+    console.log(e)
+  }
 }
+
 
 export function editTheProduct(product){
   try{
@@ -169,3 +172,4 @@ export function editTheProduct(product){
     }
   }catch(e) { console.log(e) }
 }
+

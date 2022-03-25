@@ -145,7 +145,9 @@ export default function rootReducer(state = initialState, action) {
 
         default:
             return state
+    } 
+      
     }
 
 
-}
+
