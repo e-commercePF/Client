@@ -34,12 +34,13 @@ export default function Detail() {
         <div>
             {(detailproduct.name) ?
                 <div>
+                    { stock === 0 ? <h1 style={{color: 'red'}}> Lo siento, articulo no disponible </h1> : null }
                     <h1> {detailproduct.name} </h1>
                     <img src={detailproduct.img} alt="img" w_idth='500px' height='500px' /> <br />
                     <category> <b> Categoria: </b> {detailproduct.category} </category>
-                    {/* <h4>Rating:
-                    <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
-                </h4> */}
+                    <h4>Rating:
+                    <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
+                </h4>
                     <span> <b> Descripción: </b>  {detailproduct.description} </span>
                     <h5> Precio: $ {pricetoshow} </h5>
 
