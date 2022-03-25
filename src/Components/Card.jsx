@@ -6,7 +6,6 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -16,7 +15,7 @@ import { useState, useEffect } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-import Button from "@material-ui/core/Button";
+import { Button , Typography} from "@mui/material";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +61,7 @@ export default function Productcard({ id, price, name, description, img, rating,
 
   }
 
-  var nombre = name.length
+
   return (
 
     <Card sx={{ maxWidth: 345, minHeight: 480, maxHeight: 480 }}>     
@@ -85,15 +84,14 @@ export default function Productcard({ id, price, name, description, img, rating,
             {name}
           </Link>}
 
-        subheader={
-          <Typography variant="body2" color="text.secondary">
-            ${price.toFixed(2)}
-          </Typography>}
       />
+      <Typography variant="body2" color="text.secondary">
+            ${price.toFixed(2)}
+      </Typography>
 
       <CardMedia
         component="img"
-        height="194"
+        height="200"
         image={img}
         alt="myProduct"
       />
