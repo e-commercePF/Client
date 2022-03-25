@@ -3,8 +3,7 @@ import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import  {Link, useNavigate}  from 'react-router-dom'
 import { makeStyles } from  '@material-ui/core/styles'
-import { Grid, Container, Paper, Avatar, TextField, CssBaseline } from '@material-ui/core'
-import { Button, Typography } from "@mui/material";
+import { Grid, Container, Paper, Avatar, Typography, TextField, Button, CssBaseline } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 /////////////// material ui /////////////////
 const useStyles =  makeStyles(theme => ({
@@ -76,7 +75,7 @@ const useStyles =  makeStyles(theme => ({
                                                               googleToken,
                                                               user: {_id, name, email}
                                                               } */
-            window.localStorage.setItem("token", response.data.token);
+            window.localStorage.setItem("token", response.data.tokenId);
 			window.location.reload(false);
             navigate("/")
           })
@@ -102,11 +101,11 @@ const useStyles =  makeStyles(theme => ({
                   password: password,
                 }
               }).then(response =>{
-				window.localStorage.setItem("token", response); /*{
+				window.localStorage.setItem("token",  response.data.tokenId); /*{
                                                                   googleToken,
                                                                   user: {_id, name, email}
                                                                   } */
-		    window.location.reload(false);
+		    window.location.reload(false)
                 navigate("/")
               }).catch(err=>{
                   console.log("ojala no salgas xd", err)
@@ -139,7 +138,7 @@ return(
 			  <Avatar className={classes.avatar}>
 				  <LockOutlinedIcon />
 			  </Avatar>
-			  <Typography component='h1' variant='h5'>Sign In</Typography>
+			  <Typography component='h1' variant='h5'>registrarse</Typography>
 			  <form className={classes.form}>
 				  <TextField
 					  fullWidth
