@@ -15,11 +15,9 @@ import ControlPanel from './Components/ControlPanel';
 import { Container } from '@mui/material';
 
 
-
-
 function App() {
   return (
-
+    <ThemeProvider theme={CustomTheme}>
     <Container>
     <div className="App">
       <NavBar />
@@ -35,6 +33,7 @@ function App() {
       </Routes>
     </div>
   </Container>
+  </ThemeProvider>
   );
 }
 
