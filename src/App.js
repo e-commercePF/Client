@@ -9,8 +9,6 @@ import ResultSearch from './Components/ResultSearch';
 import CreatePage from './Components/CreatePage';
 import Favorites from './Components/Favorites';
 import  { ThemeProvider } from '@mui/material';
-import CustomTheme from './assets/CustomTheme'
-import Carrito from './Components/Carrito'
 import ControlPanel from './Components/ControlPanel';
 import { Container } from '@mui/material';
 import CustomTheme from './assets/CustomTheme'; 
