@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux/actions";
 import Stock from "./Stock";
-import Button from "@material-ui/core/Button";
+import { Button, Typography } from "@mui/material";
 
 
 export default function ControlPanel(){

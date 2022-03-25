@@ -1,4 +1,4 @@
-import Button from "@material-ui/core/Button";
+import { Button, Typography } from "@mui/material";
 import Rating from '@material-ui/lab/Rating';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '@mui/icons-material';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Button } from "@material-ui/core"
+import { Button, Typography } from "@mui/material";
 
 
 

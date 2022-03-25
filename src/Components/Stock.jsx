@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct } from "../Redux/actions";
-import Button from "@material-ui/core/Button";
+import { Button, Typography } from "@mui/material";
 
 
 export default function Stock(){
