@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      marginTop: 50,
+      marginTop: 100,
     },
     
   }));
@@ -22,11 +22,19 @@ export default function Home() {
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
+
+
     
     const { product, haveResult } = useSelector(state => state)
 
-
     const classes = useStyles();
+
+    let productToShow = new Array 
+    product.forEach(x=> {
+        if(x.quantity !== 0){
+            productToShow.push(x)
+        }
+    })
 
 
     return (
@@ -35,7 +43,7 @@ export default function Home() {
         <Grid container spacing={2}> 
                 {
                     (product.length !== 0) ?
-                        product.map((e, index) => (
+                    productToShow.map((e, index) => (
                             <Grid item xs={12} sm={6} md={4} lg={3}
                                 key={index}>
                                 <Card

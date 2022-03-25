@@ -13,8 +13,14 @@ export const Get_ALL_FAVORITES = 'Get_ALL_FAVORITES'
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const GET_BRAND = "GET_BRAND"
+export const EDIT_THE_PRODUCT = "EDIT_THE_PRODUCT"
+
+
+var localhost = "http://localhost:3000"
 
 export function getAllProducts() {
+
+
 
   return async function (dispatch) {
     try {
@@ -186,4 +192,12 @@ export function getAllBrand() {
       console.log(e)
     }
   }
+}
+
+export function editTheProduct(product) {
+  try {
+    return async function () {
+      await axios.put(`${localhost}/api/products/update/${product._id}`, product)
+    }
+  } catch (e) { console.log(e) }
 }

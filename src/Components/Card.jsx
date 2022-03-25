@@ -19,10 +19,8 @@ import Favorite from '@mui/icons-material/Favorite';
 import Button from "@material-ui/core/Button";
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme) => ({
 }));
-
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -31,9 +29,6 @@ export default function Productcard({ id, price, name, description, img, rating,
   const classes = useStyles();
 
 
-
-  const { favoriteItems } = useSelector(state => state)
-
   const _id = id
   let myProduct = { _id, name, price, img, rating, quantity }
   const functionToAddProductsToMyCart = () => {
@@ -41,9 +36,11 @@ export default function Productcard({ id, price, name, description, img, rating,
   }
 
 
+  const addMyFavoriteProduct = () => {
+    dispatch(addToFavorites(myProduct))
+  }
 
-  const [addFavorite, setAddFavorite] = useState(true)
-
+  const { favoriteItems } = useSelector(state => state)
   useEffect(() => {
   }, [favoriteItems])
 
@@ -54,12 +51,6 @@ export default function Productcard({ id, price, name, description, img, rating,
 
   let boolean = showHeart.find(x => x._id === _id)
 
-
-
-  const addMyFavoriteProduct = (e) => {
-    e.preventDefault()
-    dispatch(addToFavorites(myProduct))
-  }
   const deleteMyFavoriteProduct = () => {
 
 
@@ -68,8 +59,8 @@ export default function Productcard({ id, price, name, description, img, rating,
     if (find) {
       dispatch(deleteFromFavorites(deleteItem))
     } else console.log('hubo un problema')
-  }
 
+  }
   return (
 
     <Card sx={{ maxWidth: 345 }}>
@@ -92,15 +83,15 @@ export default function Productcard({ id, price, name, description, img, rating,
           <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
             {name}
           </Link>}
-        subheader={
-          <Typography variant="body2" color="text.secondary">
-            ${price.toFixed(2)}
-          </Typography>}
+
       />
+      <Typography variant="body2" color="text.secondary">
+        ${price.toFixed(2)}
+      </Typography>
 
       <CardMedia
         component="img"
-        height="194"
+        height="200"
         image={img}
         alt="myProduct"
       />

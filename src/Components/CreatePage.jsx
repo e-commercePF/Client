@@ -1,8 +1,7 @@
 import { Button } from "@material-ui/core"
-import { Formik, useFormik, Field, Form, FieldArray } from "formik"
+import { useFormik, Field, Form, FieldArray } from "formik"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import "./CreatePage.css"
 import axios from "axios"
 import { getAllBrand, getAllCategories } from "../Redux/actions"
 import TextField from '@material-ui/core/TextField';
