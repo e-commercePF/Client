@@ -5,6 +5,7 @@ import Stock from "./Stock";
 import { Button, Typography } from "@mui/material";
 
 
+
 export default function ControlPanel(){
     const [stock, setStock] = useState(false)
     const handleShowStock = ()=> {

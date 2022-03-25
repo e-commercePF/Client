@@ -54,7 +54,7 @@ const Regtrister = () => {
         <Link to='/CreateUser' style={{ textDecoration: "none" }}
         >
         <Button
-            color="default"
+            color="navBtnColor"
             variant="contained"
             endIcon={<Login />} >
          Registrarse
