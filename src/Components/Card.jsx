@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@material-ui/lab/Rating';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -15,7 +16,7 @@ import { useState, useEffect } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-import { Button , Typography} from "@mui/material";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +27,6 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function Productcard({ id, price, name, description, img, rating, quantity }) {
   const dispatch = useDispatch()
   const classes = useStyles();
-
 
   const _id = id
   let myProduct = {_id, name, price, img, rating, quantity}  
@@ -60,11 +60,9 @@ export default function Productcard({ id, price, name, description, img, rating,
     } else console.log('hubo un problema')
 
   }
-
-
   return (
 
-    <Card sx={{ maxWidth: 345, minHeight: 480, maxHeight: 480 }}>     
+    <Card sx={{ maxWidth: 345 }}>     
     
       <CardHeader        
 
@@ -78,12 +76,13 @@ export default function Productcard({ id, price, name, description, img, rating,
 
           </IconButton>         
         }
+
         
         title={
-          <Link to={`/product/${id}`} style={{ textDecoration: "none", }} >
+          <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
             {name}
           </Link>}
-
+        
       />
       <Typography variant="body2" color="text.secondary">
             ${price.toFixed(2)}
@@ -111,7 +110,7 @@ export default function Productcard({ id, price, name, description, img, rating,
 
         <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
       </CardActions>
-   
+
     </Card>
-  );
-}
+);
+        }
