@@ -1,117 +1,167 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import Rating from '@material-ui/lab/Rating';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useDispatch, useSelector } from 'react-redux';
-import { addCart, addToFavorites, deleteFromFavorites } from '../../Redux/actions';
-import { useState, useEffect } from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
-import Button from "@material-ui/core/Button";
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-}));
+import { Input, AppBar, Toolbar } from "@material-ui/core"
+import { Button , Typography} from "@mui/material";
+import "./navBar.css"
+import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
+import { useState,useEffect } from "react";
+import { useDispatch } from "react-redux"
+import { searchProduct, cleanDetail } from "../../Redux/actions";
+import { Link, useNavigate } from 'react-router-dom';
+import Carrito from "../Carrito";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import LogoutButton from "../LogoutButton "
+import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-export default function Productcard({ id, price, name, description, img, rating, quantity }) {
-  const dispatch = useDispatch()
-  const classes = useStyles();
+export default function NavBar() {
+    const navigate = useNavigate()
+    const [search, setSearch] = useState()
+    const [user,setUser] = useState('');
+    const dispatch = useDispatch()
+    useEffect(()=>{
+	    const loggedUserJSON = window.localStorage.getItem('token')
+         setUser(loggedUserJSON)
+        },[])
+    function onHandleSearch(event) {
+        event.preventDefault()
+        setSearch(event.target.value)
+    }
 
+    const [isDisable, setIsDisable] = useState(true)
+    const isDisableChange = (e) => {
+        e.preventDefault()
+        setIsDisable(!isDisable)
 
-  const _id = id
-  let myProduct = {_id, name, price, img, rating, quantity}  
-  const functionToAddProductsToMyCart = ()=> {  
-    dispatch(addCart(myProduct)) 
-  }
+    }
 
+    const useStyles = makeStyles({
+    });
+    const classes = useStyles()
 
-  const addMyFavoriteProduct = ()=> {   
-    dispatch(addToFavorites(myProduct)) 
-  }
+    const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-  const { favoriteItems } = useSelector(state=> state)
-  useEffect(() => {
-  }, [favoriteItems])
   
-  
-   let showHeart = new Array 
-  favoriteItems.forEach(x=> x !== null ? showHeart.push(x) : null)
+    return (<div className="header">
 
 
-  let boolean = showHeart.find(x=> x._id === _id)
-  
-  const deleteMyFavoriteProduct = ()=> {
-
-
-    let find = favoriteItems.some(x=> x._id === myProduct._id)
-    const deleteItem = favoriteItems.find(x=> x._id === myProduct._id)
-    if(find){
-      dispatch(deleteFromFavorites(deleteItem))
-    } else console.log('hubo un problema')
-
-  }
-  return (
-
-    <Card sx={{ maxWidth: 345 }}>     
-    
-      <CardHeader        
-
-          action={
-           <IconButton >          
-            
+        <AppBar style={
             {
-              boolean === undefined ? <FavoriteBorder onClick={(e)=> addMyFavoriteProduct(e)}/> : <FavoriteIcon onClick={deleteMyFavoriteProduct}/>
-            }  
-     
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                backgroundColor: "black"
+            }
+        }>
 
-          </IconButton>         
-        }
+        <Typography variant="h4" component="div"  sx={{m:2}} >
+            <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
+            SportsMarket
+         </Typography>
 
+          
+            <Toolbar>
+
+
+                <Link to="/" style={{ textDecoration: "none" }}
+                    onClick={() => dispatch(cleanDetail())}
+                >
+                    <Button
+                        color="navBtnColor"
+                        variant="contained"
+                        endIcon={<Home />}>
+                        Home
+                    </Button>
+                </Link>
+                
+
+                <LogoutButton/>
+        {
         
-        title={
-          <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
-            {name}
-          </Link>}
-        
-      />
-      <Typography variant="body2" color="text.secondary">
-            ${price.toFixed(2)}
-      </Typography>
+        user ? console.log('consolelog') :
 
-      <CardMedia
-        component="img"
-        height="200"
-        image={img}
-        alt="myProduct"
-      />
+                <Link to='/CreateUser' style={{ textDecoration: "none" }}
+        >
+        <Button
+            color="navBtnColor"
+            variant="contained"
+            endIcon={<Login />} >
+         Registrarse 
+        </Button> 
+       </Link> 
+}
+    {/*
+             <Link to="/login" style={{ textDecoration: "none" }}
+                >
+                <Button
+                    color="default"
+                    variant="contained"
+                    endIcon={<Login />}>
+                    Login
+                </Button> 
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
-      </CardContent>
+                 </Link> 
+    */}
+                <Button
+                    color="navBtnColor"
+                    variant="contained"
+                    endIcon={<FavoriteBorderIcon />}
+                    onClick={(e) => navigate('./favorites')}
+                >
+                    Mis favoritos
+                </Button>
 
+                <Button
+                    color="navBtnColor"
+                    variant="contained"
+                    endIcon={<ShoppingCart />}
+                    onClick={(e) => navigate('./carrito')}
+                >
+                    Carrito
+                </Button>
 
-      <CardActions disableSpacing>
+                {isDisable === false ? <Carrito /> : null}
 
-        <IconButton aria-label="addShop">
-          <AddShoppingCartIcon onClick={functionToAddProductsToMyCart}/>
-        </IconButton>
+            </Toolbar> 
 
-        <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
-      </CardActions>
+            <div className="inputsearch">
+                <form>
+                    <Input
+                        style={{
+                            backgroundColor: "white",
+                            borderRadius: "5px",
+                            height: "2.2em",
+                            margin:"5px"
+                        }}
+                        placeholder="¿Qué estás buscando?"
+                        onChange={(event) => onHandleSearch(event)}
+                        value={search}
+                    ></Input>
+                    <Link to="/result" style={{ textDecoration: "none" }}
+                    >
 
-    </Card>
-  );
+                        <Button
+                            type="submit"
+                            color="navBtnColor"
+                            variant="contained"
+                            startIcon={<Search />}
+
+                            onClick={() => {
+                                if (!search) {
+                                    alert("Debes ingresar tu búsqueda")
+                                } else {
+                                    dispatch(searchProduct(search))
+                                    setSearch("")
+                                }
+                            }}
+
+                        >
+                            Buscar
+                        </Button>
+                    </Link>
+                </form>
+            </div>
+        </AppBar>
+        {/* <div className={classes.offset}></div> */}
+        <Offset/>
+    </div>)
 }
