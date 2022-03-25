@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import Button from "@material-ui/core/Button";
+import  { Button } from "@mui/material";
 import { deleteFromFavorites } from "../Redux/actions";
 import Rating from '@material-ui/lab/Rating';
 import { addCart } from "../Redux/actions";

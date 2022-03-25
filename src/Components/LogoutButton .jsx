@@ -21,7 +21,7 @@ const LoginButton =() => {
     <Link to="/login" style={{ textDecoration: "none" }}
     >
     <Button
-        color="default"
+        color="navBtnColor"
         variant="contained"
         endIcon={<Login />} >
      Login
@@ -39,7 +39,7 @@ const handleLogout = e => {
 const  Logout = () => {
    return ( 
     <Button
-        color="default"
+        color="navBtnColor"
         variant="contained"
         endIcon={<ExitToAppIcon />}
         onClick= { (e) => handleLogout()} >   

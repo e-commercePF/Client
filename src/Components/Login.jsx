@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
-import { Grid, Container, Paper, Avatar, Typography, TextField, Button, CssBaseline } from '@material-ui/core'
+import { Grid, Container, Paper, Avatar,TextField, CssBaseline } from '@material-ui/core'
+import { Button, Typography } from "@mui/material";
 import { makeStyles } from '@material-ui/core/styles'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import  {Link, useNavigate}  from 'react-router-dom'
@@ -13,7 +14,8 @@ const useStyles = makeStyles(theme => ({
        backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
-		height: '100vh'
+		height: '100vh',
+		// paddingTop:"10vh"
 	},
 	container: {
 		opacity: '0.8',
@@ -25,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 			height: '100%'
 		}
 	},
+	
 	div: {
 		marginTop: theme.spacing(8),
 		display: 'flex',
@@ -179,15 +182,7 @@ return (
 
 return (
 	<React.StrictMode>
-  <GoogleLogin
-                    clientId="915932541790-lpaqrr1iij1onmgvn6k9jkkng1igjvdd.apps.googleusercontent.com"
-                    buttonText="Signup with Google"
-                    onSuccess={responseSuccessGoogle}
-                    onFailure={responseErrorGoogle}
-                    cookiePolicy={'single_host_origin'}
-                />
-     
-	  <Grid container component='main' className={classes.root}>
+     <Grid container component='main' className={classes.root}>
 	  <CssBaseline />
 	  <Container component={Paper} elevation={5} maxWidth='xs' className={classes.container}>
 		  <div className={classes.div}>
@@ -196,6 +191,19 @@ return (
 			  </Avatar>
 			  <Typography component='h1' variant='h5'>Sign In</Typography>
 			  <form className={classes.form}>
+
+			  <TextField
+					  fullWidth
+					  autoFocus
+					  color='primary'
+					  margin='normal'
+					  variant='outlined'
+					  label='email'
+					  name='email'
+					  value={email}
+					  onChange={(e)=> {setEmail(e.target.value)}}
+				  />
+
 				  <TextField
 					  fullWidth
 					  type='password'
@@ -207,17 +215,7 @@ return (
 					  value={password}
 					onChange={(e)=> {setPassword(e.target.value)}}
 				  />
-						  <TextField
-					  fullWidth
-					  autoFocus
-					  color='primary'
-					  margin='normal'
-					  variant='outlined'
-					  label='email'
-					  name='email'
-					  value={email}
-					  onChange={(e)=> {setEmail(e.target.value)}}
-				  />
+					
 				  <Button
 					  fullWidth
 					  variant='contained'
@@ -228,12 +226,18 @@ return (
 					  Sign In
 				  </Button>
 			  </form>
+			  <GoogleLogin
+                    clientId="915932541790-lpaqrr1iij1onmgvn6k9jkkng1igjvdd.apps.googleusercontent.com"
+                    buttonText="Signup with Google"
+                    onSuccess={responseSuccessGoogle}
+                    onFailure={responseErrorGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
 		  </div>
 	  </Container>
 </Grid>   
   </React.StrictMode>
 		
 ) 
-
 
 }

@@ -11,14 +11,14 @@ import Favorites from './Components/Favorites';
 import  { ThemeProvider } from '@mui/material';
 import ControlPanel from './Components/ControlPanel';
 import { Container } from '@mui/material';
-import CustomTheme from './assets/CustomTheme'; 
-import Carrito from './Components/Carrito';
 import CreateUser from './Components/CreateUser';
+import Carrito from './Components/Carrito';
+import CustomTheme from './assets/CustomTheme';
 
 
 function App() {
   return (
-
+    <ThemeProvider theme={CustomTheme}>
     <Container>
     <div className="App">
       <NavBar />
@@ -36,6 +36,7 @@ function App() {
       </Routes>
     </div>
   </Container>
+  </ThemeProvider>
   );
 }
 
