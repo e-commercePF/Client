@@ -1,6 +1,6 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
-    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL
+    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, GET_CATEGORIES, GET_BRAND
 } from "./actions"
 const initialState = {
     product: [],
@@ -10,6 +10,8 @@ const initialState = {
     resultSearch: [],
     favoriteItems: [],
     user2: {},
+    categories: [],
+    brands: []
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -49,14 +51,14 @@ export default function rootReducer(state = initialState, action) {
             let myItem = action.payload
             let myCartQuantity = myItem.quantity
             let sum = 0
-           for(let i=0; i<state.shopingCart.length;i++){
-               if(state.shopingCart[i]._id === myItem._id){
-                sum ++
-               }
-           }  
+            for (let i = 0; i < state.shopingCart.length; i++) {
+                if (state.shopingCart[i]._id === myItem._id) {
+                    sum++
+                }
+            }
 
-           let result = sum < myCartQuantity ? [...state.shopingCart, myItem] : [...state.shopingCart]
-            
+            let result = sum < myCartQuantity ? [...state.shopingCart, myItem] : [...state.shopingCart]
+
             return {
                 ...state,
                 shopingCart: result
@@ -86,17 +88,17 @@ export default function rootReducer(state = initialState, action) {
 
         case ADD_TO_FAVORITES:
             let myProductFavorite = action.payload
-            state.favoriteItems = state.favoriteItems.filter(x=> x !== null)
+            state.favoriteItems = state.favoriteItems.filter(x => x !== null)
             let findProduct = state.favoriteItems.find(x => x._id === myProductFavorite._id)
             findProduct ? myProductFavorite = null : myProductFavorite = action.payload
-            state.favoriteItems = state.favoriteItems.filter(x=> x !== null)
+            state.favoriteItems = state.favoriteItems.filter(x => x !== null)
             return {
                 ...state,
                 favoriteItems: [...state.favoriteItems, myProductFavorite]
             }
 
         case DELETE_FROM_FAVORITES:
-           //let myProductFavoriteToDelete = action.payload
+            //let myProductFavoriteToDelete = action.payload
             console.log(action.payload)
             let myFilterFavoriteProducts = state.favoriteItems.filter(x => x !== action.payload)
             return {
@@ -119,6 +121,18 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 detailproduct: {}
+            }
+
+        case GET_CATEGORIES:
+            return {
+                ...state,
+                categories: action.payload
+            }
+
+        case GET_BRAND:
+            return {
+                ...state,
+                brands: action.payload
             }
 
 

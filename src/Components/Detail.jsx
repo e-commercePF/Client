@@ -26,7 +26,6 @@ export default function Detail() {
         dispatch(addCart(myProduct))
     }
 
-
     let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
     //console.log(pricetoshow)
 

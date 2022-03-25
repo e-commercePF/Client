@@ -11,7 +11,8 @@ export const DELETE_FROM_FAVORITES = 'DELETE_FROM_FAVORITES'
 export const DELETE_ALL_SINGLE_ITEM_FROM_CART = 'DELETE_ALL_SINGLE_ITEM_FROM_CART'
 export const Get_ALL_FAVORITES = 'Get_ALL_FAVORITES'
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
-
+export const GET_CATEGORIES = "GET_CATEGORIES"
+export const GET_BRAND = "GET_BRAND"
 
 export function getAllProducts() {
 
@@ -155,5 +156,34 @@ export function cleanDetail() {
     }
   } catch (e) {
     console.log(e)
+  }
+}
+
+export function getAllCategories() {
+  return async function (dispatch) {
+    try {
+      let categories = await axios.get("http://localhost:3000/api/categories")
+      return dispatch({
+        type: GET_CATEGORIES,
+        payload: categories.data
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function getAllBrand() {
+  return async function (dispatch) {
+    try {
+      let brand = await axios.get("http://localhost:3000/api/products/brands")
+      brand = [...new Set(brand.data)]     //busca elementos repetidos y devuelve un array con valores únicos
+      return dispatch({
+        type: GET_BRAND,
+        payload: brand
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

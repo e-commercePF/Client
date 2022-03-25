@@ -30,73 +30,64 @@ export default function Productcard({ id, price, name, description, img, rating,
   const dispatch = useDispatch()
   const classes = useStyles();
 
- 
 
-  const { favoriteItems } = useSelector(state=> state)
+
+  const { favoriteItems } = useSelector(state => state)
 
   const _id = id
-  let myProduct = {_id, name, price, img, rating, quantity}  
-  const functionToAddProductsToMyCart = ()=> {  
-    dispatch(addCart(myProduct)) 
+  let myProduct = { _id, name, price, img, rating, quantity }
+  const functionToAddProductsToMyCart = () => {
+    dispatch(addCart(myProduct))
   }
 
 
 
   const [addFavorite, setAddFavorite] = useState(true)
-  const addMyFavoriteProduct = ()=> {
-    setAddFavorite(!addFavorite)
-    addFavorite ? dispatch(addToFavorites(myProduct)) : 
-    dispatch(deleteFromFavorites(myProduct))
-  }
 
-
-
-
-  const { favoriteItems } = useSelector(state=> state)
   useEffect(() => {
   }, [favoriteItems])
-  
-  
-   let showHeart = new Array 
-  favoriteItems.forEach(x=> x !== null ? showHeart.push(x) : null)
 
 
-  let boolean = showHeart.find(x=> x._id === _id)
-  
- 
+  let showHeart = new Array
+  favoriteItems.forEach(x => x !== null ? showHeart.push(x) : null)
 
-  const addMyFavoriteProduct = (e)=> {  
-    e.preventDefault()    
-    dispatch(addToFavorites(myProduct))   
+
+  let boolean = showHeart.find(x => x._id === _id)
+
+
+
+  const addMyFavoriteProduct = (e) => {
+    e.preventDefault()
+    dispatch(addToFavorites(myProduct))
   }
-  const deleteMyFavoriteProduct = ()=> {
+  const deleteMyFavoriteProduct = () => {
 
 
-    let find = favoriteItems.some(x=> x._id === myProduct._id)
-    const deleteItem = favoriteItems.find(x=> x._id === myProduct._id)
-    if(find){
+    let find = favoriteItems.some(x => x._id === myProduct._id)
+    const deleteItem = favoriteItems.find(x => x._id === myProduct._id)
+    if (find) {
       dispatch(deleteFromFavorites(deleteItem))
     } else console.log('hubo un problema')
-
+  }
 
   return (
 
-    <Card sx={{ maxWidth: 345 }}>     
-    
-      <CardHeader        
+    <Card sx={{ maxWidth: 345 }}>
 
-          action={
-           <IconButton >          
-            
+      <CardHeader
+
+        action={
+          <IconButton >
+
             {
-              boolean === undefined ? <FavoriteBorder onClick={(e)=> addMyFavoriteProduct(e)}/> : <FavoriteIcon onClick={deleteMyFavoriteProduct}/>
-            }  
-     
+              boolean === undefined ? <FavoriteBorder onClick={(e) => addMyFavoriteProduct(e)} /> : <FavoriteIcon onClick={deleteMyFavoriteProduct} />
+            }
 
-          </IconButton>         
+
+          </IconButton>
         }
 
-        
+
         title={
           <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
             {name}
@@ -124,7 +115,7 @@ export default function Productcard({ id, price, name, description, img, rating,
       <CardActions disableSpacing>
 
         <IconButton aria-label="addShop">
-          <AddShoppingCartIcon onClick={functionToAddProductsToMyCart}/>
+          <AddShoppingCartIcon onClick={functionToAddProductsToMyCart} />
         </IconButton>
 
         <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
