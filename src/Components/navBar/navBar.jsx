@@ -12,6 +12,7 @@ import LogoutButton from "../LogoutButton "
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/system';
 
+
 export default function NavBar() {
     const navigate = useNavigate()
     const [search, setSearch] = useState()
@@ -81,7 +82,7 @@ export default function NavBar() {
                 <Link to='/CreateUser' style={{ textDecoration: "none" }}
         >
         <Button
-            color="default"
+            color="navBtnColor"
             variant="contained"
             endIcon={<Login />} >
          Registrarse 
