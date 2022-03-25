@@ -1,6 +1,6 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
-    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT
+    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT, GET_BRAND, GET_CATEGORIES
 } from "./actions"
 
 
@@ -12,6 +12,8 @@ const initialState = {
     resultSearch: [],
     favoriteItems: [],
     user2: {},
+    categories: [],
+    brands: []
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -49,28 +51,28 @@ export default function rootReducer(state = initialState, action) {
             let myItem = action.payload
             let myCartQuantity = myItem.quantity
             let sum = 0
-                for(let i=0; i<state.shopingCart.length; i++){
-               if(state.shopingCart[i]._id === myItem._id){
-                sum ++
-                    }
-                } 
-            
-           let local = JSON.parse(localStorage.getItem("carrito"))
-           let result = sum < myCartQuantity ? [...state.shopingCart, myItem] : [...state.shopingCart]
-            
-           //mandar result a local storage 
-           const setShoppingCartState = (x)=> {
-               try{               
-                 let data = JSON.stringify(x)
-                 localStorage.setItem('carrito', data)
-                //localStorage.setItem('carrito', [...local, data])
-               }catch (e) { console.log(e) }
-           }
-           setShoppingCartState(result)
+            for (let i = 0; i < state.shopingCart.length; i++) {
+                if (state.shopingCart[i]._id === myItem._id) {
+                    sum++
+                }
+            }
 
-            let myResult= JSON.parse(localStorage.getItem("carrito"))
-           
-           console.log(myResult)     
+            let local = JSON.parse(localStorage.getItem("carrito"))
+            let result = sum < myCartQuantity ? [...state.shopingCart, myItem] : [...state.shopingCart]
+
+            //mandar result a local storage 
+            const setShoppingCartState = (x) => {
+                try {
+                    let data = JSON.stringify(x)
+                    localStorage.setItem('carrito', data)
+                    //localStorage.setItem('carrito', [...local, data])
+                } catch (e) { console.log(e) }
+            }
+            setShoppingCartState(result)
+
+            let myResult = JSON.parse(localStorage.getItem("carrito"))
+
+            console.log(myResult)
 
             return {
                 ...state,
@@ -104,10 +106,10 @@ export default function rootReducer(state = initialState, action) {
 
         case ADD_TO_FAVORITES:
             let myProductFavorite = action.payload
-            state.favoriteItems = state.favoriteItems.filter(x=> x !== null)
+            state.favoriteItems = state.favoriteItems.filter(x => x !== null)
             let findProduct = state.favoriteItems.find(x => x._id === myProductFavorite._id)
             findProduct ? myProductFavorite = null : myProductFavorite = action.payload
-            state.favoriteItems = state.favoriteItems.filter(x=> x !== null)
+            state.favoriteItems = state.favoriteItems.filter(x => x !== null)
             return {
                 ...state,
                 favoriteItems: [...state.favoriteItems, myProductFavorite]
@@ -137,17 +139,26 @@ export default function rootReducer(state = initialState, action) {
                 detailproduct: {}
             }
 
-        case EDIT_THE_PRODUCT: 
+        case EDIT_THE_PRODUCT:
             return {
                 ...state
             }
-
+        case GET_CATEGORIES:
+            return {
+                ...state,
+                categories: action.payload
+            }
+        case GET_BRAND:
+            return {
+                ...state,
+                brands: action.payload
+            }
 
         default:
             return state
-    } 
-      
     }
+
+}
 
 
 
