@@ -6,6 +6,7 @@ import { Button, Typography } from "@mui/material";
 import { makeStyles } from '@material-ui/core/styles'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import  {Link, useNavigate}  from 'react-router-dom'
+
 ///////////////// material ui ///////////////////////////////////
 
 const useStyles = makeStyles(theme => ({
@@ -89,7 +90,7 @@ export default function LogIn() {
 	
 		const handleRegister = async (event) => {
 			const  ExpRegEmail =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
-		 if(!name || !email || !password){
+		 if( !email || !password){
 			 return alert('por favor llene todos los campos')
 		 } if(email.match(ExpRegEmail)==null){
 			 return alert('por favor ingrese un email valido')
@@ -99,12 +100,11 @@ export default function LogIn() {
 					method: 'POST',
 					url: "http://localhost:3000/api/auth/signin",
 					data: {
-					  name: name,
-					  email: email,
+					   email: email,
 					  password: password,
 					}
 				  }).then(response =>{
-					console.log("Google login success", response) /*{
+					window.localStorage.setItem("token", response.data)/*{
 																	  googleToken,
 																	  user: {_id, name, email} */
 						  window.location.reload(false);

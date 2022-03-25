@@ -9,10 +9,11 @@ import ResultSearch from './Components/ResultSearch';
 import CreatePage from './Components/CreatePage';
 import Favorites from './Components/Favorites';
 import  { ThemeProvider } from '@mui/material';
-import CustomTheme from './assets/CustomTheme'
-import Carrito from './Components/Carrito'
 import ControlPanel from './Components/ControlPanel';
 import { Container } from '@mui/material';
+import CreateUser from './Components/CreateUser';
+import Carrito from './Components/Carrito';
+import CustomTheme from './assets/CustomTheme';
 
 
 function App() {
@@ -29,7 +30,9 @@ function App() {
         <Route path="/create" element={<CreatePage />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/carrito' element={ <Carrito />} />
+        <Route path='/CreateUser' element={ <CreateUser />} />
         <Route path='/admin' element={<ControlPanel />} />
+ 
       </Routes>
     </div>
   </Container>
