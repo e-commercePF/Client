@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Login() {
+export default function LogIn() {
 	const navigate = useNavigate();
     const [password,setPassword] = useState('');
     const [email,setEmail] = useState('');
@@ -54,41 +54,59 @@ export default function Login() {
 	useEffect(()=>{
 	    const loggedUserJSON = window.localStorage.getItem('token')
       if(loggedUserJSON ){
-       // navigate("/")
+        navigate("/")
         }	
-    },[])
+    },[navigate])
 
-	const responseSuccesGoogle = (response) => {
-		console.log(response)
-		axios({
-			method:"POST",
-			url: 'http://localhost:3000/api/auth/googlelogin',
-			data : {tokenId: response.tokenId}
-		}).then(response => {
-		console.log('Google login succes',response)
-		})}
+	const responseSuccessGoogle = response =>{
+        console.log(response)
+        axios({
+            method: 'POST',
+            url: "http://localhost:3000/api/auth/googlelogin",
+            data: {
+              tokenId: response.tokenId
+            }
+          }).then(response => { window.localStorage.setItem("token", response.data.token);
+		  window.location.reload(false);
+		  navigate("/") })
+		}
+		  //  console.log("Google login success", response); 
+		  /*{
+                                                              googleToken,
+                                                              user: {_id, name, email}
+                                                              } */
+           
 	
+    
+		
+      
 	const responseErrorGoogle = (response) => {
 		console.log(response)
 		}
-
+	
 		const handleRegister = async (event) => {
-		
+			const  ExpRegEmail =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+		 if(!name || !email || !password){
+			 return alert('por favor llene todos los campos')
+		 } if(email.match(ExpRegEmail)==null){
+			 return alert('por favor ingrese un email valido')
+		 }
 			  try {
 				axios({
 					method: 'POST',
-					url: "http://localhost:3000/api/auth/signup",
+					url: "http://localhost:3000/api/auth/signin",
 					data: {
 					  name: name,
 					  email: email,
 					  password: password,
 					}
 				  }).then(response =>{
-					console.log("Google login success", response); /*{
+					console.log("Google login success", response) /*{
 																	  googleToken,
-																	  user: {_id, name, email}
-																	  } */
-				navigate("/login")
+																	  user: {_id, name, email} */
+						  window.location.reload(false);
+						   navigate("/login")
+
 				  }).catch(err=>{
 					  console.log("ojala no salgas xd", err)
 				  })  // en caso de que el logueo sea exitoso
@@ -164,7 +182,7 @@ return (
   <GoogleLogin
                     clientId="915932541790-lpaqrr1iij1onmgvn6k9jkkng1igjvdd.apps.googleusercontent.com"
                     buttonText="Signup with Google"
-                    onSuccess={responseSuccesGoogle}
+                    onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
@@ -178,17 +196,6 @@ return (
 			  </Avatar>
 			  <Typography component='h1' variant='h5'>Sign In</Typography>
 			  <form className={classes.form}>
-				  <TextField
-					  fullWidth
-					  autoFocus
-					  color='primary'
-					  margin='normal'
-					  variant='outlined'
-					  label='name'
-					  name='name'
-					  value={name}
-					  onChange={(e)=> {setName(e.target.value)}}
-				  />
 				  <TextField
 					  fullWidth
 					  type='password'

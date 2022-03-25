@@ -61,9 +61,11 @@ export default function Productcard({ id, price, name, description, img, rating,
     } else console.log('hubo un problema')
 
   }
+
+  var nombre = name.length
   return (
 
-    <Card sx={{ maxWidth: 345 }}>     
+    <Card sx={{ maxWidth: 345, minHeight: 480, maxHeight: 480 }}>     
     
       <CardHeader        
 
@@ -77,12 +79,12 @@ export default function Productcard({ id, price, name, description, img, rating,
 
           </IconButton>         
         }
-
         
         title={
-          <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
+          <Link to={`/product/${id}`} style={{ textDecoration: "none", }} >
             {name}
           </Link>}
+
         subheader={
           <Typography variant="body2" color="text.secondary">
             ${price.toFixed(2)}
@@ -111,7 +113,7 @@ export default function Productcard({ id, price, name, description, img, rating,
 
         <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
       </CardActions>
-
+   
     </Card>
   );
 }

@@ -7,7 +7,7 @@ import { searchProduct, cleanDetail } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
+import LogoutButton from "../LogoutButton "
 
 export default function NavBar() {
     const navigate = useNavigate()
@@ -56,7 +56,10 @@ export default function NavBar() {
                         Home
                     </Button>
                 </Link>
+                
 
+                <LogoutButton />
+    {/*
              <Link to="/login" style={{ textDecoration: "none" }}
                 >
                 <Button
@@ -67,7 +70,7 @@ export default function NavBar() {
                 </Button> 
 
                  </Link> 
-
+    */}
                 <Button
                     color="default"
                     variant="contained"
