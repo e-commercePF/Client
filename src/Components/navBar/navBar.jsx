@@ -1,8 +1,8 @@
 import { Input, AppBar, Toolbar } from "@material-ui/core"
-import { Button , Typography} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct, cleanDetail } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,12 +16,12 @@ import { styled } from '@mui/system';
 export default function NavBar() {
     const navigate = useNavigate()
     const [search, setSearch] = useState()
-    const [user,setUser] = useState('');
+    const [user, setUser] = useState('');
     const dispatch = useDispatch()
-    useEffect(()=>{
-	    const loggedUserJSON = window.localStorage.getItem('token')
-         setUser(loggedUserJSON)
-        },[])
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('token')
+        setUser(loggedUserJSON)
+    }, [])
     function onHandleSearch(event) {
         event.preventDefault()
         setSearch(event.target.value)
@@ -40,7 +40,7 @@ export default function NavBar() {
 
     const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-  
+
     return (<div className="header">
 
 
@@ -53,12 +53,12 @@ export default function NavBar() {
             }
         }>
 
-        <Typography variant="h4" component="div"  sx={{m:2}} >
-            <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
-            SportsMarket
-         </Typography>
+            <Typography variant="h4" component="div" sx={{ m: 2 }} >
+                <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
+                SportsMarket
+            </Typography>
 
-          
+
             <Toolbar>
 
 
@@ -72,24 +72,24 @@ export default function NavBar() {
                         Home
                     </Button>
                 </Link>
-                
 
-                <LogoutButton/>
-        {
-        
-        user ? console.log('consolelog') :
 
-                <Link to='/CreateUser' style={{ textDecoration: "none" }}
-        >
-        <Button
-            color="navBtnColor"
-            variant="contained"
-            endIcon={<Login />} >
-         Registrarse 
-        </Button> 
-       </Link> 
-}
-    {/*
+                <LogoutButton />
+                {
+
+                    user ? console.log('consolelog') :
+
+                        <Link to='/CreateUser' style={{ textDecoration: "none" }}
+                        >
+                            <Button
+                                color="navBtnColor"
+                                variant="contained"
+                                endIcon={<Login />} >
+                                Registrarse
+                            </Button>
+                        </Link>
+                }
+                {/*
              <Link to="/login" style={{ textDecoration: "none" }}
                 >
                 <Button
@@ -121,7 +121,7 @@ export default function NavBar() {
 
                 {isDisable === false ? <Carrito /> : null}
 
-            </Toolbar> 
+            </Toolbar>
 
             <div className="inputsearch">
                 <form>
@@ -130,7 +130,7 @@ export default function NavBar() {
                             backgroundColor: "white",
                             borderRadius: "5px",
                             height: "2.2em",
-                            margin:"5px"
+                            margin: "5px"
                         }}
                         placeholder="¿Qué estás buscando?"
                         onChange={(event) => onHandleSearch(event)}
@@ -162,6 +162,6 @@ export default function NavBar() {
             </div>
         </AppBar>
         {/* <div className={classes.offset}></div> */}
-        <Offset/>
+        <Offset />
     </div>)
 }
