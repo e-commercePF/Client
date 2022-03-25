@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '@mui/icons-material';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Button } from "@material-ui/core"
-export default function LogoutButton() {
 
+
+
+export default function LogoutButton() {
+  
 const navigate = useNavigate()
 const [user,setUser] = useState('');
 
@@ -17,7 +21,7 @@ const LoginButton =() => {
     <Link to="/login" style={{ textDecoration: "none" }}
     >
     <Button
-        color="default"
+        color="navBtnColor"
         variant="contained"
         endIcon={<Login />} >
      Login
@@ -35,19 +39,32 @@ const handleLogout = e => {
 const  Logout = () => {
    return ( 
     <Button
-        color="default"
+        color="navBtnColor"
         variant="contained"
-        endIcon={<Login />}
+        endIcon={<ExitToAppIcon />}
         onClick= { (e) => handleLogout()} >   
         Logout
     </Button> 
    )
 
+}
 
+const Regtrister = () => {
+    return(
+        <Link to='/CreateUser' style={{ textDecoration: "none" }}
+        >
+        <Button
+            color="default"
+            variant="contained"
+            endIcon={<Login />} >
+         Registrarse
+        </Button> 
+       </Link> 
+    )
 }
 return(
 <div>
-{   user ? Logout()  : LoginButton()  }
+{   user ? Logout()  : LoginButton() }
 
 </div>
 );

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "@material-ui/core/Button";
+import { Button } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
 
 export default function Carrito(){
@@ -8,10 +8,16 @@ export default function Carrito(){
 
    
     const { shopingCart } = useSelector(state=> state)
+   // const shopingCart = JSON.parse(localStorage.getItem("carrito"))
 
     useEffect(() => {
     }, [shopingCart])
 
+    const { shopingCart2 } = useSelector(state=> state)
+    useEffect(() => {
+    }, [shopingCart2])
+
+    console.log(shopingCart2)
       
     const clearMyCart = ()=> {
         dispatch(clearCart())
@@ -69,6 +75,8 @@ export default function Carrito(){
     }  
 
     let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
+
+
  
     return (
         <div>

@@ -13,10 +13,21 @@ const CustomTheme = createTheme({
     secondary:{
         main:'#009688',
     },
-    JorColor: {
-      main:'#009688',
+     navBtnColor: {
+      main:'#00000',
+      darker:'#424242',
+      contrastText:"White",
     },
   },
+  components:{
+    MuiCardHeader:{
+      styleOverrides: {
+        root:{     
+       maxHeight:"4vh", 
+      }
+      },
+    }
+  }
 });
 
 export default CustomTheme
