@@ -9,9 +9,9 @@ import ResultSearch from './Components/ResultSearch';
 import CreatePage from './Components/CreatePage';
 import Favorites from './Components/Favorites';
 import  { ThemeProvider } from '@mui/material';
-import CustomTheme from './assets/CustomTheme'
-import Carrito from './Components/Carrito'
-
+import CustomTheme from './assets/CustomTheme'; 
+import Carrito from './Components/Carrito';
+import CreateUser from './Components/CreateUser';
 
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
         <Route path="/create" element={<CreatePage />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/carrito' element={ <Carrito />} />
+        <Route path='/CreateUser' element={ <CreateUser />} />
       </Routes>
     </div>
     </ThemeProvider>

@@ -1,7 +1,7 @@
 import { Button, Input, AppBar, Toolbar } from "@material-ui/core"
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch } from "react-redux"
 import { searchProduct, cleanDetail } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,8 +12,12 @@ import LogoutButton from "../LogoutButton "
 export default function NavBar() {
     const navigate = useNavigate()
     const [search, setSearch] = useState()
+    const [user,setUser] = useState('');
     const dispatch = useDispatch()
-
+    useEffect(()=>{
+	    const loggedUserJSON = window.localStorage.getItem('token')
+         setUser(loggedUserJSON)
+        },[])
     function onHandleSearch(event) {
         event.preventDefault()
         setSearch(event.target.value)
@@ -59,6 +63,20 @@ export default function NavBar() {
                 
 
                 <LogoutButton/>
+        {
+        
+        user ? console.log('consolelog') :
+
+                <Link to='/CreateUser' style={{ textDecoration: "none" }}
+        >
+        <Button
+            color="default"
+            variant="contained"
+            endIcon={<Login />} >
+         Registrarse 
+        </Button> 
+       </Link> 
+}
     {/*
              <Link to="/login" style={{ textDecoration: "none" }}
                 >
