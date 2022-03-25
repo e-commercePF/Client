@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux"
 import Card from "./Card"
+import Grid from '@material-ui/core/Grid';
 
 export default function ResultSearch() {
     const { resultSearch, haveResult } = useSelector(state => state)
 
     return (<div>
-
+        <Grid container spacing={2}>
         {
             (resultSearch.length !== 0) ?
                 resultSearch.map((e, index) => (
-                    <div
+                    <Grid item xs={12} sm={6} md={4} lg={3}
                         key={index}
                     >
                         <Card
@@ -25,11 +26,11 @@ export default function ResultSearch() {
                             category={e.category}
                             __v={e.__v} />
 
-                    </div>
+                    </Grid>
 
                 ))
                 : ((!haveResult) ? <div> Loading </div> : <></>)
-        }
+        }</Grid>
 
 
         {(haveResult) ? <div>
@@ -37,5 +38,6 @@ export default function ResultSearch() {
             <h2>No hemos encontrado un producto </h2>
 
         </div> : <></>}
+        
     </div>)
 }
