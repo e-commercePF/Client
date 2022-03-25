@@ -28,7 +28,7 @@ export default function Favorites (){
     }  
 
     return (
-        <div> 
+        <div>
             <h1> Estos son tus productos favoritos </h1>            
 
             {

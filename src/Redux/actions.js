@@ -6,19 +6,21 @@ export const ADD_CART = "ADD_CART"
 export const CLEAR_CART = "CLEAR_CART"
 export const DELETE_ONE_ITEM_FROM_CART = "DELETE_ONE_ITEM_FROM_CART"
 export const SET_USER = "SET_USER"
-export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES'
 export const DELETE_FROM_FAVORITES = 'DELETE_FROM_FAVORITES'
+export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES'
 export const DELETE_ALL_SINGLE_ITEM_FROM_CART = 'DELETE_ALL_SINGLE_ITEM_FROM_CART'
 export const Get_ALL_FAVORITES = 'Get_ALL_FAVORITES'
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
 export const EDIT_THE_PRODUCT = "EDIT_THE_PRODUCT"
+export const GET_CATEGORIES = "GET_CATEGORIES"
+export const GET_BRAND = "GET_BRAND"
 
 
-var localhost = "http://localhost:3000" 
+var localhost = "http://localhost:3000"
 
 export function getAllProducts() {
 
- 
+
 
   return async function (dispatch) {
     try {
@@ -158,14 +160,50 @@ export function cleanDetail() {
     return {
       type: CLEAN_DETAIL
     }
-  } catch (e) { console.log(e) }   
-  
+
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-export function editTheProduct(product){
-  try{
-    return async function (){
-        await axios.put(`${localhost}/api/products/update/${product._id}`, product)
+
+export function editTheProduct(product) {
+  try {
+    return async function () {
+      await axios.put(`${localhost}/api/products/update/${product._id}`, product)
     }
-  }catch(e) { console.log(e) }
+  } catch (e) { console.log(e) }
 }
+
+export function getAllCategories() {
+  return async function (dispatch) {
+    try {
+      var category = await axios.get("http://localhost:3000/api/categories");
+      return dispatch({
+        type: GET_CATEGORIES,
+        payload: category.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function getAllBrand() {
+  return async function (dispatch) {
+    try {
+      var marcas = await axios.get("http://localhost:3000/api/products/brands");
+      marcas = [...new Set(marcas.data)]
+      return dispatch({
+        type: GET_BRAND,
+        payload: marcas,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+
+
+}
+

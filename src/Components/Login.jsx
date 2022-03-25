@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 import { Grid, Container, Paper, Avatar,TextField, CssBaseline } from '@material-ui/core'
 import { Button, Typography } from "@mui/material";
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/styles';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import  {Link, useNavigate}  from 'react-router-dom'
 

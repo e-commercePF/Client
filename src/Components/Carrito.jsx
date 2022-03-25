@@ -1,9 +1,18 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
+import { makeStyles } from '@material-ui/core/styles';
 
 export default function Carrito(){
+
+    const useStyles = makeStyles({
+        root: {
+
+        }
+    })
+
+
     const dispatch = useDispatch()
 
    
