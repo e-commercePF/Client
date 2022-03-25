@@ -77,7 +77,7 @@ const useStyles =  makeStyles(theme => ({
                                                               googleToken,
                                                               user: {_id, name, email}
                                                               } */
-            window.localStorage.setItem("token", response.data.token);
+            window.localStorage.setItem("token", response.data.tokenId);
 			window.location.reload(false);
             navigate("/")
           })
@@ -103,11 +103,11 @@ const useStyles =  makeStyles(theme => ({
                   password: password,
                 }
               }).then(response =>{
-				window.localStorage.setItem("token", response); /*{
+				window.localStorage.setItem("token",  response.data.tokenId); /*{
                                                                   googleToken,
                                                                   user: {_id, name, email}
                                                                   } */
-		    window.location.reload(false);
+		    window.location.reload(false)
                 navigate("/")
               }).catch(err=>{
                   console.log("ojala no salgas xd", err)
@@ -140,7 +140,7 @@ return(
 			  <Avatar className={classes.avatar}>
 				  <LockOutlinedIcon />
 			  </Avatar>
-			  <Typography component='h1' variant='h5'>Sign In</Typography>
+			  <Typography component='h1' variant='h5'>registrarse</Typography>
 			  <form className={classes.form}>
 				  <TextField
 					  fullWidth
