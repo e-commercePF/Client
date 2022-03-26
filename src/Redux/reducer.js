@@ -83,9 +83,11 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case CLEAR_CART:
+            localStorage.setItem('carrito', '[]')
+
             return {
                 ...state,
-                shopingCart: []
+                shopingCart: JSON.parse(localStorage.getItem("carrito"))
             }
 
         case DELETE_ONE_ITEM_FROM_CART:
@@ -101,9 +103,11 @@ export default function rootReducer(state = initialState, action) {
         case DELETE_ALL_SINGLE_ITEM_FROM_CART:
             let theItem = action.payload
             let itemsWithoutTheItem = state.shopingCart.filter(x => x._id !== theItem._id)
+            itemsWithoutTheItem = JSON.stringify(itemsWithoutTheItem)
+            localStorage.setItem('carrito', itemsWithoutTheItem)
             return {
                 ...state,
-                shopingCart: itemsWithoutTheItem
+                shopingCart: JSON.parse(localStorage.getItem("carrito"))
             }
 
         case ADD_TO_FAVORITES:
