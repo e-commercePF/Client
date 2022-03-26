@@ -39,6 +39,7 @@ export default function Home() {
 
     return (
         <div className={classes.root}>
+        <Menu/>
         <Grid container spacing={2}> 
                 {
                     (product.length !== 0) ?
