@@ -33,6 +33,7 @@ const LoginButton =() => {
 const handleLogout = e => {
     setUser(null)
     window.localStorage.removeItem('token')
+    window.location.reload(false);
     navigate("/login")
 }
 

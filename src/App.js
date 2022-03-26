@@ -19,9 +19,9 @@ import CustomTheme from './assets/CustomTheme';
 function App() {
   return (
     <ThemeProvider theme={CustomTheme}>
-    <Container>
     <div className="App">
       <NavBar />
+    <Container>
       <Routes>
         
         <Route exact path="/" element={<Home />} />
@@ -32,10 +32,9 @@ function App() {
         <Route path='/carrito' element={ <Carrito />} />
         <Route path='/CreateUser' element={ <CreateUser />} />
         <Route path='/admin' element={<ControlPanel />} />
- 
       </Routes>
+    </Container>  
     </div>
-  </Container>
   </ThemeProvider>
   );
 }
