@@ -20,6 +20,7 @@ import Paginado from './Components/Paginado';
 function App() {
   return (
     <ThemeProvider theme={CustomTheme}>
+
       <div className="App">
         <NavBar />
         <Container>
@@ -38,6 +39,7 @@ function App() {
         </Container>
       </div>
     </ThemeProvider>
+
   );
 }
 
