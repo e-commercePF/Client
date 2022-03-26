@@ -1,6 +1,7 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
-    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT, GET_BRAND, GET_CATEGORIES
+    DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT, GET_BRAND, GET_CATEGORIES,
+    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS
 } from "./actions"
 
 
@@ -13,7 +14,8 @@ const initialState = {
     favoriteItems: [],
     user2: {},
     categories: [],
-    brands: []
+    brands: [],
+    users: [],
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -152,6 +154,23 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 brands: action.payload
+            }
+
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                users: action.payload
+            }
+
+        case DELETE_ONE_ITEM_FROM_STOCK: 
+            return {
+                ...state,
+        
+            }
+
+        case UPDATE_USERS: 
+            return {
+                ...state
             }
 
         default:
