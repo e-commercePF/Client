@@ -145,12 +145,12 @@ export default function Carrito(){
                         <img src={x.img} alt={x.name} className={clases.img}/>
                                 <h5> $ {x.price.toFixed(2)} </h5>
                                 <div className={clases.buttons}>
-                                    <Button variant="contained" color="secondary" size='small'style={{height: 15, marginTop: 20}} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
+                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
                                         <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
-                                    <Button variant="contained" color="primary" size='small' style={{height: 15, marginTop: 20}} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
+                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
                                 </div>
 
-                                <Button className={clases.button_red} variant="contained" color="secondary" onClick={()=> deleteAllSingleItems(x)}> X </Button>
+                                <Button className={clases.button_red} variant="contained" onClick={()=> deleteAllSingleItems(x)}> X </Button>
                         </Paper>
                      </div>
                    
@@ -163,6 +163,12 @@ export default function Carrito(){
              {  shopingCart.length > 0 ?   <Button variant="contained" color='error' onClick={clearMyCart}>
                 Vaciar Carrito
             </Button> : null}
+
+            
+            {  shopingCart.length > 0 ?   <Button variant="contained" color='primary' >
+                Continuar con la compra 
+            </Button> : null}
+
         </div>
     )
 }
