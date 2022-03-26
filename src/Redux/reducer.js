@@ -1,7 +1,7 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
     DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT, GET_BRAND, GET_CATEGORIES,
-    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS
+    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS, GET_PRODUCT_PAGINADO
 } from "./actions"
 
 
@@ -16,6 +16,7 @@ const initialState = {
     categories: [],
     brands: [],
     users: [],
+    productOnStock: []
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -83,9 +84,11 @@ export default function rootReducer(state = initialState, action) {
             }
 
         case CLEAR_CART:
+            localStorage.setItem('carrito', '[]')
+
             return {
                 ...state,
-                shopingCart: []
+                shopingCart: JSON.parse(localStorage.getItem("carrito"))
             }
 
         case DELETE_ONE_ITEM_FROM_CART:
@@ -101,9 +104,11 @@ export default function rootReducer(state = initialState, action) {
         case DELETE_ALL_SINGLE_ITEM_FROM_CART:
             let theItem = action.payload
             let itemsWithoutTheItem = state.shopingCart.filter(x => x._id !== theItem._id)
+            itemsWithoutTheItem = JSON.stringify(itemsWithoutTheItem)
+            localStorage.setItem('carrito', itemsWithoutTheItem)
             return {
                 ...state,
-                shopingCart: itemsWithoutTheItem
+                shopingCart: JSON.parse(localStorage.getItem("carrito"))
             }
 
         case ADD_TO_FAVORITES:
@@ -162,17 +167,22 @@ export default function rootReducer(state = initialState, action) {
                 users: action.payload
             }
 
-        case DELETE_ONE_ITEM_FROM_STOCK: 
+        case DELETE_ONE_ITEM_FROM_STOCK:
             return {
                 ...state,
-        
+
             }
 
-        case UPDATE_USERS: 
+        case UPDATE_USERS:
             return {
                 ...state
             }
 
+        case GET_PRODUCT_PAGINADO:
+            return {
+                ...state,
+                productOnStock: action.payload
+            }
         default:
             return state
     }
