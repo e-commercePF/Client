@@ -31,6 +31,7 @@ export default function Stock(){
     const [edit, setEdit] = useState(false)
     const handleEditProduct = ()=> {
         setEdit(!edit)
+       
     }
 
     const [price, setPrice] = useState(0)
@@ -41,7 +42,7 @@ export default function Stock(){
 
     const [quant, setQuant] = useState(0)
     const handleSelectQuant= (e)=> {
-        setQuant(Number(e))
+        setQuant(Number(e))         
     }
 
     const handleChangeProduct = (x)=> {
@@ -65,7 +66,7 @@ export default function Stock(){
        handleChangeProduct(x) 
 
         let check2 = myNewDataProduct._id !== ''
-        if(check2){
+        if(check2 && myNewDataProduct.price > -1 && myNewDataProduct.quantity > -1){
             let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
             if(check){
                 dispatch(editTheProduct(myNewDataProduct))
@@ -95,13 +96,13 @@ export default function Stock(){
             return <div>                    
                  <span> {x.name} : </span> 
              
-                { edit ? <span> Cantidad: <input type="number" name='quantity'  placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
+                { edit ? <span> Cantidad: <input type="number" name='quantity' min='0' placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
             
-                {edit ? <span> Precio: <input type="number" name='price'  placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
+                {edit ? <span> Precio: <input type="number" name='price' min='0' placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
                
                 { edit ?                     
                 <Button variant="contained" color="secondary" 
-                disabled={!quant || !price}
+                disabled={quant < 0 || price < 0 }
                 onClick={()=> handleSubmitChanges(x)}>
                     Guardar Cambios
                 </Button> : <Button variant="contained" color="primary" onClick={()=> handleEditProduct()}>
