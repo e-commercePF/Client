@@ -2,42 +2,41 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../Redux/actions';
+import { getAllProducts, getProductPagination } from '../Redux/actions';
 import axios from "axios"
 import Grid from '@mui/material/Grid';
 import Card from "./Card"
 
 export default function Paginado() {
-    const { product } = useSelector(state => state)
+    const { product, productOnStock } = useSelector(state => state)
     const [page, setPage] = useState(1)
     const getProductsPagination = async () => {
         let productToShow = await axios.get(`http://localhost:3000/api/products/forPage?page=${page}`)
         setProduct(productToShow.data.totalProducts)
-        console.log(111111, productToShow.data.totalProducts)
     }
-
+    console.log(1111111, productOnStock)
     const [productShow, setProduct] = useState([])
     const dispatch = useDispatch()
 
-    let productOnStock = new Array
+    let productOnStockToShow = new Array
     productShow.forEach(x => {
         if (x.quantity !== 0) {
-            productOnStock.push(x)
+            productOnStockToShow.push(x)
         }
     })
 
+
     useEffect(() => {
+        dispatch(getProductPagination())
         dispatch(getAllProducts())
         getProductsPagination()
-        console.log(2222, productShow)
-        console.log(33333, page)
     }, [page])
 
 
     return (
         <Stack >
             <Pagination style={{ alignSelf: "center", marginBottom: "20px" }}
-                count={(Math.ceil(product.length / 3))}
+                count={(Math.ceil(productOnStock / 3))}
                 page={page}
                 onChange={(event, value) => setPage(value)}
                 size="large"
@@ -45,8 +44,8 @@ export default function Paginado() {
             {
                 <Grid container spacing={2} style={{ alignSelf: "center" }}>
                     {
-                        (productOnStock.length !== 0) ?
-                            productOnStock.map((e, index) => (
+                        (productOnStockToShow.length !== 0) ?
+                            productOnStockToShow.map((e, index) => (
                                 <Grid item xs={12} sm={6} md={4} lg={3}
                                     key={index}>
                                     <Card
@@ -68,8 +67,8 @@ export default function Paginado() {
                     }
                 </Grid>
             }
-            <Pagination style={{ alignSelf: "center", marginTop: "10px" }}
-                count={(Math.ceil(product.length / 3))}
+            <Pagination style={{ alignSelf: "center", marginBottom: "20px" }}
+                count={(Math.ceil(productOnStock / 3))}
                 page={page}
                 onChange={(event, value) => setPage(value)}
                 size="large"
