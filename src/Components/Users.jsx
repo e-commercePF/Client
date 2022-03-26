@@ -2,6 +2,7 @@ import { getAllUsers, updateUsers, deleteUsers } from "../Redux/actions"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
+import InputUsers from "./InputUsers";
 
 export default function Users(){
 
@@ -13,7 +14,7 @@ export default function Users(){
     let { users } = useSelector(state => state)
     users = users.data
     users !== undefined ? users = users : users = []
-   console.log(users)
+   
     const [edit, setEdit] = useState(false)
     const handleEditProduct = ()=> {
         setEdit(!edit)
@@ -23,8 +24,10 @@ export default function Users(){
     const [role, setRole] = useState('')
     const handleChangeRole = (e)=> {      
         setRole(e) 
-        console.log(role)       
+            
     }
+  console.log(role) 
+
 
     const [user, setUser] = useState({
         createdAt: '',
@@ -76,7 +79,7 @@ export default function Users(){
             { users.map(x=> {
                 return <div>
                     
-                    <span>id:<b> {x._id} </b></span>
+                    {/* <span>id:<b> {x._id} </b></span>
                     <span> name:<b> {x.name}</b></span>
                     {edit ? <span> Rol:   <select onChange={(e)=> handleChangeRole(e.target.value)}>
                             <option> Selecciona el nuevo rol del usuario </option>
@@ -88,7 +91,16 @@ export default function Users(){
                     {edit ? 
                     <Button variant="contained" color="primary" onClick={()=> handleEditUser(x)} > Actualizar Usuario </Button>     
                    : <Button variant="contained" color="secondary" onClick={handleEditProduct}> Actualizar Usuario </Button>
-                }
+                } */}
+                <InputUsers 
+                id= {x._id}
+                name= {x.name}
+                role= {x.role}
+                email= {x.email}
+                handleChangeRole= {handleChangeRole}
+                handleEditUser= {()=> handleEditUser(x)}
+                />
+
                 <Button variant="contained" color="error" onClick={()=> deleteUser(x._id)} > Eliminar Usuario </Button>
                     
                 </div>

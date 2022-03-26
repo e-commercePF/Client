@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
 import { Button, Typography } from "@mui/material";
+import InputPanel from "./InputPanel";
 
 
 export default function Stock(){
@@ -44,6 +45,7 @@ export default function Stock(){
     const handleSelectQuant= (e)=> {
         setQuant(Number(e))         
     }
+     
 
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
@@ -52,8 +54,8 @@ export default function Stock(){
             img: x.img,
             isOnStock: x.isOnStock,
             name: x.name,
-            price: price,
-            quantity: quant,            
+            price: price ,
+            quantity: quant || x.quantity,            
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
@@ -62,7 +64,6 @@ export default function Stock(){
     }
 
     const handleSubmitChanges = (x)=> {
-
        handleChangeProduct(x) 
 
         let check2 = myNewDataProduct._id !== ''
@@ -93,21 +94,25 @@ export default function Stock(){
 
             {
         product.map(x=> {
-            return <div>                    
-                 <span> {x.name} : </span> 
-             
-                { edit ? <span> Cantidad: <input type="number" name='quantity' min='0' placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
-            
-                {edit ? <span> Precio: <input type="number" name='price' min='0' placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
+            return <div> 
+
+                <InputPanel 
+                name= {x.name}
+                quantity= {x.quantity}
+                price= {x.price}
+                brand= {x.brand}
+                description= {x.description}
+                img= {x.img}
+                isOnStock= {x.isOnStock}                           
+                rating= {x.rating}
+                sku= {x.sku}
+                __v= {x.__v}
+                _id= {x._id}
+                handleSelectQuant= {handleSelectQuant}
+                handleSelectPrice = {handleSelectPrice}
+                handleSubmitChanges= {()=> handleSubmitChanges(x)}
+                />                 
                
-                { edit ?                     
-                <Button variant="contained" color="secondary" 
-                disabled={quant < 0 || price < 0 }
-                onClick={()=> handleSubmitChanges(x)}>
-                    Guardar Cambios
-                </Button> : <Button variant="contained" color="primary" onClick={()=> handleEditProduct()}>
-                    Editar Producto
-                </Button> }
                 <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>
             </div>                        
                 })   
