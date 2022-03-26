@@ -8,35 +8,38 @@ import Login from './Components/Login';
 import ResultSearch from './Components/ResultSearch';
 import CreatePage from './Components/CreatePage';
 import Favorites from './Components/Favorites';
-import  { ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import ControlPanel from './Components/ControlPanel';
 import { Container } from '@mui/material';
 import CreateUser from './Components/CreateUser';
 import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
+import Paginado from './Components/Paginado';
 
 
 function App() {
   return (
     <ThemeProvider theme={CustomTheme}>
-    <Container>
-    <div className="App">
-      <NavBar />
-      <Routes>
-        
-        <Route exact path="/" element={<Home />} />
-        <Route path="/product/:_id" element={<Detail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/result" element={<ResultSearch />} />
-        <Route path='/favorites' element={<Favorites />} />
-        <Route path='/carrito' element={ <Carrito />} />
-        <Route path='/CreateUser' element={ <CreateUser />} />
-        <Route path='/admin' element={<ControlPanel />} />
- 
-      </Routes>
-    </div>
-  </Container>
-  </ThemeProvider>
+
+      <div className="App">
+        <NavBar />
+        <Container>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/product/:_id" element={<Detail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/result" element={<ResultSearch />} />
+            <Route path="/create" element={<CreatePage />} />
+            <Route path='/favorites' element={<Favorites />} />
+            <Route path='/carrito' element={<Carrito />} />
+            <Route path='/CreateUser' element={<CreateUser />} />
+            <Route path='/admin' element={<ControlPanel />} />
+            <Route path="/paginado" element={<Paginado />} />
+          </Routes>
+        </Container>
+      </div>
+    </ThemeProvider>
+
   );
 }
 
