@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, editTheProduct } from "../Redux/actions";
+import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
 import { Button, Typography } from "@mui/material";
 
 
@@ -75,6 +75,17 @@ export default function Stock(){
         }
      }
 
+     const handleDeleteProduct = (x)=> {
+         
+         let check = window.confirm(`Estas a punto de eliminar un producto definitivamente, 
+            esta accion es irremediable ¿estas seguro que deseas continual?`)
+
+         if(check){
+             dispatch(deleteOneItemFromStock(x._id))
+             alert('El producto fue eliminado con exito')
+             window.location.reload()
+         }
+     }
     return (
         <div>
              <h3> Tu Inventario actual: </h3>
@@ -84,15 +95,19 @@ export default function Stock(){
             return <div>                    
                  <span> {x.name} : </span> 
              
-                { edit ? <span> Cantidad: <input type="number" name='quantity' defaultValue={x.quantity} placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
+                { edit ? <span> Cantidad: <input type="number" name='quantity'  placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
             
-                {edit ? <span> Precio: <input type="number" name='price' defaultValue={x.price} placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
+                {edit ? <span> Precio: <input type="number" name='price'  placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
                
-                { edit ? <Button variant="contained" color="secondary" onClick={()=> handleSubmitChanges(x)}>
+                { edit ?                     
+                <Button variant="contained" color="secondary" 
+                disabled={!quant || !price}
+                onClick={()=> handleSubmitChanges(x)}>
                     Guardar Cambios
                 </Button> : <Button variant="contained" color="primary" onClick={()=> handleEditProduct()}>
                     Editar Producto
                 </Button> }
+                <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>
             </div>                        
                 })   
             }     
