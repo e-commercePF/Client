@@ -17,6 +17,7 @@ export const GET_BRAND = "GET_BRAND"
 export const GET_ALL_USERS = "GET_ALL_USERS"
 export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
 export const UPDATE_USERS = "UPDATE_USERS"
+export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
 
 
 var localhost = "http://localhost:3000"
@@ -207,11 +208,11 @@ export function getAllBrand() {
   }
 }
 
-export function deleteOneItemFromStock(id){
-  return async function(){
-    try{
+export function deleteOneItemFromStock(id) {
+  return async function () {
+    try {
       axios.delete(`${localhost}/api/products/delete/${id}`)
-    }catch(e) { console.log(e) }
+    } catch (e) { console.log(e) }
   }
 }
 
@@ -223,25 +224,36 @@ export function getAllUsers() {
         type: GET_ALL_USERS,
         payload: users
       })
-    } catch(e) { console.log(e) }
+    } catch (e) { console.log(e) }
   }
 }
 
-export function updateUsers(user){
+export function updateUsers(user) {
   try {
-    return async function () {    
+    return async function () {
       await axios.put(`${localhost}/api/users/update/${user._id}`, user)
     }
   } catch (e) { console.log(e) }
 }
 
-export function deleteUsers(user){
-    try{
-      return async function(){
-        await axios.delete(`${localhost}/api/users/delete/${user}`)
-      }
-    }catch(e) { console.log(e) }
+export function deleteUsers(user) {
+  try {
+    return async function () {
+      await axios.delete(`${localhost}/api/users/delete/${user}`)
+    }
+  } catch (e) { console.log(e) }
 }
-  
 
-
+export function getProductPagination() {
+  return async function (dispatch) {
+    try {
+      var productOnStock = await axios.get("http://localhost:3000/api/products/forPage");
+      return dispatch({
+        type: GET_PRODUCT_PAGINADO,
+        payload: productOnStock.data.totalResult,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
