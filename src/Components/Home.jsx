@@ -2,43 +2,43 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux/actions";
 import { useEffect } from "react";
-import Card from "./Card"
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import  Menu from  './Menu'
+
+import Paginado from "./Paginado";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
-      marginTop: 100,
+        flexGrow: 1,
+        marginTop: 100,
     },
-    
-  }));
+
+}));
 
 
 export default function Home() {
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllProducts())
-    }, [])
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(getAllProducts())
+    // }, [])
 
 
-    
-    const { product, haveResult } = useSelector(state => state)
+
+    // const { product } = useSelector(state => state)
 
     const classes = useStyles();
 
-    let productToShow = new Array 
-    product.forEach(x=> {
-        if(x.quantity !== 0){
-            productToShow.push(x)
-        }
-    })
+    // let productToShow = new Array
+    // product.forEach(x => {
+    //     if (x.quantity !== 0) {
+    //         productToShow.push(x)
+    //     }
+    // })
 
 
     return (
         <div className={classes.root}>
+
         <Menu/>
         <Grid container spacing={2}> 
                 {
@@ -59,11 +59,9 @@ export default function Home() {
                                     category={e.category}
                                     __v={e.__v} />
 
-                            </Grid>
-                        ))
-                        : <h1> Loading</h1>
-                }
-            </Grid>
+            <Paginado />
+
+
         </div>
     )
 }

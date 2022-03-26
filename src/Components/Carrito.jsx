@@ -2,22 +2,68 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Typography } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import Paper from "@material-ui/core/Paper";
+
+const useStyles = makeStyles({
+        root: {
+            flexGrow: 1,
+            marginTop: 100,
+          },
+        main_container: {
+            
+        },
+        buttons: {
+            display: 'flex',
+            marginLeft:'40%'            
+        },
+        button_red: {
+            backgroundColor: 'red',
+            marginLeft: '25%',
+            '&:hover': {
+                backgroundColor: 'orange'
+            }
+        }, 
+        button_green: {
+            backgroundColor: 'green',
+            margin: '1rem', 
+            '&:hover' : {
+                backgroundColor: 'yellow'
+            }
+        },
+        button_orange: {
+            backgroundColor: 'orange',
+            margin: '1rem', 
+            '&:hover' : {
+                backgroundColor: 'yellow'
+            }
+        },
+        img: {
+            borderRadius: '50%',
+            width: '5%',
+            maxHeigth: '100%',           
+            marginLeft: '-15rem',
+            position: "absolute",
+        },
+        paper: {
+            width: '70%',
+        }, 
+        main: {
+            alignItems: 'center',
+            marginLeft: '25%'
+        }
+
+    })
 
 export default function Carrito(){
 
-    const useStyles = makeStyles({
-        root: {
-
-        }
-    })
+    const clases = useStyles()
 
 
     const dispatch = useDispatch()
 
    
     const { shopingCart } = useSelector(state=> state)
-   // const shopingCart = JSON.parse(localStorage.getItem("carrito"))
 
     useEffect(() => {
     }, [shopingCart])
@@ -37,7 +83,6 @@ export default function Carrito(){
     }
 
     const addOneItem = (id)=> {
-        console.log('soy el carro + ' + id)
         dispatch(addCart(id))
     }
 
@@ -53,6 +98,7 @@ export default function Carrito(){
             name: x.name,
             price: x.price,
             quantity: x.quantity,
+            img: x.img
         }))
     
         let myCartWithoutTwoItems = myItemName.reduce((acc, el)=> {
@@ -75,6 +121,7 @@ export default function Carrito(){
     }
     
     let countMyItemResult = shopingCart.length > 0 ? countMyItem() : null 
+    console.log(countMyItemResult)
   
     //calcular el total de la compra 
     const myPayToStore = ()=> {
@@ -88,20 +135,23 @@ export default function Carrito(){
 
  
     return (
-        <div>
+        <div className={clases.main_container}>
             <h2> Tus compras: </h2>
             {
                shopingCart.length > 0 ? countMyItemResult.map(x=> {
-                   return <div> <h4>{x.name}</h4> 
+                   return <div className={clases.main}>
+                        <Paper elevation={2} className={clases.paper}>
+                        <h4>{x.name}</h4> 
+                        <img src={x.img} alt={x.name} className={clases.img}/>
                                 <h5> $ {x.price.toFixed(2)} </h5>
-                                <div style={{display: 'flex', marginLeft: 660}}>
-                                    <Button variant="contained" color="secondary" size='small'style={{height: 15, marginTop: 20}} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
+                                <div className={clases.buttons}>
+                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
                                         <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
-                                    <Button variant="contained" color="primary" size='small' style={{height: 15, marginTop: 20}} onClick={()=> addOneItem(x)}> + </Button>
+                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
                                 </div>
 
-                                <Button variant="contained" color="secondary" onClick={()=> deleteAllSingleItems(x)}> X </Button>
-                        
+                                <Button className={clases.button_red} variant="contained" onClick={()=> deleteAllSingleItems(x)}> X </Button>
+                        </Paper>
                      </div>
                    
                }) : 'Tu carrito esta vacio'            
@@ -110,9 +160,15 @@ export default function Carrito(){
 
              {  shopingCart.length > 0 ? <h4> El total a pagar es: $ { myPay } </h4> : null }
 
-             {  shopingCart.length > 0 ?   <Button variant="contained" color="primary" onClick={clearMyCart}>
+             {  shopingCart.length > 0 ?   <Button variant="contained" color='error' onClick={clearMyCart}>
                 Vaciar Carrito
             </Button> : null}
+
+            
+            {  shopingCart.length > 0 ?   <Button variant="contained" color='primary' >
+                Continuar con la compra 
+            </Button> : null}
+
         </div>
     )
 }

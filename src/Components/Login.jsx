@@ -70,7 +70,7 @@ export default function LogIn() {
             data: {
               tokenId: response.tokenId
             }
-          }).then(response => { window.localStorage.setItem("token", response.data.token);
+          }).then(response => { window.localStorage.setItem("token", response.data.tokenId);
 		  window.location.reload(false);
 		  navigate("/") })
 		}
@@ -104,12 +104,15 @@ export default function LogIn() {
 					  password: password,
 					}
 				  }).then(response =>{
-					window.localStorage.setItem("token", response.data)/*{
+					  if(response.data.error){
+						  return alert(response.data.error)
+					  }else{
+					window.localStorage.setItem("token", response.data.tokenId)/*{
 																	  googleToken,
 																	  user: {_id, name, email} */
 						  window.location.reload(false);
 						   navigate("/login")
-
+					}
 				  }).catch(err=>{
 					  console.log("ojala no salgas xd", err)
 				  })  // en caso de que el logueo sea exitoso

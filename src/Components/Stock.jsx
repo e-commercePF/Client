@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, editTheProduct } from "../Redux/actions";
+import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
 import { Button, Typography } from "@mui/material";
+import InputPanel from "./InputPanel";
 
 
 export default function Stock(){
@@ -31,6 +32,7 @@ export default function Stock(){
     const [edit, setEdit] = useState(false)
     const handleEditProduct = ()=> {
         setEdit(!edit)
+       
     }
 
     const [price, setPrice] = useState(0)
@@ -41,8 +43,9 @@ export default function Stock(){
 
     const [quant, setQuant] = useState(0)
     const handleSelectQuant= (e)=> {
-        setQuant(Number(e))
+        setQuant(Number(e))         
     }
+     
 
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
@@ -51,8 +54,8 @@ export default function Stock(){
             img: x.img,
             isOnStock: x.isOnStock,
             name: x.name,
-            price: price,
-            quantity: quant,            
+            price: price ,
+            quantity: quant || x.quantity,            
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
@@ -61,11 +64,10 @@ export default function Stock(){
     }
 
     const handleSubmitChanges = (x)=> {
-
        handleChangeProduct(x) 
 
         let check2 = myNewDataProduct._id !== ''
-        if(check2){
+        if(check2 && myNewDataProduct.price > -1 && myNewDataProduct.quantity > -1){
             let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
             if(check){
                 dispatch(editTheProduct(myNewDataProduct))
@@ -75,24 +77,43 @@ export default function Stock(){
         }
      }
 
+     const handleDeleteProduct = (x)=> {
+         
+         let check = window.confirm(`Estas a punto de eliminar un producto definitivamente, 
+            esta accion es irremediable ¿estas seguro que deseas continual?`)
+
+         if(check){
+             dispatch(deleteOneItemFromStock(x._id))
+             alert('El producto fue eliminado con exito')
+             window.location.reload()
+         }
+     }
     return (
         <div>
              <h3> Tu Inventario actual: </h3>
 
             {
         product.map(x=> {
-            return <div>                    
-                 <span> {x.name} : </span> 
-             
-                { edit ? <span> Cantidad: <input type="number" name='quantity' defaultValue={x.quantity} placeholder={x.quantity} onChange={e=> handleSelectQuant(e.target.value)}/></span> : <span> cantidad {x.quantity} </span>}
-            
-                {edit ? <span> Precio: <input type="number" name='price' defaultValue={x.price} placeholder={x.price} onChange={e=> handleSelectPrice(e.target.value)} /></span> : <span> Precio: $ {x.price} </span>}
+            return <div> 
+
+                <InputPanel 
+                name= {x.name}
+                quantity= {x.quantity}
+                price= {x.price}
+                brand= {x.brand}
+                description= {x.description}
+                img= {x.img}
+                isOnStock= {x.isOnStock}                           
+                rating= {x.rating}
+                sku= {x.sku}
+                __v= {x.__v}
+                _id= {x._id}
+                handleSelectQuant= {handleSelectQuant}
+                handleSelectPrice = {handleSelectPrice}
+                handleSubmitChanges= {()=> handleSubmitChanges(x)}
+                />                 
                
-                { edit ? <Button variant="contained" color="secondary" onClick={()=> handleSubmitChanges(x)}>
-                    Guardar Cambios
-                </Button> : <Button variant="contained" color="primary" onClick={()=> handleEditProduct()}>
-                    Editar Producto
-                </Button> }
+                <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>
             </div>                        
                 })   
             }     
