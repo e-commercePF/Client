@@ -111,7 +111,7 @@ const useStyles =  makeStyles(theme => ({
                 navigate("/")
 					window.location.reload();			
               }).catch(err=>{
-                  console.log("ojala no salgas xd", err)
+                  return alert("el email ya fue registrado")
               })
            
                 
