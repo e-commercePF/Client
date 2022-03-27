@@ -49,24 +49,22 @@ export default function Menu() {
     }
 
 
-    const handleRange = ( e , type ) => {
-        console.log(e)
-        console.log(type)
+    // const handleRange = ( e , type ) => {
+    //     console.log(e)
+    //     console.log(type)
 
-        let newRange 
+    //     let newRange 
 
-        if (type === "MaxPrice") {
-          //  newRange = [...priceRange];
-            newRange[0] = Number(e);
-            setMaxPrice(newRange);
-        }
+
+        // if (type === "MaxPrice") {
+        //   //  newRange = [...priceRange];
+        //     newRange[0] = Number(e);
+        //     setMaxPrice(newRange);
+
+        // }
 
        
         // dispatch(filterByRange(minValue,maxValue))
-    }    
-    
-
-
 
 
   return (<div>

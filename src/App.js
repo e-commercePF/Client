@@ -34,7 +34,7 @@ function App() {
             <Route path='/carrito' element={<Carrito />} />
             <Route path='/CreateUser' element={<CreateUser />} />
             <Route path='/admin' element={<ControlPanel />} />
-            <Route path="/paginado" element={<Paginado />} />
+            {/* <Route path="/paginado" element={<Paginado />} /> */}
           </Routes>
         </Container>
       </div>

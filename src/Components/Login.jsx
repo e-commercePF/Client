@@ -73,8 +73,11 @@ export default function LogIn() {
               tokenId: response.tokenId
             }
           }).then(response => { window.localStorage.setItem("token", response.data.tokenId);
-		  window.location.reload(false);
-		  navigate("/") })
+		 // window.location.reload(false);
+		  navigate("/") 
+		  window.location.reload();
+		  window.location.reload();
+		})
 		}
 		  //  console.log("Google login success", response); 
 		  /*{
