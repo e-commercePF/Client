@@ -14,9 +14,17 @@ export const CLEAN_DETAIL = "CLEAN_DETAIL"
 export const EDIT_THE_PRODUCT = "EDIT_THE_PRODUCT"
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const GET_BRAND = "GET_BRAND"
+export const FILTER_BY = "FILTER_BY"
+export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES"
+export const FILTER_BY_BRAND = "FILTER_BY_BRNAD"
+export const GET_ALL_USERS = "GET_ALL_USERS"
+export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
+export const UPDATE_USERS = "UPDATE_USERS"
+export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
+const {REACT_APP_BACKEND_URL} = process.env 
 
 
-var localhost = "http://localhost:3000"
+
 
 export function getAllProducts() {
 
@@ -24,7 +32,7 @@ export function getAllProducts() {
 
   return async function (dispatch) {
     try {
-      var json = await axios.get("http://localhost:3000/api/products");
+      var json = await axios.get(`${REACT_APP_BACKEND_URL}/api/products`);
       return dispatch({
         type: "GET_PRODUCTS",
         payload: json.data,
@@ -39,7 +47,7 @@ export function searchProduct(search) {
 
   return async function (dispatch) {
     try {
-      let busqueda = await axios.get("http://localhost:3000/api/products/name/" + search)
+      let busqueda = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/name/` + search)
       return dispatch({
         type: SEARCH_PRODUCTS,
         payload: busqueda.data
@@ -54,7 +62,7 @@ export function searchProduct(search) {
 export function detailProduct(id) {
   return async function (dispatch) {
     try {
-      let detail = await axios.get("http://localhost:3000/api/products/id/" + id)
+      let detail = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/id/` + id)
       return dispatch({
         type: GET_DETAILS,
         payload: detail.data
@@ -169,8 +177,8 @@ export function cleanDetail() {
 
 export function editTheProduct(product) {
   try {
-    return async function () {
-      await axios.put(`${localhost}/api/products/update/${product._id}`, product)
+    return async function (dispatch) {
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/products/update/${product._id}`, product)
     }
   } catch (e) { console.log(e) }
 }
@@ -178,7 +186,7 @@ export function editTheProduct(product) {
 export function getAllCategories() {
   return async function (dispatch) {
     try {
-      var category = await axios.get("http://localhost:3000/api/categories");
+      var category = await axios.get(`${REACT_APP_BACKEND_URL}/api/categories`);
       return dispatch({
         type: GET_CATEGORIES,
         payload: category.data,
@@ -192,7 +200,7 @@ export function getAllCategories() {
 export function getAllBrand() {
   return async function (dispatch) {
     try {
-      var marcas = await axios.get("http://localhost:3000/api/products/brands");
+      var marcas = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/brands`);
       marcas = [...new Set(marcas.data)]
       return dispatch({
         type: GET_BRAND,
@@ -202,8 +210,117 @@ export function getAllBrand() {
       console.log(e)
     }
   }
+}
 
 
 
+export function filterBy(value) {
+  return async function (dispatch) {
+    try {
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/${value}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+
+
+export function filterByCategories(value) {
+  return async function (dispatch) {
+    try {
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/category?name=${value}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function filterByBrands(value) {
+  return async function (dispatch) {
+    try {
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/brand?name=${value}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function deleteOneItemFromStock(id) {
+  return async function () {
+    try {
+      axios.delete(`${REACT_APP_BACKEND_URL}/api/products/delete/${id}`)
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function getAllUsers() {
+  return async function (dispatch) {
+    try {
+      let users = await axios.get(`${REACT_APP_BACKEND_URL}/api/users`)
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: users
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function updateUsers(user) {
+  try {
+    return async function () {
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/users/update/${user._id}`, user)
+    }
+  } catch (e) { console.log(e) }
+}
+
+
+export function filterByRange(maxValue, minValue) {
+  return async function (dispatch) {
+    try {
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/range?minprice=${minValue}&maxprice=${maxValue}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+
+export function deleteUsers(user) {
+  try {
+    return async function () {
+      await axios.delete(`${REACT_APP_BACKEND_URL}/api/users/delete/${user}`)
+    }
+  } catch (e) { console.log(e) }
+}
+
+export function getProductPagination() {
+  return async function (dispatch) {
+    try {
+      var productOnStock = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/forPage`);
+      return dispatch({
+        type: GET_PRODUCT_PAGINADO,
+        payload: productOnStock.data.totalResult,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 

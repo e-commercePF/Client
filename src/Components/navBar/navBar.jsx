@@ -11,6 +11,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LogoutButton from "../LogoutButton "
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/system';
+import  Menu from  '../Menu'
 
 
 export default function NavBar() {
@@ -46,6 +47,7 @@ export default function NavBar() {
 
         <AppBar style={
             {
+                position:"sticky",
                 flexDirection: "row",
                 flexWrap: "wrap",
                 justifyContent: "space-between",
@@ -121,8 +123,10 @@ export default function NavBar() {
                 </Button>
 
                 {isDisable === false ? <Carrito /> : null}
-
+            
             </Toolbar>
+
+            
 
             <div className="inputsearch">
                 <form>
@@ -162,7 +166,5 @@ export default function NavBar() {
                 </form>
             </div>
         </AppBar>
-        {/* <div className={classes.offset}></div> */}
-        <Offset />
     </div>)
 }
