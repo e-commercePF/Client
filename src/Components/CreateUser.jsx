@@ -78,7 +78,9 @@ const useStyles =  makeStyles(theme => ({
                                                               user: {_id, name, email}
                                                               } */
             window.localStorage.setItem("token", response.data.tokenId);			
-            navigate("/")				
+			window.location.reload(false)
+			navigate("/")
+				window.location.reload();			
 				  
           })
       }
