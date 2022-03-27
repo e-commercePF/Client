@@ -14,6 +14,14 @@ export const CLEAN_DETAIL = "CLEAN_DETAIL"
 export const EDIT_THE_PRODUCT = "EDIT_THE_PRODUCT"
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const GET_BRAND = "GET_BRAND"
+export const FILTER_BY = "FILTER_BY" 
+export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES"
+export const FILTER_BY_BRAND= "FILTER_BY_BRNAD"
+export const GET_ALL_USERS = "GET_ALL_USERS"
+export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
+export const UPDATE_USERS = "UPDATE_USERS"
+export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
+
 
 
 var localhost = "http://localhost:3000"
@@ -169,7 +177,7 @@ export function cleanDetail() {
 
 export function editTheProduct(product) {
   try {
-    return async function () {
+    return async function (dispatch) {
       await axios.put(`${localhost}/api/products/update/${product._id}`, product)
     }
   } catch (e) { console.log(e) }
@@ -202,8 +210,115 @@ export function getAllBrand() {
       console.log(e)
     }
   }
+}
 
 
 
+export function filterBy(value) {
+  return async function (dispatch) {
+    try {
+      var  payload = await axios.get(`http://localhost:3000/api/products/${value}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+
+
+export function filterByCategories(value) {
+  return async function (dispatch) {
+    try {
+      var  payload = await axios.get(`http://localhost:3000/api/products/category?name=${value}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export function filterByBrands(value) {
+  return async function (dispatch) {
+    try {
+      var  payload = await axios.get(`http://localhost:3000/api/products/brand?name=${value}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+
+export function deleteOneItemFromStock(id) {
+  return async function () {
+    try {
+      axios.delete(`${localhost}/api/products/delete/${id}`)
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function getAllUsers() {
+  return async function (dispatch) {
+    try {
+      let users = await axios.get(`${localhost}/api/users`)
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: users
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function updateUsers(user) {
+  try {
+    return async function () {
+      await axios.put(`${localhost}/api/users/update/${user._id}`, user)
+    }
+  } catch (e) { console.log(e) }
+}
+
+
+export function filterByRange(maxValue,minValue) {
+  return async function (dispatch) {
+    try {
+      var  payload = await axios.get(`http://localhost:3000/api/products/range?minprice=${minValue}&maxprice=${maxValue}`);
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+
+export function deleteUsers(user) {
+  try {
+    return async function () {
+      await axios.delete(`${localhost}/api/users/delete/${user}`)
+    }
+  } catch (e) { console.log(e) }
+}
+
+export function getProductPagination() {
+  return async function (dispatch) {
+    try {
+      var productOnStock = await axios.get("http://localhost:3000/api/products/forPage");
+      return dispatch({
+        type: GET_PRODUCT_PAGINADO,
+        payload: productOnStock.data.totalResult,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
