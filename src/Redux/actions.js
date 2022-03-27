@@ -14,9 +14,9 @@ export const CLEAN_DETAIL = "CLEAN_DETAIL"
 export const EDIT_THE_PRODUCT = "EDIT_THE_PRODUCT"
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const GET_BRAND = "GET_BRAND"
-export const FILTER_BY = "FILTER_BY" 
+export const FILTER_BY = "FILTER_BY"
 export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES"
-export const FILTER_BY_BRAND= "FILTER_BY_BRNAD"
+export const FILTER_BY_BRAND = "FILTER_BY_BRNAD"
 export const GET_ALL_USERS = "GET_ALL_USERS"
 export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
 export const UPDATE_USERS = "UPDATE_USERS"
@@ -217,7 +217,7 @@ export function getAllBrand() {
 export function filterBy(value) {
   return async function (dispatch) {
     try {
-      var  payload = await axios.get(`http://localhost:3000/api/products/${value}`);
+      var payload = await axios.get(`http://localhost:3000/api/products/${value}`);
       return dispatch({
         type: FILTER_BY,
         payload: payload.data,
@@ -233,7 +233,7 @@ export function filterBy(value) {
 export function filterByCategories(value) {
   return async function (dispatch) {
     try {
-      var  payload = await axios.get(`http://localhost:3000/api/products/category?name=${value}`);
+      var payload = await axios.get(`http://localhost:3000/api/products/category?name=${value}`);
       return dispatch({
         type: FILTER_BY,
         payload: payload.data,
@@ -247,7 +247,7 @@ export function filterByCategories(value) {
 export function filterByBrands(value) {
   return async function (dispatch) {
     try {
-      var  payload = await axios.get(`http://localhost:3000/api/products/brand?name=${value}`);
+      var payload = await axios.get(`http://localhost:3000/api/products/brand?name=${value}`);
       return dispatch({
         type: FILTER_BY,
         payload: payload.data,
@@ -255,6 +255,8 @@ export function filterByBrands(value) {
     } catch (e) {
       console.log(e)
     }
+  }
+}
 
 export function deleteOneItemFromStock(id) {
   return async function () {
@@ -285,10 +287,10 @@ export function updateUsers(user) {
 }
 
 
-export function filterByRange(maxValue,minValue) {
+export function filterByRange(maxValue, minValue) {
   return async function (dispatch) {
     try {
-      var  payload = await axios.get(`http://localhost:3000/api/products/range?minprice=${minValue}&maxprice=${maxValue}`);
+      var payload = await axios.get(`http://localhost:3000/api/products/range?minprice=${minValue}&maxprice=${maxValue}`);
       return dispatch({
         type: FILTER_BY,
         payload: payload.data,
