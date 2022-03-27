@@ -46,7 +46,7 @@ export default function Users(){
             email: x.email,
             name: x.name,
             passwordHash: x.passwordHash,
-            role: role, 
+            role: role || x.role, 
             _id: x._id
         })
 
