@@ -78,7 +78,9 @@ const useStyles =  makeStyles(theme => ({
                                                               user: {_id, name, email}
                                                               } */
             window.localStorage.setItem("token", response.data.tokenId);			
-            navigate("/")				
+			window.location.reload(false)
+			navigate("/")
+				window.location.reload();			
 				  
           })
       }
@@ -111,7 +113,7 @@ const useStyles =  makeStyles(theme => ({
                 navigate("/")
 					window.location.reload();			
               }).catch(err=>{
-                  console.log("ojala no salgas xd", err)
+                  return alert("el email ya fue registrado", err)
               })
            
                 
