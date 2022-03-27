@@ -55,17 +55,16 @@ export default function Menu() {
 
     //     let newRange 
 
-    //     if (type === "MaxPrice") {
-    //         newRange = [...priceRange];
-    //         newRange[0] = Number(e);
-    //         setMaxPrice(newRange);
-    //     }
+
+        // if (type === "MaxPrice") {
+        //   //  newRange = [...priceRange];
+        //     newRange[0] = Number(e);
+        //     setMaxPrice(newRange);
+
+        // }
 
        
-    //     // dispatch(filterByRange(minValue,maxValue))
-    // }
-
-
+        // dispatch(filterByRange(minValue,maxValue))
 
 
   return (<div>

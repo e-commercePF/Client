@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         marginTop: 100,
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
     },
 
 }));
@@ -39,10 +41,11 @@ export default function Home() {
 
 
     return (
-        <div className={classes.root}>
+        <div >
 
             <Menu />
             <Grid container spacing={2} />
+            <div className={classes.root}> 
             {
                 (product.length !== 0) ?
                     productToShow.map((e, index) => (
@@ -66,7 +69,7 @@ export default function Home() {
 
             {/* <Paginado /> */}
 
-
+            </div>
         </div>
     )
 }
