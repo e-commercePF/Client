@@ -54,7 +54,9 @@ export default function LogIn() {
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
 	const classes = useStyles()
-
+ 
+ const {REACT_APP_GOOGLEKEY, REACT_APP_BACKEND_URL} = process.env 
+ console.log(REACT_APP_BACKEND_URL)
 	useEffect(()=>{
 	    const loggedUserJSON = window.localStorage.getItem('token')
       if(loggedUserJSON ){
@@ -66,7 +68,7 @@ export default function LogIn() {
         console.log(response)
         axios({
             method: 'POST',
-            url: "http://localhost:3000/api/auth/googlelogin",
+            url: `${REACT_APP_BACKEND_URL}/api/auth/googlelogin`,
             data: {
               tokenId: response.tokenId
             }
@@ -98,7 +100,7 @@ export default function LogIn() {
 			  try {
 				axios({
 					method: 'POST',
-					url: "http://localhost:3000/api/auth/signin",
+					url: `${REACT_APP_BACKEND_URL}/api/auth/signin`,
 					data: {
 					   email: email,
 					  password: password,
@@ -230,7 +232,7 @@ return (
 				  </Button>
 			  </form>
 			  <GoogleLogin
-                    clientId="915932541790-lpaqrr1iij1onmgvn6k9jkkng1igjvdd.apps.googleusercontent.com"
+                    clientId={REACT_APP_GOOGLEKEY}
                     buttonText="Signup with Google"
                     onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
