@@ -13,7 +13,7 @@ import { filterBy , filterByCategories  , filterByBrands , filterByRange } from 
 import { useEffect , useState } from "react";
 import { getAllBrand , getAllCategories  } from "../Redux/actions";
 
-export default function menu() {
+export default function Menu() {
     
     const dispatch = useDispatch();
     const [categoriesInput,setCategoriesInput] = useState("");
@@ -49,21 +49,21 @@ export default function menu() {
     }
 
 
-    const handleRange = ( e , type ) => {
-        console.log(e)
-        console.log(type)
+    // const handleRange = ( e , type ) => {
+    //     console.log(e)
+    //     console.log(type)
 
-        let newRange 
+    //     let newRange 
 
-        if (type === "MaxPrice") {
-            newRange = [...priceRange];
-            newRange[0] = Number(e);
-            setMaxPrice(newRange);
-        }
+    //     if (type === "MaxPrice") {
+    //         newRange = [...priceRange];
+    //         newRange[0] = Number(e);
+    //         setMaxPrice(newRange);
+    //     }
 
        
-        // dispatch(filterByRange(minValue,maxValue))
-    }
+    //     // dispatch(filterByRange(minValue,maxValue))
+    // }
 
 
 
