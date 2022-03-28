@@ -55,7 +55,7 @@ const useStyles =  makeStyles(theme => ({
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const classes = useStyles()
-
+	const {REACT_APP_BACKEND_UR,REACT_APP_GOOGLEKEY} = process.env 
 
       useEffect(()=>{
 	    const loggedUserJSON = window.localStorage.getItem('token')
@@ -68,7 +68,7 @@ const useStyles =  makeStyles(theme => ({
         console.log(response)
         axios({
             method: 'POST',
-            url: "http://localhost:3000/api/auth/googlelogin",
+            url: `${REACT_APP_BACKEND_UR}/api/auth/googlelogin`,
             data: {
               tokenId: response.tokenId
             }
@@ -96,7 +96,7 @@ const useStyles =  makeStyles(theme => ({
         try {
             axios({
                 method: 'POST',
-                url: "http://localhost:3000/api/auth/signup",
+                url: `${REACT_APP_BACKEND_UR}/api/auth/signup`,
                 data: {
                   name: name,
                   email: email,
@@ -126,7 +126,7 @@ return(
 
 	<React.StrictMode>
   <GoogleLogin
-                    clientId="915932541790-lpaqrr1iij1onmgvn6k9jkkng1igjvdd.apps.googleusercontent.com"
+                    clientId={REACT_APP_GOOGLEKEY}
                     buttonText="Signup with Google"
                     onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
