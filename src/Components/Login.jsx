@@ -74,8 +74,7 @@ export default function LogIn() {
             }
           }).then(response => { window.localStorage.setItem("token", response.data.tokenId);
 		 // window.location.reload(false);
-		  navigate("/") 
-		  window.location.reload();
+
 		  window.location.reload();
 		})
 		}

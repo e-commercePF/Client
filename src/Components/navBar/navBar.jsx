@@ -76,7 +76,7 @@ export default function NavBar() {
                 </Link>
 
 
-                <LogoutButton />
+              
                 {
 
                     user ? console.log('consolelog') :
@@ -90,7 +90,9 @@ export default function NavBar() {
                                 Registrarse
                             </Button>
                         </Link>
+
                 }
+                  <LogoutButton />
                 {/*
 
              <Link to="/login" style={{ textDecoration: "none" }}
