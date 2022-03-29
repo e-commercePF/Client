@@ -42,28 +42,28 @@ export default function Home() {
         <div className={classes.root}>
 
             <Menu />
-            <Grid container spacing={2} />
-            {
-                (product.length !== 0) ?
-                    productToShow.map((e, index) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3}
-                            key={index}>
-                            <Card
-                                rating={e.rating}
-                                id={e._id}
-                                sku={e.sku}
-                                name={e.name}
-                                description={e.description}
-                                price={e.price}
-                                quantity={e.quantity}
-                                isOnStock={e.isOnStock}
-                                img={e.img}
-                                category={e.category}
-                                __v={e.__v} />
-                        </Grid>
+            <Grid container spacing={2} >
+                {
+                    (product.length !== 0) ?
+                        productToShow.map((e, index) => (
+                            <Grid item xs={12} sm={6} md={4} lg={3}
+                                key={index}>
+                                <Card
+                                    rating={e.rating}
+                                    id={e._id}
+                                    sku={e.sku}
+                                    name={e.name}
+                                    description={e.description}
+                                    price={e.price}
+                                    quantity={e.quantity}
+                                    isOnStock={e.isOnStock}
+                                    img={e.img}
+                                    category={e.category}
+                                    __v={e.__v} />
+                            </Grid>
 
-                    )) : <></>}
-
+                        )) : <></>}
+            </Grid>
             {/* <Paginado /> */}
 
 
