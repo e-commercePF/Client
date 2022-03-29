@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
 import { Button, Typography } from "@mui/material";
 import InputPanel from "./InputPanel";
+import Swal from 'sweetalert2'
 
 
 export default function Stock(){
@@ -66,27 +67,72 @@ export default function Stock(){
     const handleSubmitChanges = (x)=> {
        handleChangeProduct(x) 
 
-        let check2 = myNewDataProduct._id !== ''
+        let check2 = myNewDataProduct._id !== ''  
+
         if(check2 && myNewDataProduct.price > -1 && myNewDataProduct.quantity > -1){
-            let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
-            if(check){
-                dispatch(editTheProduct(myNewDataProduct))
-                alert("La base de datos se ha actualizado")
+            Swal.fire({
+                title: '¡Estas a punto de editar a un producto!',
+                text: "Esta acción es modificara la base de datos, ¿estas seguro que deseas continuar?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, modificar!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  dispatch(editTheProduct(myNewDataProduct))
+                  Swal.fire(
+                    'Producto modificado!',
+                    'La base de datos se ha actualizado.',
+                    'success'
+                  )                            
+                }
+               setTimeout(()=> {
                 window.location.reload()
-                }  
+               }, 3000) 
+              })
+
+            // let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
+            // if(check){
+            //     dispatch(editTheProduct(myNewDataProduct))
+            //     alert("La base de datos se ha actualizado")
+            //     window.location.reload()
+            //     }  
         }
      }
 
      const handleDeleteProduct = (x)=> {
+        Swal.fire({
+            title: '¡Estas a punto de eliminar un producto definitivamente!',
+            text: " esta accion es irremediable ¿estas seguro que deseas continual?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteOneItemFromStock(x._id))
+              Swal.fire(
+                'Producto eliminado!',
+                'La base de datos se ha actualizado.',
+                'success'
+              )                            
+            }
+           setTimeout(()=> {
+            window.location.reload()
+           }, 3000) 
+          })
+        
          
-         let check = window.confirm(`Estas a punto de eliminar un producto definitivamente, 
-            esta accion es irremediable ¿estas seguro que deseas continual?`)
+        //  let check = window.confirm(`Estas a punto de eliminar un producto definitivamente, 
+        //     esta accion es irremediable ¿estas seguro que deseas continual?`)
 
-         if(check){
-             dispatch(deleteOneItemFromStock(x._id))
-             alert('El producto fue eliminado con exito')
-             window.location.reload()
-         }
+        //  if(check){
+        //      dispatch(deleteOneItemFromStock(x._id))
+        //      alert('El producto fue eliminado con exito')
+        //      window.location.reload()
+        //  }
      }
     return (
         <div>

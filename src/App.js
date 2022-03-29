@@ -15,6 +15,7 @@ import CreateUser from './Components/CreateUser';
 import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
 import Paginado from './Components/Paginado';
+import Payment from './Components/Payment';
 
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
             <Route path='/CreateUser' element={<CreateUser />} />
             <Route path='/admin' element={<ControlPanel />} />
             <Route path="/paginado" element={<Paginado />} />
-          </Routes>
+            <Route path='/payment' element={ <Payment /> } />
+          </Routes> 
         </Container>
       </div>
     </ThemeProvider>

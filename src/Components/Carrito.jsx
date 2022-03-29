@@ -4,6 +4,7 @@ import { Button, Typography } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
 import { makeStyles } from '@mui/styles';
 import Paper from "@material-ui/core/Paper";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
         root: {
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
     })
 
 export default function Carrito(){
-
+    const navigate = useNavigate()
     const clases = useStyles()
 
 
@@ -132,7 +133,9 @@ export default function Carrito(){
 
     let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
 
-
+    const changePage = ()=> {
+        navigate('/payment')
+    }
  
     return (
         <div className={clases.main_container}>
@@ -165,7 +168,7 @@ export default function Carrito(){
             </Button> : null}
 
             
-            {  shopingCart.length > 0 ?   <Button variant="contained" color='primary' >
+            {  shopingCart.length > 0 ?   <Button variant="contained" color='primary' onClick={changePage} >
                 Continuar con la compra 
             </Button> : null}
 
