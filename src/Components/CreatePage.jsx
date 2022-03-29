@@ -13,6 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import InputPanel from "./InputPanel";
+import Swal from 'sweetalert2'
 
 
 
@@ -41,14 +43,12 @@ export default function Formulario() {
     const dispatch = useDispatch()
     const theme = useTheme();
     const formik = useFormik({
-        onSubmit: async (valores, { resetForm }) => {
-            console.log(valores.brand)
-            console.log(valores.category)
+        onSubmit: async (valores, { resetForm }) => {           
             let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
             if (infoproduct.data.message) {
-                alert(infoproduct.data.message)
+                Swal.fire(infoproduct.data.message)                
             } else {
-                alert("Producto creado con éxito")
+                Swal.fire("Producto creado con éxito")               
                 resetForm("")
             }
         },
