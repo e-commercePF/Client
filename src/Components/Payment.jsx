@@ -16,13 +16,13 @@ export default function Payment(){
     const stripe = useStripe()
 
     const handleSubmitPayment = async ()=> {
-
        const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: 'card',
             card: Elements.getElement(CardElement)
         })
         if(!error) console.log(paymentMethod)
     }
+
     return (
         <div>
               <Paper elevation={2} >

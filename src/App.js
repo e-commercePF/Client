@@ -16,7 +16,7 @@ import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
 import Paginado from './Components/Paginado';
 import Payment from './Components/Payment';
-
+import Success from './Components/Success';
 
 function App() {
   return (
@@ -37,6 +37,7 @@ function App() {
             <Route path='/admin' element={<ControlPanel />} />
             <Route path="/paginado" element={<Paginado />} />
             <Route path='/payment' element={ <Payment /> } />
+            <Route path='/success' element={ <Success />} />
           </Routes> 
         </Container>
       </div>
