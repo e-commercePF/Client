@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-
+const Swal = require('sweetalert2')
 
 
 const ITEM_HEIGHT = 48;
@@ -46,9 +46,15 @@ export default function Formulario() {
             console.log(valores.category)
             let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
             if (infoproduct.data.message) {
-                alert(infoproduct.data.message)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
             } else {
-                alert("Producto creado con éxito")
+                Swal.fire({
+                    title: 'Producto cargado con éxito',
+                })
                 resetForm("")
             }
         },
@@ -122,6 +128,7 @@ export default function Formulario() {
                     onChange={formik.handleChange}
                     error={formik.touched.name && Boolean(formik.errors.name)}
                     helperText={formik.touched.name && formik.errors.name}
+                    onBlur={formik.handleBlur}
                 />
                 <TextField
                     style={{ marginTop: "20px" }}
@@ -133,6 +140,7 @@ export default function Formulario() {
                     onChange={formik.handleChange}
                     error={formik.touched.description && Boolean(formik.errors.description)}
                     helperText={formik.touched.description && formik.errors.description}
+                    onBlur={formik.handleBlur}
                 />
                 <TextField
                     style={{ marginTop: "20px" }}
@@ -144,6 +152,7 @@ export default function Formulario() {
                     onChange={formik.handleChange}
                     error={formik.touched.price && Boolean(formik.errors.price)}
                     helperText={formik.touched.price && formik.errors.price}
+                    onBlur={formik.handleBlur}
                 />
 
 
@@ -157,6 +166,7 @@ export default function Formulario() {
                     onChange={formik.handleChange}
                     error={formik.touched.quantity && Boolean(formik.errors.quantity)}
                     helperText={formik.touched.quantity && formik.errors.quantity}
+                    onBlur={formik.handleBlur}
                 />
 
                 <TextField
@@ -169,6 +179,7 @@ export default function Formulario() {
                     onChange={formik.handleChange}
                     error={formik.touched.img && Boolean(formik.errors.img)}
                     helperText={formik.touched.img && formik.errors.img}
+                    onBlur={formik.handleBlur}
                 />
                 <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
                     <InputLabel id="demo-multiple-chip-label">Categorías</InputLabel>
@@ -196,8 +207,8 @@ export default function Formulario() {
                                 key={name}
                                 value={name}
                                 style={getStyles(name, formik.values.category, theme)}
-                                error={formik.touched.category && Boolean(formik.errors.category)}
-                                helperText={formik.touched.category && formik.errors.category}
+                            // error={formik.touched.category && Boolean(formik.errors.category)}
+                            // helperText={formik.touched.category && formik.errors.category}
                             >
                                 {name}
                             </MenuItem>
@@ -213,6 +224,8 @@ export default function Formulario() {
                         value={formik.values.brand}
                         onChange={formik.handleChange}
                         name="brand"
+                        error={formik.touched.brand && Boolean(formik.errors.brand)}
+                        helperText={formik.touched.brand && formik.errors.brand}
                     >
                         {brands.map((name) => (
                             <MenuItem
