@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
 import InputUsers from "./InputUsers";
+import Swal from 'sweetalert2'
 
 export default function Users(){
 
@@ -46,30 +47,57 @@ export default function Users(){
             email: x.email,
             name: x.name,
             passwordHash: x.passwordHash,
-            role: role, 
+            role: role || x.role, 
             _id: x._id
         })
 
         if(user.name !== ''){
-             let check = window.confirm(`Estas a punto de modificar el rol de un usuario, 
-         ¿Estas seguro que deseas continual?`) 
-         if(check){
-             dispatch(updateUsers(user))
-             alert('Se ha actualizado el rol del usuario')
-             window.location.reload()
-         }
+            Swal.fire({
+                title: '¡Estas a punto de editar a un usuario!',
+                text: "Esta acción es modificara la base de datos, ¿estas seguro que deseas continuar?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, modificar!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  dispatch(updateUsers(user))
+                  Swal.fire(
+                    'Usuario modificado!',
+                    'El usuario se ha modificado con exito.',
+                    'success'
+                  )                            
+                }
+               setTimeout(()=> {
+                window.location.reload()
+               }, 3000) 
+              })
         }  
     }
 
     const deleteUser = (e)=> {
-        let check= window.confirm(`Estas a punto de eliminar permantemente a un usuario, 
-            esta accion es irremediable, ¿Estas seguro que deseas continuar?`)
-        
-        if(check){
-            dispatch(deleteUsers(e))
-            alert('El usuario se ha eliminado con exito')
+        Swal.fire({
+            title: '¡Estas a punto de eliminar a un usuario!',
+            text: "Esta acción es irremediable, ¿estas seguro que deseas continuar?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(deleteUsers(e))
+              Swal.fire(
+                '¡Eliminado!',
+                'El usuario se ha eliminado con exito.',
+                'success'
+              )                            
+            }
+           setTimeout(()=> {
             window.location.reload()
-        }        
+           }, 3000) 
+          })     
     }
 
     return(
