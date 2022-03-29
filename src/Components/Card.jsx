@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-import { Button , Typography} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,33 +28,33 @@ export default function Productcard({ id, price, name, description, img, rating,
   const classes = useStyles();
 
   const _id = id
-  let myProduct = {_id, name, price, img, rating, quantity}  
-  const functionToAddProductsToMyCart = ()=> {  
-    dispatch(addCart(myProduct)) 
+  let myProduct = { _id, name, price, img, rating, quantity }
+  const functionToAddProductsToMyCart = () => {
+    dispatch(addCart(myProduct))
   }
 
 
-  const addMyFavoriteProduct = ()=> {   
-    dispatch(addToFavorites(myProduct)) 
+  const addMyFavoriteProduct = () => {
+    dispatch(addToFavorites(myProduct))
   }
 
-  const { favoriteItems } = useSelector(state=> state)
+  const { favoriteItems } = useSelector(state => state)
   useEffect(() => {
   }, [favoriteItems])
-  
-  
-   let showHeart = new Array 
-  favoriteItems.forEach(x=> x !== null ? showHeart.push(x) : null)
 
 
-  let boolean = showHeart.find(x=> x._id === _id)
-  
-  const deleteMyFavoriteProduct = ()=> {
+  let showHeart = new Array
+  favoriteItems.forEach(x => x !== null ? showHeart.push(x) : null)
 
 
-    let find = favoriteItems.some(x=> x._id === myProduct._id)
-    const deleteItem = favoriteItems.find(x=> x._id === myProduct._id)
-    if(find){
+  let boolean = showHeart.find(x => x._id === _id)
+
+  const deleteMyFavoriteProduct = () => {
+
+
+    let find = favoriteItems.some(x => x._id === myProduct._id)
+    const deleteItem = favoriteItems.find(x => x._id === myProduct._id)
+    if (find) {
       dispatch(deleteFromFavorites(deleteItem))
     } else console.log('hubo un problema')
 
@@ -63,21 +63,21 @@ export default function Productcard({ id, price, name, description, img, rating,
 
   return (
 
-    <Card sx={{ maxWidth: 345, minHeight: 480, maxHeight: 480 }}>     
-    
-      <CardHeader        
+    <Card sx={{ maxWidth: 345 }}>
 
-          action={
-           <IconButton >          
-            
+      <CardHeader
+
+        action={
+          <IconButton >
+
             {
-              boolean === undefined ? <FavoriteBorder onClick={(e)=> addMyFavoriteProduct(e)}/> : <FavoriteIcon onClick={deleteMyFavoriteProduct}/>
-            }  
-     
+              boolean === undefined ? <FavoriteBorder onClick={(e) => addMyFavoriteProduct(e)} /> : <FavoriteIcon onClick={deleteMyFavoriteProduct} />
+            }
 
-          </IconButton>         
+
+          </IconButton>
         }
-        
+
         title={
           <Link to={`/product/${id}`} style={{ textDecoration: "none", }} >
             {name}
@@ -85,7 +85,7 @@ export default function Productcard({ id, price, name, description, img, rating,
 
       />
       <Typography variant="body2" color="text.secondary">
-            ${price.toFixed(2)}
+        ${price.toFixed(2)}
       </Typography>
 
       <CardMedia
@@ -105,12 +105,12 @@ export default function Productcard({ id, price, name, description, img, rating,
       <CardActions disableSpacing>
 
         <IconButton aria-label="addShop">
-          <AddShoppingCartIcon onClick={functionToAddProductsToMyCart}/>
+          <AddShoppingCartIcon onClick={functionToAddProductsToMyCart} />
         </IconButton>
 
         <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
       </CardActions>
-   
+
     </Card>
-);
-        }
+  );
+}
