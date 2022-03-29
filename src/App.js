@@ -16,6 +16,9 @@ import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
 import Paginado from './Components/Paginado';
 import Payment from './Components/Payment';
+import Stock from './Components/Stock';
+import Users from './Components/Users';
+import Orders from './Components/Orders';
 
 
 function App() {
@@ -36,8 +39,12 @@ function App() {
             <Route path='/CreateUser' element={<CreateUser />} />
             <Route path='/admin' element={<ControlPanel />} />
             <Route path="/paginado" element={<Paginado />} />
-            <Route path='/payment' element={ <Payment /> } />
-          </Routes> 
+            <Route path='/payment' element={<Payment />} />
+            <Route path="/admin/stock" element={<Stock />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/createproduct" element={<CreatePage />} />
+            <Route path="/admin/orders" element={<Orders />} />
+          </Routes>
         </Container>
       </div>
     </ThemeProvider>
