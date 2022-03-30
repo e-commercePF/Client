@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Typography } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
 import { makeStyles } from '@mui/styles';
 import Paper from "@material-ui/core/Paper";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from 'react-stripe-checkout'
+import axios from 'axios';
+
 
 const useStyles = makeStyles({
         root: {
@@ -59,22 +62,95 @@ const useStyles = makeStyles({
 export default function Carrito(){
     const navigate = useNavigate()
     const clases = useStyles()
-
+    const { shopingCart } = useSelector(state=> state)
+    
+    const { shopingCart2 } = useSelector(state=> state)  
 
     const dispatch = useDispatch()
 
-   
-    const { shopingCart } = useSelector(state=> state)
-
+    
+    const [stripeToken,setStripeToken] = useState(null);
+    
+    // STRIPE -------------------- /// STRIPE 
+    // STRIPE -------------------- /// STRIPE 
+    const onToken = (token) =>{
+        
+        setStripeToken(token)
+    }
+    //calcular el total de la compra 
+    const myPayToStore = ()=> {
+        let myItemPrice =shopingCart.map(x=> x.price)
+        let myFinallPay = myItemPrice.reduce((x,y)=> x + y)
+        return myFinallPay
+    }  
+    
+    let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
     useEffect(() => {
-    }, [shopingCart])
-
-    const { shopingCart2 } = useSelector(state=> state)
-    useEffect(() => {
-    }, [shopingCart2])
-
+        
+        
+        const cleanCart = cart => {
+            let savedCart = cart
+            let newCart = cart.map(p=> {
+                return p._id
+            })
+            let cleaning = new Set(newCart);
+            let otherNew = [...cleaning].filter(Boolean)
+            
+            //----------------------------------------------------------------
+            let returnCart = []
+            otherNew.forEach(id=> {
+                let x = savedCart.filter(prod=> prod._id === id)
+                let quantity = x.length
+                returnCart.push({
+                    productId: id,
+                    quantity
+                })
+            })
+            
+            return returnCart
+        }
+        let cleanedCart = cleanCart(shopingCart)
+        const makePay = async() => {
+            console.log(stripeToken)
+            let amount = parseInt(myPay).toFixed(2)
+            const token = localStorage.getItem("token")
+            let config = { headers: {Authorization: 'Bearer '+ token}}
+            try{
+                const res = await axios.post('http://localhost:3000/api/payment/create',{
+                    tokenId: stripeToken.id,
+                    amount: amount
+                },config).then(response=>{
+                    console.log(response.data)
+                    window.localStorage.removeItem('carrito');
+                    return response.data
+                    
+                }).catch(error =>{
+                    console.log(error)
+                })
+                navigate("/success", {
+                    state: {
+                        userId: res.userId,
+                        products: cleanedCart,
+                        amount: amount,
+                        address: res.address,
+                        orderId: res.orderId
+                    }
+                })
+            }
+            catch(e){
+                console.log(e)
+            }
+            
+        }
+        stripeToken && makePay()
+    },[shopingCart,navigate, stripeToken,myPay,shopingCart2])
+    
+    
+    
+    
+    
     console.log(shopingCart2)
-      
+    
     const clearMyCart = ()=> {
         dispatch(clearCart())
     }
@@ -124,18 +200,7 @@ export default function Carrito(){
     let countMyItemResult = shopingCart.length > 0 ? countMyItem() : null 
     console.log(countMyItemResult)
   
-    //calcular el total de la compra 
-    const myPayToStore = ()=> {
-        let myItemPrice =shopingCart.map(x=> x.price)
-         let myFinallPay = myItemPrice.reduce((x,y)=> x + y)
-         return myFinallPay
-    }  
-
-    let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
-
-    const changePage = ()=> {
-        navigate('/payment')
-    }
+    
  
     return (
         <div className={clases.main_container}>
@@ -168,10 +233,18 @@ export default function Carrito(){
             </Button> : null}
 
             
-            {  shopingCart.length > 0 ?   <Button variant="contained" color='primary' onClick={changePage} >
-                Continuar con la compra 
-            </Button> : null}
-
+            { myPay ? <StripeCheckout
+            token={onToken}
+            stripeKey="pk_test_51KgvfFHEEv1tXsVZEpffi9X0VHCJ2XpgfPxentUc7Hx1qiTrS3uR1vXz0KDqpDkKBI5YX8ZLhxqah7FJhqK2vKXC00G70EZnc4"
+            name="Sport Market"
+            billingAddress
+            shippingAddress
+            description={`Your total is ${myPay}`}
+            amount={myPay * 100}
+            >
+            </StripeCheckout> 
+            : null}
+            
         </div>
     )
 }

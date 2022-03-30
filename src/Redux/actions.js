@@ -24,12 +24,7 @@ export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
 const {REACT_APP_BACKEND_URL} = process.env 
 
 
-
-
 export function getAllProducts() {
-
-
-
   return async function (dispatch) {
     try {
       var json = await axios.get(`${REACT_APP_BACKEND_URL}/api/products`);
@@ -44,7 +39,6 @@ export function getAllProducts() {
 }
 
 export function searchProduct(search) {
-
   return async function (dispatch) {
     try {
       let busqueda = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/name/` + search)
@@ -56,7 +50,6 @@ export function searchProduct(search) {
       console.log(error)
     }
   }
-
 }
 
 export function detailProduct(id) {

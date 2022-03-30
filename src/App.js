@@ -15,10 +15,10 @@ import CreateUser from './Components/CreateUser';
 import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
 import Paginado from './Components/Paginado';
-import Payment from './Components/Payment';
 import Stock from './Components/Stock';
 import Users from './Components/Users';
 import Orders from './Components/Orders';
+import Success from './Components/Success';
 
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
             <Route path='/CreateUser' element={<CreateUser />} />
             <Route path='/admin' element={<ControlPanel />} />
             <Route path="/paginado" element={<Paginado />} />
-            <Route path='/payment' element={<Payment />} />
+            <Route exact path='/success' element={<Success />} />
             <Route path="/admin/stock" element={<Stock />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/createproduct" element={<CreatePage />} />
