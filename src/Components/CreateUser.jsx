@@ -105,13 +105,12 @@ const useStyles =  makeStyles(theme => ({
                   password: password,
                 }
               }).then(response =>{
-				window.localStorage.setItem("token",  response.data.tokenId); /*{
-                                                                  googleToken,
-                                                                  user: {_id, name, email}
-                                                                  } */
+				//window.localStorage.setItem("token",  response.data.tokenId); /*{
+                                                                //   googleToken,
+                                                                //   user: {_id, name, email}
+                                                                //   } */
 		    window.location.reload(false)
-                navigate("/")
-					window.location.reload();			
+                navigate("/login")
               }).catch(err=>{
                   return alert("el email ya fue registrado", err)
               })

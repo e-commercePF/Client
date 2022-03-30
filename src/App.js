@@ -15,6 +15,10 @@ import CreateUser from './Components/CreateUser';
 import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
 import Paginado from './Components/Paginado';
+import Stock from './Components/Stock';
+import Users from './Components/Users';
+import Orders from './Components/Orders';
+import Success from './Components/Success';
 
 
 function App() {
@@ -34,7 +38,12 @@ function App() {
             <Route path='/carrito' element={<Carrito />} />
             <Route path='/CreateUser' element={<CreateUser />} />
             <Route path='/admin' element={<ControlPanel />} />
-            {/* <Route path="/paginado" element={<Paginado />} /> */}
+            <Route path="/paginado" element={<Paginado />} />
+            <Route exact path='/success' element={<Success />} />
+            <Route path="/admin/stock" element={<Stock />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/createproduct" element={<CreatePage />} />
+            <Route path="/admin/orders" element={<Orders />} />
           </Routes>
         </Container>
       </div>
