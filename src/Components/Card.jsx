@@ -85,7 +85,7 @@ export default function Productcard({ id, price, name, description, img, rating,
 
       />
       <Typography variant="body2" color="text.secondary">
-        ${price.toFixed(2)}
+        ${price}
       </Typography>
 
       <CardMedia

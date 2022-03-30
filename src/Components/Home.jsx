@@ -4,7 +4,6 @@ import { getAllProducts } from "../Redux/actions";
 import { useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from "./Menu"
-
 import Paginado from "./Paginado";
 import Card from "./Card"
 import Grid from '@mui/material/Grid';
@@ -24,8 +23,6 @@ export default function Home() {
         dispatch(getAllProducts())
     }, [])
 
-
-
     const { product } = useSelector(state => state)
 
     const classes = useStyles();
@@ -36,7 +33,6 @@ export default function Home() {
             productToShow.push(x)
         }
     })
-
 
     return (
         <div className={classes.root}>

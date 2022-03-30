@@ -55,7 +55,7 @@ const useStyles =  makeStyles(theme => ({
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const classes = useStyles()
-	const {REACT_APP_BACKEND_UR,REACT_APP_GOOGLEKEY} = process.env 
+	const {REACT_APP_BACKEND_URL,REACT_APP_GOOGLEKEY} = process.env 
 
       useEffect(()=>{
 	    const loggedUserJSON = window.localStorage.getItem('token')
@@ -68,7 +68,7 @@ const useStyles =  makeStyles(theme => ({
         console.log(response)
         axios({
             method: 'POST',
-            url: `${REACT_APP_BACKEND_UR}/api/auth/googlelogin`,
+            url: `${REACT_APP_BACKEND_URL}/api/auth/googlelogin`,
             data: {
               tokenId: response.tokenId
             }
@@ -96,19 +96,19 @@ const useStyles =  makeStyles(theme => ({
         try {
             axios({
                 method: 'POST',
-                url: `${REACT_APP_BACKEND_UR}/api/auth/signup`,
+                url: `${REACT_APP_BACKEND_URL}/api/auth/signup`,
                 data: {
                   name: name,
                   email: email,
                   password: password,
                 }
               }).then(response =>{
-				window.localStorage.setItem("token",  response.data.tokenId); /*{
-                                                                  googleToken,
-                                                                  user: {_id, name, email}
-                                                                  } */
+				//window.localStorage.setItem("token",  response.data.tokenId); /*{
+                                                                //   googleToken,
+                                                                //   user: {_id, name, email}
+                                                                //   } */
 		    window.location.reload(false)
-                navigate("/")
+                navigate("/login")
               }).catch(err=>{
                   console.log("ojala no salgas xd", err)
               })
