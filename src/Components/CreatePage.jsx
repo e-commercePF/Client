@@ -15,7 +15,12 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
-
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../firebase";
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
 
 
 
@@ -29,7 +34,9 @@ const MenuProps = {
         },
     },
 };
-
+const Input = styled('input')({
+    display: 'none',
+});
 function getStyles(name, text, theme) {
     return {
         fontWeight:
@@ -42,9 +49,40 @@ function getStyles(name, text, theme) {
 export default function Formulario() {
     const { categories, brands } = useSelector(state => state)
     const dispatch = useDispatch()
+    const [progress, setProgress] = useState(0);
+    const formHandler = (e) => {
+        e.preventDefault();
+        const file = e.target[0].files[0];
+        uploadFiles(file);
+    };
+
+    const uploadFiles = (file) => {
+        //
+        if (!file) return;
+        const sotrageRef = ref(storage, `files/${file.name}`);
+        const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const prog = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(prog);
+            },
+            (error) => console.log(error),
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log("File available at", downloadURL);
+                });
+            }
+        );
+    };
+
+
     const theme = useTheme();
     const formik = useFormik({
-        onSubmit: async (valores, { resetForm }) => {           
+        onSubmit: async (valores, { resetForm }) => {
             let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
             if (infoproduct.data.message) {
                 Swal.fire({
@@ -58,6 +96,7 @@ export default function Formulario() {
                 })
                 resetForm("")
             }
+            console.log(valores.img)
         },
         initialValues: {
             name: "",
@@ -115,7 +154,12 @@ export default function Formulario() {
     }, [])
 
     return (<div>
-
+        <form onSubmit={formHandler}>
+            <input type="file" className="input" />
+            <button type="submit">Upload</button>
+        </form>
+        <hr />
+        <h2>Uploading done {progress}%</h2>
         <div>
             <form onSubmit={formik.handleSubmit}>
 
@@ -170,18 +214,37 @@ export default function Formulario() {
                     onBlur={formik.handleBlur}
                 />
 
-                <TextField
-                    style={{ marginTop: "20px" }}
-                    fullWidth
-                    id="img"
-                    name="img"
-                    label="Imágen producto"
-                    value={formik.values.img}
-                    onChange={formik.handleChange}
-                    error={formik.touched.img && Boolean(formik.errors.img)}
-                    helperText={formik.touched.img && formik.errors.img}
-                    onBlur={formik.handleBlur}
-                />
+                <Stack direction="row" alignItems="center" spacing={2}>
+                    <TextField
+                        style={{ marginTop: "20px" }}
+                        fullWidth
+                        id="img"
+                        name="img"
+                        label="Imágen producto"
+                        value={formik.values.img}
+                        onChange={formik.handleChange}
+                        error={formik.touched.img && Boolean(formik.errors.img)}
+                        helperText={formik.touched.img && formik.errors.img}
+                        onBlur={formik.handleBlur}
+                    />
+                    {/* <label htmlFor="icon-button-file">
+                        <Input accept="image/*"
+                            id="icon-button-file"
+                            type="file"
+                            onChange={formik.handleChange}
+                            value={formik.values.img}
+                            name="img-upload"
+                        />
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+                        </IconButton>
+                    </label> */}
+                </Stack>
+
+
+
+
+
                 <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
                     <InputLabel id="demo-multiple-chip-label">Categorías</InputLabel>
                     <Select
