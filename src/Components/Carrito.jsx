@@ -60,6 +60,8 @@ const useStyles = makeStyles({
     })
 
 export default function Carrito(){
+    const { REACT_APP_BACKEND_URL } = process.env 
+    
     const navigate = useNavigate()
     const clases = useStyles()
     const { shopingCart } = useSelector(state=> state)
@@ -116,7 +118,7 @@ export default function Carrito(){
             const token = localStorage.getItem("token")
             let config = { headers: {Authorization: 'Bearer '+ token}}
             try{
-                const res = await axios.post('http://localhost:3000/api/payment/create',{
+                const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/payment/create`,{
                     tokenId: stripeToken.id,
                     amount: amount
                 },config).then(response=>{
