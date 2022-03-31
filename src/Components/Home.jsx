@@ -1,18 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../Redux/actions";
+import { getAllProducts, GetFilters } from "../Redux/actions";
 import { useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import Menu from "./Menu"
-import Paginado from "./Paginado";
 import Card from "./Card"
 import Grid from '@mui/material/Grid';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        marginTop: 100,
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        padding:"1em",
+
     },
 
 }));
@@ -22,7 +20,7 @@ export default function Home() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getAllProducts())
+        dispatch(GetFilters({page: 1}))
     }, [])
 
     const { product } = useSelector(state => state)
@@ -44,7 +42,7 @@ export default function Home() {
                 {
                     (product.length !== 0) ?
                         productToShow.map((e, index) => (
-                            <Grid item xs={12} sm={6} md={4} lg={3}
+                            <Grid item xs={12} sm={6} md={4} lg={4}
                                 key={index}>
                                 <Card
                                     rating={e.rating}
@@ -64,7 +62,8 @@ export default function Home() {
             </Grid>
             {/* <Paginado /> */}
 
-            </div>
-       
+
+            
+        </div>
     )
 }
