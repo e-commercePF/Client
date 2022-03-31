@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import { useFormik, Field, Form, FieldArray } from "formik"
+import { useFormik } from "formik"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
@@ -13,7 +13,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../firebase";
@@ -90,23 +89,22 @@ export default function Formulario() {
     const theme = useTheme();
     const formik = useFormik({
         onSubmit: async (valores, { resetForm }) => {
-            // if (valores.img === '') {
-            //     valores.img = imagen.join(' - ')
-            // }
-            // let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
-            // if (infoproduct.data.message) {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Oops...',
-            //         text: 'Something went wrong!',
-            //     })
-            // } else {
-            //     Swal.fire({
-            //         title: 'Producto cargado con éxito',
-            //     })
-            //     resetForm("")
-            // }
-            console.log(2222222, valores.image)
+            if (valores.img === '') {
+                valores.img = imagen.join(' - ')
+            }
+            let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
+            if (infoproduct.data.message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            } else {
+                Swal.fire({
+                    title: 'Producto cargado con éxito',
+                })
+                resetForm("")
+            }
         },
 
         formHandler: (e) => {
@@ -194,12 +192,7 @@ export default function Formulario() {
     }, [])
 
     return (<div>
-        <form onSubmit={formHandler}>
-            <input type="file" className="input" />
-            <button type="submit">Upload</button>
-        </form>
-        <hr />
-        <h2>Uploading done {progress}%</h2>
+
         <div>
             <form onSubmit={formik.handleSubmit}>
 
@@ -269,25 +262,25 @@ export default function Formulario() {
 
                     <label>
                         <Input
-                            value={formik.values.image}
+                            hidden={false}
                             accept="image/*"
                             id="icon-button-file"
                             type="file"
                             name="image"
                             onChange={(event) => {
-                                formik.setFieldValue("file", event.currentTarget.files[0])
-                            }}
-                        />
+                                formik.setFieldValue("image", event.currentTarget.files[0]);
+                            }} className="form-control" />
 
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera />
 
                         </IconButton>
+                        <h5>Uploading done {progress}%</h5>
                         <Button
                             color="primary"
                             variant="contained"
                             fullWidth
-                            onClick={console.log(111, formik.values.image)}
+                            onClick={() => uploadFiles(formik.values.image)}
                         >
                             Agregar imagen
                         </Button>
@@ -320,8 +313,6 @@ export default function Formulario() {
                                 key={name}
                                 value={name}
                                 style={getStyles(name, formik.values.category, theme)}
-                            // error={formik.touched.category && Boolean(formik.errors.category)}
-                            // helperText={formik.touched.category && formik.errors.category}
                             >
                                 {name}
                             </MenuItem>
