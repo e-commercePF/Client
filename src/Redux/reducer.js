@@ -17,7 +17,9 @@ const initialState = {
     users: [],
     productOnStock: [],
     isAdmin: false, 
-    orders: []
+    orders: [],
+    pages:10,
+    filters:{}
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -165,7 +167,8 @@ export default function rootReducer(state = initialState, action) {
             case FILTER_BY:
                 return {
                     ...state,
-                    product: action.payload
+                    pages: action.payload.totalPage,
+                    product: action.payload.totalProducts
                 }
 
         case GET_ALL_USERS:

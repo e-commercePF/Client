@@ -1,4 +1,6 @@
 import {
+  Stack,
+  Pagination,
   Button,
   Radio, 
   RadioGroup,  
@@ -24,11 +26,12 @@ export default function Menu() {
     name:"", 
     pricemin:"", 
     pricemax:"",
-    page:1}
+    page:1
+  }
   
   const dispatch = useDispatch();
   const [input,setInput] = useState(filter);
-  const { categories ,  brands  } = useSelector((state) => state);
+  const { categories ,  brands  ,pages, filters} = useSelector((state) => state);
 
   useEffect(() => {
       dispatch(getAllBrand())
@@ -40,22 +43,45 @@ export default function Menu() {
   
   const newFilter = {
     ...input,
-    [e.target.name]: e.target.value }
+    [e.target.name]: e.target.value, page: 1}
 
    setInput(newFilter)
 
-    dispatch(AddFilters(newFilter))
+    // dispatch(AddFilters(newFilter))
     dispatch(GetFilters(newFilter))   
  }
 
 
- const clearFilter  = () => {
+ const handlePage = (event, value) => {
+
+
+  let newPage = {
+      ...input,
+      page: value
+  }
+  
+  setInput(newPage)
+
+  dispatch(AddFilters(newPage))
+  dispatch(GetFilters(newPage))
+
+}
+
+
+
+ const clearFilter  = (e) => {
+
+  console.log(input)
+  console.log('target' ,e.target.pricemin)
+
+
+
    const cleanFilter = {
       [input.category]:"",
       [input.brand]:"", 
       [input.name]:"", 
-      [input.pricemin]:"", 
-      [input.pricemax]:"",
+      [input.pricemin]:null, 
+      [input.pricemax]:null,
       page:1
    }
    
@@ -63,6 +89,7 @@ export default function Menu() {
   dispatch(GetFilters(cleanFilter))
   dispatch(AddFilters(clearFilter))
  }
+
 
 
 
@@ -173,6 +200,19 @@ return (<div>
  <Button
  onClick={clearFilter}
  > clear filter </Button>
+
+
+
+<Stack >
+    <Pagination style={{ alignSelf: "center", marginBottom: "20px" }}
+        count={pages}
+        name="page"
+        page={input.page}
+        onChange={(event, value) => handlePage(event, value)}
+        size="large"
+    />
+</Stack>
+
 
 
   </div>

@@ -14,7 +14,6 @@ import { Container } from '@mui/material';
 import CreateUser from './Components/CreateUser';
 import Carrito from './Components/Carrito';
 import CustomTheme from './assets/CustomTheme';
-import Paginado from './Components/Paginado';
 import Stock from './Components/Stock';
 import Users from './Components/Users';
 import Orders from './Components/Orders';
@@ -39,7 +38,6 @@ function App() {
             <Route path='/carrito' element={<Carrito />} />
             <Route path='/CreateUser' element={<CreateUser />} />
             <Route path='/admin' element={<ControlPanel />} />
-            <Route path="/paginado" element={<Paginado />} />
             <Route exact path='/success' element={<Success />} />
             <Route path="/admin/stock" element={<Stock />} />
             <Route path="/admin/users" element={<Users />} />

@@ -23,7 +23,8 @@ const CustomTheme = createTheme({
     MuiCardHeader:{
       styleOverrides: {
         root:{     
-       maxHeight:"4vh", 
+       maxHeight:"6.5vh",
+       minHeight:"6.5vh" 
       }
       },
     }

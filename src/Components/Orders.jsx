@@ -78,7 +78,7 @@ if(typeof orders === 'object' && typeof orders.then === 'function'){
 
     return (<>
 
-        <h1> Estas son tus ordenes de compra </h1> 
+        <h1> Estas son tus ordenes de venta </h1> 
         <select onChange={e=> setActiveOrder(e.target.value)}> 
             <option value='all'> Selecciona el status que deseas filtrar </option>
             {
