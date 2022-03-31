@@ -317,3 +317,31 @@ export function getProductPagination() {
   }
 }
 
+
+export function GetFilters(filters) {
+  return async function (dispatch) {
+    try {
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/forPage`,{params: filters});
+      console.log(payload.data.totalProducts); 
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data.totalProducts,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+
+export function AddFilters(filters) {
+  // console.log('from actions',filters)
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: "ADD_FILTERS",
+        payload: filters,
+      })
+    } catch (e) { console.log(e) }
+  }
+}

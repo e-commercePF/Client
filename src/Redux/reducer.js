@@ -194,6 +194,12 @@ export default function rootReducer(state = initialState, action) {
                 productOnStock: action.payload
             }
 
+            case "ADD_FILTERS":
+                return {
+                  ...state,
+                 filters: action.payload
+                }
+
         default:
             return state
     }
