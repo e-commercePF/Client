@@ -17,6 +17,7 @@ const initialState = {
     users: [],
     productOnStock: [],
     isAdmin: false, 
+    orders: []
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -190,11 +191,24 @@ export default function rootReducer(state = initialState, action) {
                 productOnStock: action.payload
             }
 
+
         case IS_ADMIN: 
                 return {
                     ...state,
-                    isAdmin: action.payload
                 }
+
+        case "ADD_FILTERS":
+                return {
+                  ...state,
+                 filters: action.payload
+
+                }
+
+        case "GET_ALL_ORDERS":
+            return {
+                ...state, 
+                orders: action.payload
+            }
 
         default:
             return state

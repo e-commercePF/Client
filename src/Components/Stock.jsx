@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
+const {REACT_APP_BACKEND_URL} = process.env 
 
 export default function Stock(){
 
@@ -16,7 +17,7 @@ export default function Stock(){
         let token = window.localStorage.getItem('token');
         let config = { headers: {
                 Authorization: 'Bearer ' + token}}
-          axios.get('http://localhost:3000/api/users/admin/verify', config)
+                axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
                 console.log(res.data)
             }).catch(err => {
@@ -108,13 +109,6 @@ export default function Stock(){
                 window.location.reload()
                }, 3000) 
               })
-
-            // let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
-            // if(check){
-            //     dispatch(editTheProduct(myNewDataProduct))
-            //     alert("La base de datos se ha actualizado")
-            //     window.location.reload()
-            //     }  
         }
      }
 
@@ -140,16 +134,7 @@ export default function Stock(){
             window.location.reload()
            }, 3000) 
           })
-        
-         
-        //  let check = window.confirm(`Estas a punto de eliminar un producto definitivamente, 
-        //     esta accion es irremediable ¿estas seguro que deseas continual?`)
 
-        //  if(check){
-        //      dispatch(deleteOneItemFromStock(x._id))
-        //      alert('El producto fue eliminado con exito')
-        //      window.location.reload()
-        //  }
      }
     return (
         <div>
