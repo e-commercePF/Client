@@ -15,10 +15,10 @@ const initialState = {
     user2: {},
     categories: [],
     brands: [],
-
     users: [],
-    productOnStock: []
-
+    productOnStock: [],
+    pages:10,
+    filters:{}
 }
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
@@ -166,7 +166,8 @@ export default function rootReducer(state = initialState, action) {
             case FILTER_BY:
                 return {
                     ...state,
-                    product: action.payload
+                    pages: action.payload.totalPage,
+                    product: action.payload.totalProducts
                 }
 
 
