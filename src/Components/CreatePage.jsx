@@ -47,13 +47,15 @@ function getStyles(name, text, theme) {
 }
 
 export default function Formulario() {
+    let file
     const { categories, brands } = useSelector(state => state)
     const dispatch = useDispatch()
     const [progress, setProgress] = useState(0);
     const formHandler = (e) => {
         e.preventDefault();
-        const file = e.target[0].files[0];
-        uploadFiles(file);
+        file = e.target[0].files[0];
+        // uploadFiles(file);
+        console.log(file)
     };
 
     const uploadFiles = (file) => {
@@ -73,31 +75,69 @@ export default function Formulario() {
             (error) => console.log(error),
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setImg([...imagen, downloadURL])
                     console.log("File available at", downloadURL);
                 });
             }
         );
     };
 
+    const [imagen, setImg] = useState([])
+    useEffect(() => {
+        console.log(1111111, imagen)
+    }, [imagen])
 
     const theme = useTheme();
     const formik = useFormik({
         onSubmit: async (valores, { resetForm }) => {
-            let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
-            if (infoproduct.data.message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                })
-            } else {
-                Swal.fire({
-                    title: 'Producto cargado con éxito',
-                })
-                resetForm("")
-            }
-            console.log(valores.img)
+            // if (valores.img === '') {
+            //     valores.img = imagen.join(' - ')
+            // }
+            // let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
+            // if (infoproduct.data.message) {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Oops...',
+            //         text: 'Something went wrong!',
+            //     })
+            // } else {
+            //     Swal.fire({
+            //         title: 'Producto cargado con éxito',
+            //     })
+            //     resetForm("")
+            // }
+            console.log(2222222, valores.image)
         },
+
+        formHandler: (e) => {
+            e.preventDefault();
+            const file = e.target[0].formik.files[0];
+            uploadFiles(file);
+        },
+        uploadFiles: (file) => {
+            //
+            if (!file) return;
+            const sotrageRef = ref(storage, `files/${file.name}`);
+            const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const prog = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                    setProgress(prog);
+                },
+                (error) => console.log(error),
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setImg([...imagen, downloadURL])
+                        console.log("File available at", downloadURL);
+                    });
+                }
+            );
+        },
+
         initialValues: {
             name: "",
             description: "",
@@ -105,9 +145,9 @@ export default function Formulario() {
             quantity: "",
             img: "",
             category: [],
-            brand: ""
+            brand: "",
+            image: null
         },
-
         validate: (valores) => {
             let errors = {}
 
@@ -213,38 +253,46 @@ export default function Formulario() {
                     helperText={formik.touched.quantity && formik.errors.quantity}
                     onBlur={formik.handleBlur}
                 />
-
+                <TextField
+                    style={{ marginTop: "20px" }}
+                    fullWidth
+                    id="img"
+                    name="img"
+                    label="Imágen producto"
+                    value={formik.values.img}
+                    onChange={formik.handleChange}
+                    error={formik.touched.img && Boolean(formik.errors.img)}
+                    helperText={formik.touched.img && formik.errors.img}
+                    onBlur={formik.handleBlur}
+                />
                 <Stack direction="row" alignItems="center" spacing={2}>
-                    <TextField
-                        style={{ marginTop: "20px" }}
-                        fullWidth
-                        id="img"
-                        name="img"
-                        label="Imágen producto"
-                        value={formik.values.img}
-                        onChange={formik.handleChange}
-                        error={formik.touched.img && Boolean(formik.errors.img)}
-                        helperText={formik.touched.img && formik.errors.img}
-                        onBlur={formik.handleBlur}
-                    />
-                    {/* <label htmlFor="icon-button-file">
-                        <Input accept="image/*"
+
+                    <label>
+                        <Input
+                            value={formik.values.image}
+                            accept="image/*"
                             id="icon-button-file"
                             type="file"
-                            onChange={formik.handleChange}
-                            value={formik.values.img}
-                            name="img-upload"
+                            name="image"
+                            onChange={(event) => {
+                                formik.setFieldValue("file", event.currentTarget.files[0])
+                            }}
                         />
+
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera />
+
                         </IconButton>
-                    </label> */}
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            fullWidth
+                            onClick={console.log(111, formik.values.image)}
+                        >
+                            Agregar imagen
+                        </Button>
+                    </label>
                 </Stack>
-
-
-
-
-
                 <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
                     <InputLabel id="demo-multiple-chip-label">Categorías</InputLabel>
                     <Select
@@ -263,6 +311,7 @@ export default function Formulario() {
                                     <Chip key={value} label={value} />
                                 ))}
                             </Box>
+
                         )}
                         MenuProps={MenuProps}
                     >
