@@ -4,8 +4,26 @@ import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
 import InputUsers from "./InputUsers";
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function Users(){
+
+  const navigate = useNavigate()
+
+
+  useEffect(() =>{
+      let token = window.localStorage.getItem('token');
+      let config = { headers: {
+              Authorization: 'Bearer ' + token}}
+        axios.get('http://localhost:3000/api/users/admin/verify', config)
+          .then(res => {
+              console.log(res.data)
+          }).catch(err => {
+              console.log(err)
+              navigate('/')
+          })
+         }   ,[navigate])
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -75,6 +93,7 @@ export default function Users(){
               })
         }  
     }
+
 
     const deleteUser = (e)=> {
         Swal.fire({
