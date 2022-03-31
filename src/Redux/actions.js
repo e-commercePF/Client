@@ -322,10 +322,9 @@ export function GetFilters(filters) {
   return async function (dispatch) {
     try {
       var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/forPage`,{params: filters});
-      console.log(payload.data.totalProducts); 
       return dispatch({
         type: FILTER_BY,
-        payload: payload.data.totalProducts,
+        payload: payload.data,
       });
     } catch (e) {
       console.log(e)
