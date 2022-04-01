@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Card from "./Card"
 import Grid from '@material-ui/core/Grid';
 import { Avatar, Button, Typography } from "@mui/material";
@@ -6,6 +6,7 @@ import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
+import { cleanDetail } from "../Redux/actions";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +21,7 @@ export default function ResultSearch() {
     const useStyles = makeStyles({
     });
     const classes = useStyles()
-
+    const dispatch = useDispatch()
 
     return (<div>
         <Grid container spacing={2}>
