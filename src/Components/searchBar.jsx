@@ -21,34 +21,84 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchBar() {
-    const { product } = useSelector(state => state)
+
+
+
+
     const navigate = useNavigate()
     const [search, setSearch] = useState()
-    const dispatch = useDispatch()
-
     const [productos, setProductos] = useState([])
+    const dispatch = useDispatch()
+    useEffect(() => {
+        getProductFromBack()
+    }, [])
 
     function onHandleSearch(event) {
         event.preventDefault()
         setSearch(event.target.value)
     }
-
-    useEffect(() => {
-        dispatch(getAllProducts())
-    })
-    const getAllProductsForName = async () => {
-
-        let allProductForSearch = await axios.get("http://localhost:3000/api/products")
-        setProductos(allProductForSearch)
+    const getProductFromBack = async () => {
+        const productillos = await axios.get("http://localhost:3000/api/products")
+        setProductos(productillos.data)
     }
-    console.log(1111, productos)
-    const useStyles = makeStyles({
-    });
+    const optionProduct = []
+    productos.forEach(e => {
+        optionProduct.push({ label: e.name })
+    })
+    console.log(11111, optionProduct)
 
     return (<>
         <div className="inputsearch">
+
             <form>
-                <Input
+                <Autocomplete
+                    style={{
+                        backgroundColor: "white",
+                        borderRadius: "5px",
+                        height: "2.2em",
+                        margin: "5px"
+                    }}
+                    clearOnBlur
+                    onSelect={(event) => onHandleSearch(event)}
+                    value={search}
+                    disablePortal
+                    id="combo-box-demo"
+                    options={optionProduct}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} placeholder="¿Qué estás buscando?" />}
+                    type="submit"
+                />
+                <Link to="/result" style={{ textDecoration: "none" }}
+                >
+                    <Button
+                        type="submit"
+                        color="navBtnColor"
+                        variant="contained"
+                        startIcon={<Search />}
+
+                        onClick={() => {
+                            if (!search) {
+                                navigate("/home")
+                                alert("Debes ingresar tu búsqueda")
+                            } else {
+                                dispatch((searchProduct(search)))
+                                setSearch("")
+                            }
+                        }}
+
+                    >
+                        Buscar
+                    </Button>
+                </Link>
+            </form>
+
+
+        </div>
+
+    </>)
+}
+/*
+              <Input
                     style={{
                         backgroundColor: "white",
                         borderRadius: "5px",
@@ -81,10 +131,4 @@ export default function SearchBar() {
                         Buscar
                     </Button>
                 </Link>
-            </form>
-        </div>
-
-
-
-    </>)
-}
+*/

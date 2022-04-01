@@ -212,8 +212,8 @@ export default function NavBar() {
 
                         </React.Fragment>
                 }
+                <SearchBar />
             </Hidden>
-            <SearchBar />
         </AppBar>
     </div>)
 }

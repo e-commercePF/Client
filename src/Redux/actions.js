@@ -21,7 +21,9 @@ export const GET_ALL_USERS = "GET_ALL_USERS"
 export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
 export const UPDATE_USERS = "UPDATE_USERS"
 export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
-const {REACT_APP_BACKEND_URL} = process.env 
+export const GET_PRODUCTS_FOR_AUTOCOMPLETE = "GET_PRODUCTS_FOR_AUTOCOMPLETE"
+
+const { REACT_APP_BACKEND_URL } = process.env
 
 
 export function getAllProducts() {
@@ -321,7 +323,7 @@ export function getProductPagination() {
 export function GetFilters(filters) {
   return async function (dispatch) {
     try {
-      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/forPage`,{params: filters});
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/forPage`, { params: filters });
       return dispatch({
         type: FILTER_BY,
         payload: payload.data,
@@ -342,5 +344,19 @@ export function AddFilters(filters) {
         payload: filters,
       })
     } catch (e) { console.log(e) }
+  }
+}
+
+export function getAllProductForAutocomplete() {
+  return async function (dispatch) {
+    try {
+      var response = await axios.get(`${REACT_APP_BACKEND_URL}/api/products`);
+      return dispatch({
+        type: GET_PRODUCTS_FOR_AUTOCOMPLETE,
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

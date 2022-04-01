@@ -1,7 +1,7 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
     DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT, GET_BRAND, GET_CATEGORIES,
-    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS, GET_PRODUCT_PAGINADO ,FILTER_PRICE, FILTER_BY
+    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS, GET_PRODUCT_PAGINADO, FILTER_PRICE, FILTER_BY, GET_PRODUCTS_FOR_AUTOCOMPLETE
 } from "./actions"
 
 
@@ -17,8 +17,9 @@ const initialState = {
     brands: [],
     users: [],
     productOnStock: [],
-    pages:10,
-    filters:{}
+    pages: 10,
+    filters: {},
+    allProductForAutocomplete: []
 }
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
@@ -163,12 +164,12 @@ export default function rootReducer(state = initialState, action) {
             }
 
 
-            case FILTER_BY:
-                return {
-                    ...state,
-                    pages: action.payload.totalPage,
-                    product: action.payload.totalProducts
-                }
+        case FILTER_BY:
+            return {
+                ...state,
+                pages: action.payload.totalPage,
+                product: action.payload.totalProducts
+            }
 
 
 
@@ -195,12 +196,17 @@ export default function rootReducer(state = initialState, action) {
                 productOnStock: action.payload
             }
 
-            case "ADD_FILTERS":
-                return {
-                  ...state,
-                 filters: action.payload
-                }
+        case "ADD_FILTERS":
+            return {
+                ...state,
+                filters: action.payload
+            }
 
+        case GET_PRODUCTS_FOR_AUTOCOMPLETE:
+            return {
+                ...state,
+                allProductForAutocomplete: action.payload
+            }
         default:
             return state
     }
