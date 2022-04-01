@@ -237,6 +237,7 @@ return (
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
+		  	<span> If you have forgot your password, <Link to="/forgotpassword"> click here </Link> </span>		  	
 		  </div>
 	  </Container>
 </Grid>   
