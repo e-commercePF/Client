@@ -34,7 +34,7 @@ export default function ControlPanel() {
                 console.log(res.data)
             }).catch(err => {
                 console.log(err)
-                navigate('/')
+               return navigate('/')
             })
            },[navigate])
 

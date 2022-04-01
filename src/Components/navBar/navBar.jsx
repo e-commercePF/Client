@@ -1,5 +1,5 @@
 import { Input, AppBar, Toolbar } from "@material-ui/core"
-import { Avatar, Button, Typography } from "@mui/material";
+import {  Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
@@ -41,25 +41,26 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
     const [user, setUser] = useState('');
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('token')
-        setUser(loggedUserJSON)
-    }, [])
-
+    const [response, setResponse] = useState(false)
     const token = localStorage.getItem('token')
-   
+
+    useEffect(() => {        
+        setUser(token)   
     let config = { headers: {
         Authorization: 'Bearer ' + token
     }}
 
-    const [response, setResponse] = useState(false)
-
     if(token){
-        var isTheAdmin = axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+        axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
         .then( boolean => {           
            setResponse(boolean.data)           
-        }) 
-    } else isTheAdmin = false
+        }).catch(e=> {
+            setResponse(false)
+        } )
+    } 
+    }, [token])
+
+    
    
 
     function onHandleSearch(event) {
@@ -183,7 +184,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
             
             </Toolbar> :    
             <React.Fragment> 
-              { /* iNICIO DE LA HAMBURGUESA */}      
+              { /* INICIO DE LA HAMBURGUESA */}      
                <DensitySmallIcon  onClick={()=> setOpen(!open)}             
                />       
                     
@@ -214,7 +215,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
 
                 {
                     !response && token ? 
-                    <Link to={`/${token}`} style={{ textDecoration: "none" }}  >                   
+                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >                   
               
                     <Button
                         color="navBtnColor"
