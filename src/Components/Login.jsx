@@ -73,10 +73,8 @@ export default function LogIn() {
               tokenId: response.tokenId
             }
           }).then(response => { window.localStorage.setItem("token", response.data.tokenId);
-		 // window.location.reload(false);
-
-		  window.location.reload();
-		})
+		  window.location.reload(false);
+		  navigate("/") })
 		}
 		  //  console.log("Google login success", response); 
 		  /*{
@@ -183,7 +181,6 @@ return (
 			</Container>
 		</Grid>
 )
-
 }  */
 
 

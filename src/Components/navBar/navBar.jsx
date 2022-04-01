@@ -146,7 +146,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
                 </Link>  : null
                 }
 
-              
+                <LogoutButton />
                 {
 
                     user ? null :
@@ -160,7 +160,6 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
                                 Registrarse
                             </Button>
                         </Link>
-
                 }
                 <Button
                     color="navBtnColor"
@@ -316,4 +315,4 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
             </div>
         </AppBar>
     </div>)
-}
+} 
