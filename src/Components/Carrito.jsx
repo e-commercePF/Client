@@ -176,7 +176,8 @@ export default function Carrito(){
                         }),
                         amount: amount,
                         address: res.address,
-                        orderId: res.orderId
+                        orderId: res.orderId,
+                        email: res.email
                     }
                 })
             }
