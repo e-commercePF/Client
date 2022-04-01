@@ -1,5 +1,5 @@
 import { Input, AppBar, Toolbar } from "@material-ui/core"
-import { Avatar, Button, Typography } from "@mui/material";
+import {  Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
@@ -184,7 +184,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
             
             </Toolbar> :    
             <React.Fragment> 
-              { /* iNICIO DE LA HAMBURGUESA */}      
+              { /* INICIO DE LA HAMBURGUESA */}      
                <DensitySmallIcon  onClick={()=> setOpen(!open)}             
                />       
                     
@@ -215,7 +215,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
 
                 {
                     !response && token ? 
-                    <Link to={`/${token}`} style={{ textDecoration: "none" }}  >                   
+                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >                   
               
                     <Button
                         color="navBtnColor"
