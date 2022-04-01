@@ -3,8 +3,8 @@ import { Avatar, Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux"
-import { searchProduct, cleanDetail } from "../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProduct, cleanDetail, isAdmin } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -17,10 +17,15 @@ import { useMediaQuery, SwipeableDrawer, Divider,   } from "@mui/material";
 import { Hidden, IconButton } from "@mui/material";
 import { ChevronRight } from "@material-ui/icons";
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
+import axios from 'axios'
+import ControlPanel from '../../Components/ControlPanel';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+const {REACT_APP_BACKEND_URL} = process.env 
+
 
 
 const useStyles = makeStyles((theme) => ({
-    burguerButton: {
+    burguerButton: {    
        backgroundColor: 'blue', 
        color: 'white'
     },
@@ -35,10 +40,27 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
     const [search, setSearch] = useState()
     const [user, setUser] = useState('');
     const dispatch = useDispatch()
+
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('token')
         setUser(loggedUserJSON)
     }, [])
+
+    const token = localStorage.getItem('token')
+   
+    let config = { headers: {
+        Authorization: 'Bearer ' + token
+    }}
+
+    const [response, setResponse] = useState(false)
+
+    if(token){
+        var isTheAdmin = axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+        .then( boolean => {           
+           setResponse(boolean.data)           
+        }) 
+    } else isTheAdmin = false
+   
 
     function onHandleSearch(event) {
         event.preventDefault()
@@ -59,6 +81,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
     const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
     const [open, setOpen] = useState(false)
+
     return (<div className="header">
 
 
@@ -83,7 +106,20 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
              { 
                 !isMatch ?  
            
-            <Toolbar>   
+            <Toolbar> 
+                {
+                    response ? 
+                    <Link to="/admin" style={{ textDecoration: "none" }}  >                   
+              
+                    <Button
+                        color="navBtnColor"
+                        variant="contained"
+                        >
+                        Panel de control
+                    </Button>
+                </Link>  : null
+                }              
+                
 
                 <Link to="/" style={{ textDecoration: "none" }}
                     onClick={() => dispatch(cleanDetail())}
@@ -96,6 +132,19 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
                     </Button>
                 </Link>
 
+                {
+                    !response && token ? 
+                    <Link to={`/${token}`} style={{ textDecoration: "none" }}  >                   
+              
+                    <Button
+                        color="navBtnColor"
+                        variant="contained"
+                        endIcon={ <InsertEmoticonIcon />}
+                        >
+                        Perfil
+                    </Button>
+                </Link>  : null
+                }
 
               
                 {
@@ -163,6 +212,21 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
                         Home
                     </Button>
                 </Link>
+
+                {
+                    !response && token ? 
+                    <Link to={`/${token}`} style={{ textDecoration: "none" }}  >                   
+              
+                    <Button
+                        color="navBtnColor"
+                        variant="contained"
+                        endIcon={ <InsertEmoticonIcon />}
+                        style={{backgroundColor: 'blue'}}
+                        >
+                        Perfil
+                    </Button>
+                </Link>  : null
+                }
 
                 <Button
                  style={{backgroundColor: 'blue', maxWidth: '80%'}} >
