@@ -8,21 +8,27 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { makeStyles } from '@mui/styles';
+import { Button, Typography,Grid } from "@mui/material";
 
-
+const useStyles = makeStyles(theme => ({
+  container: {
+  marginTop: theme.spacing(5),
+ }}))
 
 
 export default function Success(){
     const navigate = useNavigate()
     const location = useLocation()
     console.log(location)
-    
+    const classes = useStyles()
     useEffect(() => {
         const token = localStorage.getItem("token")             
         let config = { headers: {Authorization: 'Bearer '+ token}}
         if(location.state){
         axios.post('http://localhost:3000/api/orders', location.state, config).then(response => {
-          console.log(response)  })
+          console.log(response)
+        })
         .catch(error => {
             console.log(error)
         })
@@ -30,14 +36,18 @@ export default function Success(){
         navigate('/')
     }
     })
-    function subtotal(items) {
-        return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
-      }
-    
-      const rows = location.state.products
-  console.log(location.state.products)
-    return (
-        <TableContainer component={Paper}>
+ console.log(location.state)
+  const rows =  location.state.products
+  const amount = location.state.amount
+  const addres = location.state.address
+    return ( 
+      <React.StrictMode>
+   <Typography component='h1' variant='h5'>thanks for shopping at sport market</Typography>
+   <Typography component='h5' variant='h6'>your dates:</Typography>   
+   <Typography component='h5' variant='h7'>city: {addres.city}</Typography>   
+   <Typography component='h5' variant='h7'>country: {addres.country}</Typography>   
+   <Typography component='h5' variant='h7'>postal code: {addres.postal_code}</Typography>   
+       <TableContainer component={Paper}   className={classes.container}>
       <Table sx={{ minWidth: 700 }} aria-label="spanning table">
         <TableHead>
           <TableRow>
@@ -58,19 +68,21 @@ export default function Success(){
             <TableRow key={row.name}>
               <TableCell>{row.name}</TableCell>
               <TableCell align="right">{row.quantity}</TableCell>
-              <TableCell align="right">{row.unit}</TableCell>
               <TableCell align="right">{row.price}</TableCell>
+              <TableCell align="right">{row.price * row.quantity}</TableCell>
             </TableRow>
           ))}
             <TableRow>
-            <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="right">{rows.map(e => e.total)}</TableCell>
+            <TableCell rowSpan={3} />
+            <TableCell colSpan={2} align="right">Amount</TableCell>
+            <TableCell align="right">{amount}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
-    )
-}
+    </React.StrictMode>
+   
+    )}
 
 
 ////////////////////////////////
