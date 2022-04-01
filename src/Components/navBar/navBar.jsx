@@ -41,25 +41,26 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
     const [user, setUser] = useState('');
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('token')
-        setUser(loggedUserJSON)
-    }, [])
-
+    const [response, setResponse] = useState(false)
     const token = localStorage.getItem('token')
-   
+
+    useEffect(() => {        
+        setUser(token)   
     let config = { headers: {
         Authorization: 'Bearer ' + token
     }}
 
-    const [response, setResponse] = useState(false)
-
     if(token){
-        var isTheAdmin = axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+        axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
         .then( boolean => {           
            setResponse(boolean.data)           
-        }) 
-    } else isTheAdmin = false
+        }).catch(e=> {
+            setResponse(false)
+        } )
+    } 
+    }, [token])
+
+    
    
 
     function onHandleSearch(event) {

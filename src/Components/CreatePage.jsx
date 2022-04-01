@@ -20,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -47,6 +48,7 @@ function getStyles(name, text, theme) {
 
 export default function Formulario() {
     let file
+    const navigate = useNavigate()
     const { categories, brands } = useSelector(state => state)
     const dispatch = useDispatch()
     const [progress, setProgress] = useState(0);
@@ -83,8 +85,18 @@ export default function Formulario() {
 
     const [imagen, setImg] = useState([])
     useEffect(() => {
-        console.log(1111111, imagen)
-    }, [imagen])
+        console.log(1111111, imagen)     
+            let token = window.localStorage.getItem('token');
+            let config = { headers: {
+                    Authorization: 'Bearer ' + token}}
+              axios.get('http://localhost:3000/api/users/admin/verify', config)
+                .then(res => {
+                    console.log(res.data)
+                }).catch(err => {
+                    console.log(err)
+                   return navigate('/')
+                })               
+    }, [imagen, navigate])
 
     const theme = useTheme();
     const formik = useFormik({
