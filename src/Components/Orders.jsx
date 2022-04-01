@@ -91,7 +91,8 @@ if(typeof orders === 'object' && typeof orders.then === 'function'){
                 return <div>
                     <Paper elevation={3} className={clases.card}>                        
                     <span><b> Venta Número:   {contador ++ } </b> </span>
-                    <span>UserId: {x.userId} </span>                     
+                    <span>UserId: {x.userId} </span> 
+                    <span>Fecha de compra: <b>{x.createdAt.slice(0, 10)}</b> </span>                    
                     {x.products.map(x=> {
                         return <div>
                             

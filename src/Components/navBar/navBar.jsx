@@ -134,7 +134,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
 
                 {
                     !response && token ? 
-                    <Link to={`/${token}`} style={{ textDecoration: "none" }}  >                   
+                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >                   
               
                     <Button
                         color="navBtnColor"
