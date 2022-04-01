@@ -4,12 +4,36 @@ import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
 import InputUsers from "./InputUsers";
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+const {REACT_APP_BACKEND_URL} = process.env 
 
 export default function Users(){
 
+  const navigate = useNavigate()
+
+
+  useEffect(() =>{
+    let token = window.localStorage.getItem('token');
+    let config = { headers: {
+            Authorization: 'Bearer ' + token}}
+      axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+        .then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+            navigate('/')
+        })
+       },[navigate])
+
+      
+
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getAllUsers())
+        dispatch(getAllUsers()
+        
+        )
     }, [])
 
     let { users } = useSelector(state => state)
@@ -76,6 +100,7 @@ export default function Users(){
         }  
     }
 
+
     const deleteUser = (e)=> {
         Swal.fire({
             title: '¡Estas a punto de eliminar a un usuario!',
@@ -105,21 +130,8 @@ export default function Users(){
             Aqui puedes editar a los Usuarios 
 
             { users.map(x=> {
-                return <div>
-                    
-                    {/* <span>id:<b> {x._id} </b></span>
-                    <span> name:<b> {x.name}</b></span>
-                    {edit ? <span> Rol:   <select onChange={(e)=> handleChangeRole(e.target.value)}>
-                            <option> Selecciona el nuevo rol del usuario </option>
-                            <option value="admin"> administrador </option>
-                            <option value="client"> cliente </option>
-                        </select> </span> :  <span> Rol: <b>{x.role}</b></span>}                    
-                    <span> email: <b>{x.email}</b></span>
-
-                    {edit ? 
-                    <Button variant="contained" color="primary" onClick={()=> handleEditUser(x)} > Actualizar Usuario </Button>     
-                   : <Button variant="contained" color="secondary" onClick={handleEditProduct}> Actualizar Usuario </Button>
-                } */}
+                return <div>                    
+              
                 <InputUsers 
                 id= {x._id}
                 name= {x.name}

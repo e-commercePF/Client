@@ -18,6 +18,7 @@ import Stock from './Components/Stock';
 import Users from './Components/Users';
 import Orders from './Components/Orders';
 import Success from './Components/Success';
+import Profile from './Components/Profile';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/createproduct" element={<CreatePage />} />
             <Route path="/admin/orders" element={<Orders />} />
+            <Route path='/:token' element = { <Profile /> } />
           </Routes>
         </Container>
       </div>

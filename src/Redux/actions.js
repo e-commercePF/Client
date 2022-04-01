@@ -21,6 +21,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS"
 export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
 export const UPDATE_USERS = "UPDATE_USERS"
 export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
+export const IS_ADMIN = 'IS_ADMIN'
 const {REACT_APP_BACKEND_URL} = process.env 
 
 
@@ -205,8 +206,6 @@ export function getAllBrand() {
   }
 }
 
-
-
 export function filterBy(value) {
   return async function (dispatch) {
     try {
@@ -220,8 +219,6 @@ export function filterBy(value) {
     }
   }
 }
-
-
 
 export function filterByCategories(value) {
   return async function (dispatch) {
@@ -279,7 +276,6 @@ export function updateUsers(user) {
   } catch (e) { console.log(e) }
 }
 
-
 export function filterByRange(maxValue, minValue) {
   return async function (dispatch) {
     try {
@@ -293,7 +289,6 @@ export function filterByRange(maxValue, minValue) {
     }
   }
 }
-
 
 export function deleteUsers(user) {
   try {
@@ -317,6 +312,21 @@ export function getProductPagination() {
   }
 }
 
+export function isAdmin(token){
+  return async function (dispatch){
+    console.log(token)
+    try{     
+      let config = { headers: {
+        Authorization: 'Bearer' + token
+    }}
+      let isTheAdmin = await axios(`${REACT_APP_BACKEND_URL}/admin/verify`,null, config)
+      return dispatch({
+        type: IS_ADMIN, 
+        payload: isTheAdmin
+      })
+    } catch(e){ console.log(e) }
+  }
+}
 
 export function GetFilters(filters) {
   return async function (dispatch) {
@@ -342,5 +352,25 @@ export function AddFilters(filters) {
         payload: filters,
       })
     } catch (e) { console.log(e) }
+  }
+}
+
+export function getAllOrders(id){
+  return function(dispatch){
+    try{
+      let theOrders = axios(`${REACT_APP_BACKEND_URL}/api/orders/all`, id)
+      return dispatch({
+        type: "GET_ALL_ORDERS", 
+        payload: theOrders
+      })
+    }catch(e) { console.log(e) }
+  }
+}
+
+export function updateOrder(id, status, config){
+  return async function(dispatch){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+    }catch(e) { console.log(e) }
   }
 }
