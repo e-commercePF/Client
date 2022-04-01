@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { useNavigate } from "react-router-dom";
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios';
+import { useMediaQuery, } from "@mui/material";
 
 
 const useStyles = makeStyles({
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
         },
         buttons: {
             display: 'flex',
-            marginLeft:'40%'            
+            marginLeft:'30%'            
         },
         button_red: {
             backgroundColor: 'red',
@@ -44,10 +45,10 @@ const useStyles = makeStyles({
         },
         img: {
             borderRadius: '50%',
-            width: '5%',
-            maxHeigth: '100%',           
-            marginLeft: '-15rem',
-            position: "absolute",
+            width: '30%',
+           // maxHeigth: '100%',           
+          //  marginLeft: '-15rem',
+           // position: "absolute",
         },
         paper: {
             width: '70%',
@@ -70,7 +71,8 @@ export default function Carrito(){
 
     const dispatch = useDispatch()
 
-    
+    const isActive = useMediaQuery("(max-width: 576px)")
+
     const [stripeToken,setStripeToken] = useState(null);
     
     // STRIPE -------------------- /// STRIPE 
@@ -146,10 +148,7 @@ export default function Carrito(){
         }
         stripeToken && makePay()
     },[shopingCart,navigate, stripeToken,myPay,shopingCart2])
-    
-    
-    
-    
+
     
     console.log(shopingCart2)
     
@@ -208,6 +207,27 @@ export default function Carrito(){
         <div className={clases.main_container}>
             <h2> Tus compras: </h2>
             {
+                isActive ? 
+                shopingCart.length > 0 ? countMyItemResult.map(x=> {
+                    return <div className={clases.main}>
+                         <Paper elevation={2} className={clases.paper}
+                            style={{width: '80%'}}
+                         >
+                         <h4>{x.name}</h4> 
+                         <img src={x.img} alt={x.name} className={clases.img}/>
+                                 <h5> $ {x.price.toFixed(2)} </h5>
+                                 <div className={clases.buttons} style={{marginLeft: '0', width: '90%'}}>
+                                     <Button variant="contained"  size='small' style={{height: 15,  }} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
+                                         <h5 style={{}}>Cantidad: {x.piece} </h5>
+                                     <Button variant="contained"  size='small' style={{height: 15, }} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
+                                 </div>
+ 
+                                 <Button className={clases.button_red} variant="contained" onClick={()=> deleteAllSingleItems(x)}> X </Button>
+                         </Paper>
+                      </div>
+                    
+                }) : 'Tu carrito esta vacio'   :             
+            
                shopingCart.length > 0 ? countMyItemResult.map(x=> {
                    return <div className={clases.main}>
                         <Paper elevation={2} className={clases.paper}>
@@ -217,16 +237,16 @@ export default function Carrito(){
                                 <div className={clases.buttons}>
                                     <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
                                         <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
-                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
+                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20, marginLeft: '0.5rem'}} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
                                 </div>
 
                                 <Button className={clases.button_red} variant="contained" onClick={()=> deleteAllSingleItems(x)}> X </Button>
                         </Paper>
                      </div>
                    
-               }) : 'Tu carrito esta vacio'            
+               }) : 'Tu carrito esta vacio'       
             
-            }
+            }       
 
              {  shopingCart.length > 0 ? <h4> El total a pagar es: $ { myPay } </h4> : null }
 

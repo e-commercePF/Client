@@ -97,38 +97,3 @@ export default function SearchBar() {
 
     </>)
 }
-/*
-              <Input
-                    style={{
-                        backgroundColor: "white",
-                        borderRadius: "5px",
-                        height: "2.2em",
-                        margin: "5px"
-                    }}
-                    placeholder="¿Qué estás buscando?"
-                    onChange={(event) => onHandleSearch(event)}
-                    value={search}
-                ></Input>
-                <Link to="/result" style={{ textDecoration: "none" }}
-                >
-
-                    <Button
-                        type="submit"
-                        color="navBtnColor"
-                        variant="contained"
-                        startIcon={<Search />}
-
-                        onClick={() => {
-                            if (!search) {
-                                alert("Debes ingresar tu búsqueda")
-                            } else {
-                                dispatch((searchProduct(search)))
-                                setSearch("")
-                            }
-                        }}
-
-                    >
-                        Buscar
-                    </Button>
-                </Link>
-*/
