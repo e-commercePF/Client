@@ -6,7 +6,7 @@ import { makeStyles } from  '@material-ui/core/styles'
 import { Grid, Container, Paper, Avatar, TextField, CssBaseline } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { Button , Typography} from "@mui/material";
-
+import Swal from 'sweetalert2'
 /////////////// material ui /////////////////
 const useStyles =  makeStyles(theme => ({
 	root: {
@@ -91,9 +91,9 @@ const useStyles =  makeStyles(theme => ({
  const handleRegister = async (event) => {
 		const  ExpRegEmail =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 		if( !email || !password || !name){
-			return alert('por favor llene todos los campos')
+			return Swal.fire('Please fill all fields')
 		} if(email.match(ExpRegEmail)==null){
-			return alert('por favor ingrese un email valido')
+			return Swal.fire('invalid email')
 		}
         try {
             axios({
@@ -112,7 +112,7 @@ const useStyles =  makeStyles(theme => ({
 		    window.location.reload(false)
                 navigate("/login")
               }).catch(err=>{
-                  return alert("el email ya fue registrado", err)
+                  return  Swal.fire("the email has already been registered", err)
               })
            
                 
