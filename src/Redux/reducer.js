@@ -1,7 +1,7 @@
 import {
     GET_PRODUCTS, SEARCH_PRODUCTS, GET_DETAILS, ADD_CART, CLEAR_CART, DELETE_ONE_ITEM_FROM_CART, ADD_TO_FAVORITES, DELETE_FROM_FAVORITES, Get_ALL_FAVORITES,
     DELETE_ALL_SINGLE_ITEM_FROM_CART, SET_USER, CLEAN_DETAIL, EDIT_THE_PRODUCT, GET_BRAND, GET_CATEGORIES,
-    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS, GET_PRODUCT_PAGINADO ,FILTER_PRICE, FILTER_BY, IS_ADMIN
+    GET_ALL_USERS, DELETE_ONE_ITEM_FROM_STOCK, UPDATE_USERS, GET_PRODUCT_PAGINADO, FILTER_PRICE, FILTER_BY, IS_ADMIN
 } from "./actions"
 
 const initialState = {
@@ -16,10 +16,10 @@ const initialState = {
     brands: [],
     users: [],
     productOnStock: [],
-    isAdmin: false, 
+    isAdmin: false,
     orders: [],
-    pages:10,
-    filters:{}
+    pages: 10,
+    filters: {}
 
 }
 export default function rootReducer(state = initialState, action) {
@@ -164,12 +164,12 @@ export default function rootReducer(state = initialState, action) {
             }
 
 
-            case FILTER_BY:
-                return {
-                    ...state,
-                    pages: action.payload.totalPage,
-                    product: action.payload.totalProducts
-                }
+        case FILTER_BY:
+            return {
+                ...state,
+                pages: action.payload.totalPage,
+                product: action.payload.totalProducts
+            }
 
         case GET_ALL_USERS:
             return {
@@ -195,21 +195,21 @@ export default function rootReducer(state = initialState, action) {
             }
 
 
-        case IS_ADMIN: 
-                return {
-                    ...state,
-                }
+        case IS_ADMIN:
+            return {
+                ...state,
+            }
 
         case "ADD_FILTERS":
-                return {
-                  ...state,
-                 filters: action.payload
+            return {
+                ...state,
+                filters: action.payload
 
-                }
+            }
 
         case "GET_ALL_ORDERS":
             return {
-                ...state, 
+                ...state,
                 orders: action.payload
             }
 
