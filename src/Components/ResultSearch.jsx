@@ -24,7 +24,10 @@ export default function ResultSearch() {
     const dispatch = useDispatch()
 
     return (<div>
-        <Grid container spacing={2}>
+        <Grid
+            container spacing={2}
+            justifyContent="center"
+            alignItems="center">
             {
                 (resultSearch.length !== 0) ?
                     resultSearch.map((e, index) => (
@@ -63,7 +66,7 @@ export default function ResultSearch() {
                 color="navBtnColor"
                 variant="contained"
                 endIcon={<Home />}
-                style={{ backgroundColor: 'blue' }}
+                style={{ backgroundColor: 'black' }}
                 className={classes.burguerButton}
             >
                 Volver
