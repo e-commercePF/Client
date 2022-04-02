@@ -1,5 +1,5 @@
 import { Input, AppBar, Toolbar } from "@material-ui/core"
-import {  Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
@@ -11,30 +11,31 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LogoutButton from "../LogoutButton "
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/system';
-import  Menu from  '../Menu'
-import { useTheme,  } from "@material-ui/core/styles";
-import { useMediaQuery, SwipeableDrawer, Divider,   } from "@mui/material";
+import Menu from '../Menu'
+import { useTheme, } from "@material-ui/core/styles";
+import { useMediaQuery, SwipeableDrawer, Divider, } from "@mui/material";
 import { Hidden, IconButton } from "@mui/material";
 import { ChevronRight } from "@material-ui/icons";
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
 import axios from 'axios'
 import ControlPanel from '../../Components/ControlPanel';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-const {REACT_APP_BACKEND_URL} = process.env 
+import SearchBar from "../searchBar";
+const { REACT_APP_BACKEND_URL } = process.env
 
 
 
 const useStyles = makeStyles((theme) => ({
-    burguerButton: {    
-       backgroundColor: 'blue', 
-       color: 'white'
+    burguerButton: {
+        backgroundColor: 'blue',
+        color: 'white'
     },
 }));
 
 export default function NavBar() {
-const theme = useTheme()
+    const theme = useTheme()
 
-const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
+    const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
 
     const navigate = useNavigate()
     const [search, setSearch] = useState()
@@ -44,24 +45,26 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
     const [response, setResponse] = useState(false)
     const token = localStorage.getItem('token')
 
-    useEffect(() => {        
-        setUser(token)   
-    let config = { headers: {
-        Authorization: 'Bearer ' + token
-    }}
+    useEffect(() => {
+        setUser(token)
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
 
-    if(token){
-        axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
-        .then( boolean => {           
-           setResponse(boolean.data)           
-        }).catch(e=> {
-            setResponse(false)
-        } )
-    } 
+        if (token) {
+            axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+                .then(boolean => {
+                    setResponse(boolean.data)
+                }).catch(e => {
+                    setResponse(false)
+                })
+        }
     }, [token])
 
-    
-   
+
+
 
     function onHandleSearch(event) {
         event.preventDefault()
@@ -88,7 +91,7 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
 
         <AppBar style={
             {
-                position:"sticky",
+                position: "sticky",
                 // position: "fixed",
                 flexDirection: "row",
                 flexWrap: "wrap",
@@ -101,184 +104,184 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
                 <img className="imagen1" src="https://www.freeiconspng.com/uploads/exercise-sport-icon--7.png" width="50" alt="Exercise, sport icon " />
                 SportsMarket
             </Typography>
-            
+
             <Hidden xsDown>
 
-             { 
-                !isMatch ?  
-           
-            <Toolbar> 
                 {
-                    response ? 
-                    <Link to="/admin" style={{ textDecoration: "none" }}  >                   
-              
-                    <Button
-                        color="navBtnColor"
-                        variant="contained"
-                        >
-                        Panel de control
-                    </Button>
-                </Link>  : null
-                }              
-                
+                    !isMatch ?
 
-                <Link to="/" style={{ textDecoration: "none" }}
-                    onClick={() => dispatch(cleanDetail())}
-                >
-                    <Button
-                        color="navBtnColor"
-                        variant="contained"
-                        endIcon={<Home />}>
-                        Home
-                    </Button>
-                </Link>
+                        <Toolbar>
+                            {
+                                response ?
+                                    <Link to="/admin" style={{ textDecoration: "none" }}  >
 
-                {
-                    !response && token ? 
-                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >                   
-              
-                    <Button
-                        color="navBtnColor"
-                        variant="contained"
-                        endIcon={ <InsertEmoticonIcon />}
-                        >
-                        Perfil
-                    </Button>
-                </Link>  : null
-                }
+                                        <Button
+                                            color="navBtnColor"
+                                            variant="contained"
+                                        >
+                                            Panel de control
+                                        </Button>
+                                    </Link> : null
+                            }
 
-                <LogoutButton />
-                {
 
-                    user ? null :
+                            <Link to="/" style={{ textDecoration: "none" }}
+                                onClick={() => dispatch(cleanDetail())}
+                            >
+                                <Button
+                                    color="navBtnColor"
+                                    variant="contained"
+                                    endIcon={<Home />}>
+                                    Home
+                                </Button>
+                            </Link>
 
-                        <Link to='/CreateUser' style={{ textDecoration: "none" }}
-                        >
+                            {
+                                !response && token ?
+                                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >
+
+                                        <Button
+                                            color="navBtnColor"
+                                            variant="contained"
+                                            endIcon={<InsertEmoticonIcon />}
+                                        >
+                                            Perfil
+                                        </Button>
+                                    </Link> : null
+                            }
+
+                            <LogoutButton />
+                            {
+
+                                user ? null :
+
+                                    <Link to='/CreateUser' style={{ textDecoration: "none" }}
+                                    >
+                                        <Button
+                                            color="navBtnColor"
+                                            variant="contained"
+                                            endIcon={<Login />} >
+                                            Registrarse
+                                        </Button>
+                                    </Link>
+                            }
                             <Button
                                 color="navBtnColor"
                                 variant="contained"
-                                endIcon={<Login />} >
-                                Registrarse
+                                endIcon={<FavoriteBorderIcon />}
+                                onClick={(e) => navigate('./favorites')}
+                            >
+                                Mis favoritos
                             </Button>
-                        </Link>
-                }
-                <Button
-                    color="navBtnColor"
-                    variant="contained"
-                    endIcon={<FavoriteBorderIcon />}
-                    onClick={(e) => navigate('./favorites')}
-                >
-                    Mis favoritos
-                </Button>
 
-                <Button
-                    color="navBtnColor"
-                    variant="contained"
-                    endIcon={<ShoppingCart />}
-                    onClick={(e) => navigate('./carrito')}
-                >
-                    Carrito
-                </Button>
-
-                {isDisable === false ? <Carrito /> : null}
-            
-            </Toolbar> :    
-            <React.Fragment> 
-              { /* INICIO DE LA HAMBURGUESA */}      
-               <DensitySmallIcon  onClick={()=> setOpen(!open)}             
-               />       
-                    
-                <SwipeableDrawer anchor="right" open={open} onClick={()=> setOpen(!open)} >
-                    <div>
-                        <IconButton>
-                            <ChevronRight />
-                        </IconButton>
-                    </div>    
-                        <Divider style={{backgroundColor: 'black'}} />
-                        Sports Market
-
-                        {/* REPETIR CODIGO QUE SE DESEA RENDERIZAR EN EL MENU DE HAMBURGUESA  */}
-
-                        <Link to="/" style={{ textDecoration: "none" }}
-                    onClick={() => dispatch(cleanDetail())}
-                >
-                    <Button
-                        color="navBtnColor"
-                        variant="contained"
-                        endIcon={<Home />}
-                        style={{backgroundColor: 'blue'}}
-                        className={classes.burguerButton}
-                        >
-                        Home
-                    </Button>
-                </Link>
-
-                {
-                    !response && token ? 
-                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >                   
-              
-                    <Button
-                        color="navBtnColor"
-                        variant="contained"
-                        endIcon={ <InsertEmoticonIcon />}
-                        style={{backgroundColor: 'blue'}}
-                        >
-                        Perfil
-                    </Button>
-                </Link>  : null
-                }
-
-                <Button
-                 style={{backgroundColor: 'blue', maxWidth: '80%'}} >
-                
-                <LogoutButton />                           
-                
-                </Button> 
-                {
-
-                    user ? null :
-
-                        <Link to='/CreateUser' style={{ textDecoration: "none" }}
-                        >
                             <Button
                                 color="navBtnColor"
                                 variant="contained"
-                                endIcon={<Login />}
-                                style={{backgroundColor: 'blue'}}
-                               
+                                endIcon={<ShoppingCart />}
+                                onClick={(e) => navigate('./carrito')}
+                            >
+                                Carrito
+                            </Button>
+
+                            {isDisable === false ? <Carrito /> : null}
+
+                        </Toolbar> :
+                        <React.Fragment>
+                            { /* INICIO DE LA HAMBURGUESA */}
+                            <DensitySmallIcon onClick={() => setOpen(!open)}
+                            />
+
+                            <SwipeableDrawer anchor="right" open={open} onClick={() => setOpen(!open)} >
+                                <div>
+                                    <IconButton>
+                                        <ChevronRight />
+                                    </IconButton>
+                                </div>
+                                <Divider style={{ backgroundColor: 'black' }} />
+                                Sports Market
+
+                                {/* REPETIR CODIGO QUE SE DESEA RENDERIZAR EN EL MENU DE HAMBURGUESA  */}
+
+                                <Link to="/" style={{ textDecoration: "none" }}
+                                    onClick={() => dispatch(cleanDetail())}
                                 >
-                                Registrarse
-                            </Button>
-                        </Link>
+                                    <Button
+                                        color="navBtnColor"
+                                        variant="contained"
+                                        endIcon={<Home />}
+                                        style={{ backgroundColor: 'blue' }}
+                                        className={classes.burguerButton}
+                                    >
+                                        Home
+                                    </Button>
+                                </Link>
+
+                                {
+                                    !response && token ?
+                                        <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >
+
+                                            <Button
+                                                color="navBtnColor"
+                                                variant="contained"
+                                                endIcon={<InsertEmoticonIcon />}
+                                                style={{ backgroundColor: 'blue' }}
+                                            >
+                                                Perfil
+                                            </Button>
+                                        </Link> : null
+                                }
+
+                                <Button
+                                    style={{ backgroundColor: 'blue', maxWidth: '80%' }} >
+
+                                    <LogoutButton />
+
+                                </Button>
+                                {
+
+                                    user ? null :
+
+                                        <Link to='/CreateUser' style={{ textDecoration: "none" }}
+                                        >
+                                            <Button
+                                                color="navBtnColor"
+                                                variant="contained"
+                                                endIcon={<Login />}
+                                                style={{ backgroundColor: 'blue' }}
+
+                                            >
+                                                Registrarse
+                                            </Button>
+                                        </Link>
+                                }
+                                <Button
+                                    color="navBtnColor"
+                                    variant="contained"
+                                    endIcon={<FavoriteBorderIcon />}
+                                    onClick={(e) => navigate('./favorites')}
+                                    style={{ backgroundColor: 'blue' }}
+                                >
+                                    Mis favoritos
+                                </Button>
+
+                                <Button
+                                    color="navBtnColor"
+                                    variant="contained"
+                                    endIcon={<ShoppingCart />}
+                                    onClick={(e) => navigate('./carrito')}
+                                    style={{ backgroundColor: 'blue' }}
+                                >
+                                    Carrito
+                                </Button>
+                                { /* FIN DE LA HAMBURGUESA */}
+
+                            </SwipeableDrawer>
+
+                        </React.Fragment>
                 }
-                <Button
-                    color="navBtnColor"
-                    variant="contained"
-                    endIcon={<FavoriteBorderIcon />}
-                    onClick={(e) => navigate('./favorites')}
-                    style={{backgroundColor: 'blue'}}
-                >
-                    Mis favoritos
-                </Button>
-
-                <Button
-                    color="navBtnColor"
-                    variant="contained"
-                    endIcon={<ShoppingCart />}
-                    onClick={(e) => navigate('./carrito')}
-                    style={{backgroundColor: 'blue'}}
-                >
-                    Carrito
-                </Button>
-                { /* FIN DE LA HAMBURGUESA */}
-
-                </SwipeableDrawer>    
-
-            </React.Fragment>
-}
             </Hidden>
             <div className="inputsearch">
-                <form>
+                {/* <form>
                     <Input
                         style={{
                             backgroundColor: "white",
@@ -312,7 +315,8 @@ const isMatch = useMediaQuery(theme.breakpoints.down('xs'))
                             Buscar
                         </Button>
                     </Link>
-                </form>
+                </form> */}
+                <SearchBar />
             </div>
         </AppBar>
     </div>)
