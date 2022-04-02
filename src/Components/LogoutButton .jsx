@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '@mui/icons-material';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Button, Typography } from "@mui/material";
-
+import Swal from 'sweetalert2'
 
 
 export default function LogoutButton() {
@@ -15,7 +15,7 @@ const [user,setUser] = useState('');
 	    const loggedUserJSON = window.localStorage.getItem('token')
          setUser(loggedUserJSON)
         },[])
-
+      
 const LoginButton =() => { 
     return(
     <Link to="/login" style={{ textDecoration: "none" }}
@@ -31,11 +31,24 @@ const LoginButton =() => {
 }
 
 const handleLogout = e => {
-    setUser(null)
-    window.localStorage.removeItem('token')
-    window.location.reload(false);
-    navigate("/login")
-}
+ 
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "you are closing session",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, log out!'
+      }).then((result) => {
+        if(result.isConfirmed) {
+           setUser(null)
+          window.localStorage.removeItem('token')
+          window.location.reload(false);
+         navigate("/login")
+          }
+      })
+ }
 
 const  Logout = () => {
    return ( 

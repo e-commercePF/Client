@@ -6,7 +6,7 @@ import { Button, Typography } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import  {Link, useNavigate}  from 'react-router-dom'
-
+import Swal from 'sweetalert2'
 ///////////////// material ui ///////////////////////////////////
 
 const useStyles = makeStyles(theme => ({
@@ -93,9 +93,9 @@ export default function LogIn() {
 		const handleRegister = async (event) => {
 			const  ExpRegEmail =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 		 if( !email || !password){
-			 return alert('por favor llene todos los campos')
+			 return Swal.fire('Please fill all fields')
 		 } if(email.match(ExpRegEmail)==null){
-			 return alert('por favor ingrese un email valido')
+			 return Swal.fire('invalid email')
 		 }
 			  try {
 				axios({
@@ -237,6 +237,7 @@ return (
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
+		  	<span> If you have forgot your password, <Link to="/forgotpassword"> click here </Link> </span>		  	
 		  </div>
 	  </Container>
 </Grid>   

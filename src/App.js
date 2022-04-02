@@ -20,6 +20,8 @@ import Orders from './Components/Orders';
 import Success from './Components/Success';
 import Profile from './Components/Profile';
 import EmailActivate from './Components/emailActivate';
+import ResetPassword from './Components/ResetPassword'
+import ForgotPassword from './Components/ForgotPassword'
 
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
             <Route path="/admin/orders" element={<Orders />} />
             <Route path='/me/:me' element = { <Profile /> } />
             <Route path='/api/auth/email-activate/:token' element = { <EmailActivate /> } />
+            <Route path='/resetpassword/:token' element = { <ResetPassword /> } />
+            <Route path='/forgotpassword' element = { <ForgotPassword /> } />
           </Routes>
         </Container>
       </div>
