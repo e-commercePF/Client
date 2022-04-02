@@ -1,10 +1,10 @@
 import { Input, AppBar, Toolbar } from "@material-ui/core"
-import { Avatar, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux"
-import { searchProduct, cleanDetail } from "../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProduct, cleanDetail, isAdmin } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -17,7 +17,12 @@ import { useMediaQuery, SwipeableDrawer, Divider, } from "@mui/material";
 import { Hidden, IconButton } from "@mui/material";
 import { ChevronRight } from "@material-ui/icons";
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
+import axios from 'axios'
+import ControlPanel from '../../Components/ControlPanel';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import SearchBar from "../searchBar";
+const { REACT_APP_BACKEND_URL } = process.env
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,10 +41,30 @@ export default function NavBar() {
     const [search, setSearch] = useState()
     const [user, setUser] = useState('');
     const dispatch = useDispatch()
+
+    const [response, setResponse] = useState(false)
+    const token = localStorage.getItem('token')
+
     useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('token')
-        setUser(loggedUserJSON)
-    }, [])
+        setUser(token)
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+
+        if (token) {
+            axios(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+                .then(boolean => {
+                    setResponse(boolean.data)
+                }).catch(e => {
+                    setResponse(false)
+                })
+        }
+    }, [token])
+
+
+
 
     function onHandleSearch(event) {
         event.preventDefault()
@@ -60,6 +85,7 @@ export default function NavBar() {
     const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
     const [open, setOpen] = useState(false)
+
     return (<div className="header">
 
 
@@ -85,6 +111,19 @@ export default function NavBar() {
                     !isMatch ?
 
                         <Toolbar>
+                            {
+                                response ?
+                                    <Link to="/admin" style={{ textDecoration: "none" }}  >
+
+                                        <Button
+                                            color="navBtnColor"
+                                            variant="contained"
+                                        >
+                                            Panel de control
+                                        </Button>
+                                    </Link> : null
+                            }
+
 
                             <Link to="/" style={{ textDecoration: "none" }}
                                 onClick={() => dispatch(cleanDetail())}
@@ -97,8 +136,21 @@ export default function NavBar() {
                                 </Button>
                             </Link>
 
+                            {
+                                !response && token ?
+                                    <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >
 
+                                        <Button
+                                            color="navBtnColor"
+                                            variant="contained"
+                                            endIcon={<InsertEmoticonIcon />}
+                                        >
+                                            Perfil
+                                        </Button>
+                                    </Link> : null
+                            }
 
+                            <LogoutButton />
                             {
 
                                 user ? null :
@@ -112,7 +164,6 @@ export default function NavBar() {
                                             Registrarse
                                         </Button>
                                     </Link>
-
                             }
                             <Button
                                 color="navBtnColor"
@@ -136,7 +187,7 @@ export default function NavBar() {
 
                         </Toolbar> :
                         <React.Fragment>
-                            { /* iNICIO DE LA HAMBURGUESA */}
+                            { /* INICIO DE LA HAMBURGUESA */}
                             <DensitySmallIcon onClick={() => setOpen(!open)}
                             />
 
@@ -164,6 +215,21 @@ export default function NavBar() {
                                         Home
                                     </Button>
                                 </Link>
+
+                                {
+                                    !response && token ?
+                                        <Link to={`/me/${token}`} style={{ textDecoration: "none" }}  >
+
+                                            <Button
+                                                color="navBtnColor"
+                                                variant="contained"
+                                                endIcon={<InsertEmoticonIcon />}
+                                                style={{ backgroundColor: 'blue' }}
+                                            >
+                                                Perfil
+                                            </Button>
+                                        </Link> : null
+                                }
 
                                 <Button
                                     style={{ backgroundColor: 'blue', maxWidth: '80%' }} >
@@ -214,8 +280,8 @@ export default function NavBar() {
                         </React.Fragment>
                 }
             </Hidden>
-            {/* <div className="inputsearch">
-                <form>
+            <div className="inputsearch">
+                {/* <form>
                     <Input
                         style={{
                             backgroundColor: "white",
@@ -249,9 +315,9 @@ export default function NavBar() {
                             Buscar
                         </Button>
                     </Link>
-                </form>
-            </div> */}
-            <SearchBar />
+                </form> */}
+                <SearchBar />
+            </div>
         </AppBar>
     </div>)
-}
+} 

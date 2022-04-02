@@ -9,7 +9,7 @@ import { getAllProducts, searchProduct } from "../Redux/actions";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from "axios";
-
+import Grid from '@mui/material/Grid';
 
 
 
@@ -51,45 +51,55 @@ export default function SearchBar() {
         <div className="inputsearch">
 
             <form>
-                <Autocomplete
-                    style={{
-                        backgroundColor: "white",
-                        borderRadius: "5px",
-                        height: "2.2em",
-                        margin: "5px"
-                    }}
-                    clearOnBlur
-                    onSelect={(event) => onHandleSearch(event)}
-                    value={search}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={optionProduct}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} placeholder="¿Qué estás buscando?" />}
-                    type="submit"
-                />
-                <Link to="/result" style={{ textDecoration: "none" }}
-                >
-                    <Button
-                        type="submit"
-                        color="navBtnColor"
-                        variant="contained"
-                        startIcon={<Search />}
-
-                        onClick={() => {
-                            if (!search) {
-                                navigate("/home")
-                                alert("Debes ingresar tu búsqueda")
-                            } else {
-                                dispatch((searchProduct(search)))
-                                setSearch("")
-                            }
+                <Grid container spacing={2} justifyContent="center"
+                    alignItems="center">
+                    <Autocomplete
+                        style={{
+                            backgroundColor: "white",
+                            borderRadius: "5px",
+                            margin: "5px"
                         }}
+                        clearOnBlur
+                        onSelect={(event) => onHandleSearch(event)}
+                        value={search}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={optionProduct}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} placeholder="¿Qué estás buscando?" />}
+                        type="submit"
+                        disableListWrap={false}
 
+
+                    />
+                    <Link to="/result" style={{ textDecoration: "none" }}
                     >
-                        Buscar
-                    </Button>
-                </Link>
+                        <Button
+                            style={{
+
+                                borderRadius: "5px",
+                                margin: "5px"
+                            }}
+                            type="submit"
+                            color="navBtnColor"
+                            variant="contained"
+                            startIcon={<Search />}
+
+                            onClick={() => {
+                                if (!search) {
+                                    navigate("/home")
+                                    alert("Debes ingresar tu búsqueda")
+                                } else {
+                                    dispatch((searchProduct(search)))
+                                    setSearch("")
+                                }
+                            }}
+
+                        >
+                            Buscar
+                        </Button>
+                    </Link>
+                </Grid>
             </form>
 
 

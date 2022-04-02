@@ -77,9 +77,11 @@ const useStyles =  makeStyles(theme => ({
                                                               googleToken,
                                                               user: {_id, name, email}
                                                               } */
-            window.localStorage.setItem("token", response.data.tokenId);
-			window.location.reload(false);
-            navigate("/")
+            window.localStorage.setItem("token", response.data.tokenId);			
+			window.location.reload(false)
+			navigate("/")
+				window.location.reload();			
+				  
           })
       }
     
@@ -110,7 +112,7 @@ const useStyles =  makeStyles(theme => ({
 		    window.location.reload(false)
                 navigate("/login")
               }).catch(err=>{
-                  console.log("ojala no salgas xd", err)
+                  return alert("el email ya fue registrado", err)
               })
            
                 

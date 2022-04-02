@@ -35,7 +35,7 @@ export default function Home() {
     })
 
     return (
-        <div className={classes.root}>
+        <div >
 
             <Menu />
             <Grid container spacing={2} >

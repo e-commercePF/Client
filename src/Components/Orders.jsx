@@ -96,7 +96,7 @@ if(typeof orders === 'object' && typeof orders.then === 'function'){
                     {x.products.map(x=> {
                         return <div>
                             
-                            <span> <b> Product Id:</b> {x.productId} </span>
+                            <span> <b> Product Name:</b> {x.name} </span>
                             <span> Price: <b>$ {x.price}</b> </span>
                             <span> <b> Cantidad: </b>{x.quantity} </span>
                         </div> 

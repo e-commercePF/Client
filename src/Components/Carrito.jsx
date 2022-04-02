@@ -89,65 +89,7 @@ export default function Carrito(){
     }  
     
     let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
-    useEffect(() => {
-        
-        
-        const cleanCart = cart => {
-            let savedCart = cart
-            let newCart = cart.map(p=> {
-                return p._id
-            })
-            let cleaning = new Set(newCart);
-            let otherNew = [...cleaning].filter(Boolean)
-            
-            //----------------------------------------------------------------
-            let returnCart = []
-            otherNew.forEach(id=> {
-                let x = savedCart.filter(prod=> prod._id === id)
-                let quantity = x.length
-                returnCart.push({
-                    productId: id,
-                    quantity
-                })
-            })
-            
-            return returnCart
-        }
-        let cleanedCart = cleanCart(shopingCart)
-        const makePay = async() => {
-            console.log(stripeToken)
-            let amount = parseInt(myPay).toFixed(2)
-            const token = localStorage.getItem("token")
-            let config = { headers: {Authorization: 'Bearer '+ token}}
-            try{
-                const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/payment/create`,{
-                    tokenId: stripeToken.id,
-                    amount: amount
-                },config).then(response=>{
-                    console.log(response.data)
-                    window.localStorage.removeItem('carrito');
-                    return response.data
-                    
-                }).catch(error =>{
-                    console.log(error)
-                })
-                navigate("/success", {
-                    state: {
-                        userId: res.userId,
-                        products: cleanedCart,
-                        amount: amount,
-                        address: res.address,
-                        orderId: res.orderId
-                    }
-                })
-            }
-            catch(e){
-                console.log(e)
-            }
-            
-        }
-        stripeToken && makePay()
-    },[shopingCart,navigate, stripeToken,myPay,shopingCart2])
+   
 
     
     console.log(shopingCart2)
@@ -200,7 +142,52 @@ export default function Carrito(){
     
     let countMyItemResult = shopingCart.length > 0 ? countMyItem() : null 
     console.log(countMyItemResult)
-  
+    useEffect(() => {
+        
+        const makePay = async() => {
+            console.log(stripeToken)
+            let amount = parseInt(myPay).toFixed(2)
+            const token = localStorage.getItem("token")
+            let config = { headers: {Authorization: 'Bearer '+ token}}
+            try{
+                const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/payment/create`,{
+                    tokenId: stripeToken.id,
+                    amount: amount
+                },config).then(response=>{
+                    console.log(response.data)
+                    window.localStorage.removeItem('carrito');
+                    return response.data
+                    
+                }).catch(error =>{
+                    console.log(error)
+                })
+                console.log("toy aca", countMyItemResult)
+                navigate("/success", {
+                    state: {
+                        userId: res.userId,
+                        products:countMyItemResult.map(prod=> {
+                            return {
+                                name: prod.name,
+                                price: prod.price,
+                                quantity: prod.piece,
+                                img: prod.img,
+                                productId: prod._id,
+                            }
+                        }),
+                        amount: amount,
+                        address: res.address,
+                        orderId: res.orderId,
+                        email: res.email
+                    }
+                })
+            }
+            catch(e){
+                console.log(e)
+            }
+            
+        }
+        stripeToken && makePay()
+    },[shopingCart,navigate, stripeToken,myPay,shopingCart2, countMyItemResult, REACT_APP_BACKEND_URL])
     
  
     return (

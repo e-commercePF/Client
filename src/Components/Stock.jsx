@@ -25,6 +25,7 @@ export default function Stock(){
                 navigate('/')
             })
            }   ,[navigate])
+           
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllProducts())
