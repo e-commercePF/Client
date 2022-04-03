@@ -45,7 +45,6 @@ export default function SearchBar() {
     productos.forEach(e => {
         optionProduct.push({ label: e.name })
     })
-    console.log(11111, optionProduct)
 
     return (<>
         <div className="inputsearch">

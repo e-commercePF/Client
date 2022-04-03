@@ -22,6 +22,7 @@ export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
 export const UPDATE_USERS = "UPDATE_USERS"
 export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
 export const IS_ADMIN = 'IS_ADMIN'
+export const GET_SHOP = "GET_SHOP"
 const { REACT_APP_BACKEND_URL } = process.env
 
 
@@ -377,3 +378,17 @@ export function updateOrder(id, status, config) {
   }
 }
 
+export function getShopsByUser(config) {
+  return async function (dispatch) {
+    try {
+      let shop = await axios.get("http://localhost:3000/api/orders/allUser", config)
+      return dispatch({
+        type: GET_SHOP,
+        payload: shop.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+}
