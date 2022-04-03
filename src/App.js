@@ -22,6 +22,7 @@ import Profile from './Components/Profile';
 import EmailActivate from './Components/emailActivate';
 import ResetPassword from './Components/ResetPassword'
 import ForgotPassword from './Components/ForgotPassword'
+import Categories from './Components/Categories';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
             <Route path='/api/auth/email-activate/:token' element = { <EmailActivate /> } />
             <Route path='/resetpassword/:token' element = { <ResetPassword /> } />
             <Route path='/forgotpassword' element = { <ForgotPassword /> } />
+            <Route path='/admin/categories'  element={ <Categories />}/>
           </Routes>
         </Container>
       </div>

@@ -50,9 +50,9 @@ export default function InputOrders({send, id}){
                 <select onChange={e=> handleStatus(e.target.value)}>
                     <option > Selecciona el status del pedido </option>
                     <option value= 'dispatch'> Despachada </option>   
-                    <option value='finish'> Finalizada </option>
+                    <option value='finished'> Finalizada </option>
                     <option value='pending'> Pendiente </option>    
-                    <option value='cancel'> Cancelada </option>    
+                    <option value='canceled'> Cancelada </option>    
             </select>             
          <Button color='info' onClick={()=> handleSubmitEvent()}>  Guardar Cambios </Button>
           </div>  

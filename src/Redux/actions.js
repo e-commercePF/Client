@@ -377,3 +377,35 @@ export function updateOrder(id, status, config) {
   }
 }
 
+export function resetPasswordByAdmin(id, config){
+  return async function(){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/auth/force-reset-password`, id, config)
+    }catch(e){ console.log(e) }
+  }
+}
+
+export function updateCategoy(old, actual){
+  return async function (){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/categories/update?nameCategory=${old}`, actual)
+    }catch (e) { console.log(e) }
+  }
+}
+
+export function createCategory(category){
+  return async function(){
+    try{
+      await axios.post(`${REACT_APP_BACKEND_URL}/api/categories/create`, category)
+    }catch (e) { console.log(e) }
+  }
+}
+
+export function deleteCategory(category){
+  return async function(){
+    try{
+      await axios.delete(`${REACT_APP_BACKEND_URL}/api/categories/delete/${category}`)
+    }catch(e) { console.log(e) }
+  }
+}
+

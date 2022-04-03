@@ -24,11 +24,11 @@ const config =  { headers: { Authorization: "Bearer " + token} }
 axios.get('http://localhost:3000/api/orders/allUser', config)
     .then(response => {
         setMyShop(response.data)
-    //  console.log(myShop)
+     console.log(myShop)
     })
     .catch(err => {
         console.log(err)
-    })
+    }, [])
 })    
 
     const [edit, setEdit] = useState(false)
@@ -44,7 +44,8 @@ axios.get('http://localhost:3000/api/orders/allUser', config)
 
     let img = localStorage.getItem('foto')
 
-    
+    //console.log(myShop)
+
     let contador = 1 
     return (
         <div>
@@ -74,9 +75,10 @@ axios.get('http://localhost:3000/api/orders/allUser', config)
                         <Paper elevation={3} className={clases.card}>
                             <h4>Compra # {contador ++} </h4>
                             <span>Fecha de compra: {x.createdAt.slice(0, 10)} </span> 
+                            <span>Hora de compra {x.createdAt.slice(11, 19)} </span> 
                              {x.products.map(x=> {
                                 return <div>
-                                <span>Producto: {x.name} </span> 
+                                <a href={`/product/${x.productId}`}>Producto: {x.name} </a> 
                                 <span> Cantidad: {x.quantity} </span>
                                 <span> Precio: $ {x.price} </span>
                                 </div>

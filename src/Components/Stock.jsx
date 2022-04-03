@@ -24,14 +24,28 @@ export default function Stock(){
                 console.log(err)
                 navigate('/')
             })
-           }   ,[navigate])
+           }, [navigate])
            
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
 
+    const [myCategory, setMyCategory] = useState([])
+
+    const handleAddCategory = (e)=> {
+        setMyCategory([...myCategory, e])
+        console.log(myCategory)
+    }
+    const handleDeleteCategory = (name)=> {
+        const newCategory = myCategory.filter(x=> x!== name)
+        setMyCategory(newCategory)
+        console.log(myCategory)
+    }
+
+
     const { product } = useSelector(state => state)
+    console.log(product)
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
 
@@ -66,7 +80,6 @@ export default function Stock(){
         setQuant(Number(e))         
     }
      
-
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
             brand: x.brand,
@@ -74,8 +87,8 @@ export default function Stock(){
             img: x.img,
             isOnStock: x.isOnStock,
             name: x.name,
-            price: price ||x.price,
-            quantity: quant ,            
+            price: price || x.price,
+            quantity: quant,            
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
@@ -137,6 +150,7 @@ export default function Stock(){
           })
 
      }
+
     return (
         <div>
              <h3> Tu Inventario actual: </h3>
@@ -160,6 +174,9 @@ export default function Stock(){
                 handleSelectQuant= {handleSelectQuant}
                 handleSelectPrice = {handleSelectPrice}
                 handleSubmitChanges= {()=> handleSubmitChanges(x)}
+                category= {x.category}
+                // handleDeleteCategory={handleDeleteCategory}
+                // handleAddCategory={handleAddCategory}
                 />                 
                
                 <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>

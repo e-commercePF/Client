@@ -84,8 +84,7 @@ export default function Formulario() {
     };
 
     const [imagen, setImg] = useState([])
-    useEffect(() => {
-        console.log(1111111, imagen)     
+    useEffect(() => {        
             let token = window.localStorage.getItem('token');
             let config = { headers: {
                     Authorization: 'Bearer ' + token}}
@@ -125,7 +124,6 @@ export default function Formulario() {
             uploadFiles(file);
         },
         uploadFiles: (file) => {
-            //
             if (!file) return;
             const sotrageRef = ref(storage, `files/${file.name}`);
             const uploadTask = uploadBytesResumable(sotrageRef, file);
