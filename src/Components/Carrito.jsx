@@ -90,9 +90,6 @@ export default function Carrito(){
     
     let myPay = shopingCart.length > 0 ? myPayToStore().toFixed(2) : null 
    
-
-    
-    console.log(shopingCart2)
     
     const clearMyCart = ()=> {
         dispatch(clearCart())
@@ -141,7 +138,7 @@ export default function Carrito(){
     }
     
     let countMyItemResult = shopingCart.length > 0 ? countMyItem() : null 
-    console.log(countMyItemResult)
+    //console.log(countMyItemResult)
     useEffect(() => {
         
         const makePay = async() => {

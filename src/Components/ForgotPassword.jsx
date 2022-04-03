@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { Button } from "@mui/material"
+
+const {REACT_APP_BACKEND_URL} = process.env 
 
 
 export default function ForgotPassword() {
@@ -9,7 +12,7 @@ export default function ForgotPassword() {
 
     const handleForgotPassword = (e) => {
         e.preventDefault();
-        axios.put('http://localhost:3000/api/auth/forgot-password', {
+        axios.put(`${REACT_APP_BACKEND_URL}/api/auth/forgot-password`, {
             email: email
         }).then((response) => {
             console.log(response);
@@ -29,7 +32,7 @@ export default function ForgotPassword() {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </p>
             <p>
-                <button onClick={handleForgotPassword}>Submit</button>
+                <Button variant="contained" color='error' onClick={handleForgotPassword}>Submit</Button>
             </p>
             {success && <p>{message}</p>}
         </div>

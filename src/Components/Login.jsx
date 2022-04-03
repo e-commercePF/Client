@@ -55,7 +55,7 @@ export default function LogIn() {
     const [error,setError] = useState('');
 	const classes = useStyles()
  const {REACT_APP_GOOGLEKEY, REACT_APP_BACKEND_URL} = process.env 
- console.log(REACT_APP_BACKEND_URL)
+ //console.log(REACT_APP_BACKEND_URL)
 	useEffect(()=>{
 	    const loggedUserJSON = window.localStorage.getItem('token')
       if(loggedUserJSON ){

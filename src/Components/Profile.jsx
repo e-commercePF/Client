@@ -33,8 +33,7 @@ export default function Profile() {
         //     .catch(err => {
         //         console.log(err)
         //     })
-        dispatch(getShopsByUser(config))
-        console.log(11111, myShop)
+        dispatch(getShopsByUser(config))        
     }, [])
 
 

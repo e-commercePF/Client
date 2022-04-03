@@ -128,7 +128,6 @@ export default function Formulario() {
             uploadFiles(file);
         },
         uploadFiles: (file) => {
-            //
             if (!file) return;
             const sotrageRef = ref(storage, `files/${file.name}`);
             const uploadTask = uploadBytesResumable(sotrageRef, file);

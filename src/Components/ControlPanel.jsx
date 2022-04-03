@@ -118,7 +118,24 @@ export default function ControlPanel() {
                 </CardActions>
             </Card>
 
-
+            <Card sx={{ width: 400 }}>
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                        Categorias
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        Edita, elimina y crea nuevas categorias para el stock de Sports Market
+                    </Typography>
+                    <Typography variant="body2">
+                        Si requieres eliminar o actualizar
+                        <br />
+                        categorias,  haga click acá.
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}>Ver y editar Categorias </Button></Link>
+                </CardActions>
+            </Card>
         </Grid>
     </div>
 }

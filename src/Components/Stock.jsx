@@ -19,19 +19,32 @@ export default function Stock(){
                 Authorization: 'Bearer ' + token}}
                 axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
             }).catch(err => {
                 console.log(err)
                 navigate('/')
             })
-           }   ,[navigate])
+           }, [navigate])
            
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
 
+    const [myCategory, setMyCategory] = useState([])
+
+    const handleAddCategory = (e)=> {
+        setMyCategory([...myCategory, e])
+        
+    }
+    const handleDeleteCategory = (name)=> {
+        const newCategory = myCategory.filter(x=> x!== name)
+        setMyCategory(newCategory)
+        
+    }
+
     const { product } = useSelector(state => state)
+    
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
 
@@ -49,12 +62,6 @@ export default function Stock(){
         _id: "",
     })
 
-    const [edit, setEdit] = useState(false)
-    const handleEditProduct = ()=> {
-        setEdit(!edit)
-       
-    }
-
     const [price, setPrice] = useState(0)
     const handleSelectPrice= (e)=> {
         setPrice(Number(e))
@@ -65,17 +72,17 @@ export default function Stock(){
     const handleSelectQuant= (e)=> {
         setQuant(Number(e))         
     }
-     
-
+         
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
+            category: myCategory || x.category,
             brand: x.brand,
             description: x.description,
             img: x.img,
             isOnStock: x.isOnStock,
             name: x.name,
-            price: price ||x.price,
-            quantity: quant ,            
+            price: price || x.price,
+            quantity: quant,            
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
@@ -137,6 +144,7 @@ export default function Stock(){
           })
 
      }
+
     return (
         <div>
              <h3> Tu Inventario actual: </h3>
@@ -144,7 +152,7 @@ export default function Stock(){
             {
         product.map(x=> {
             return <div> 
-
+                 
                 <InputPanel 
                 name= {x.name}
                 quantity= {x.quantity}
@@ -157,9 +165,15 @@ export default function Stock(){
                 sku= {x.sku}
                 __v= {x.__v}
                 _id= {x._id}
+                category={myCategory}
+                handleDeleteCategory={handleDeleteCategory}
+                handleAddCategory={handleAddCategory}
                 handleSelectQuant= {handleSelectQuant}
                 handleSelectPrice = {handleSelectPrice}
                 handleSubmitChanges= {()=> handleSubmitChanges(x)}
+                cate= {x.category}
+                
+             
                 />                 
                
                 <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>
