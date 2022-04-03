@@ -1,62 +1,135 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Grid, Divider, Box, Paper, Card } from "@mui/material";
 import Rating from '@material-ui/lab/Rating';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addCart, detailProduct } from "../Redux/actions";
-import { useState } from "react";
-import Home from "./Home";
 import { makeStyles } from '@mui/styles';
-
 
 
 
 export default function Detail() {
     const { _id } = useParams()
     const { detailproduct } = useSelector(state => state)
+    const [selectedImage, setSelectedImage] = useState(0)
     const dispatch = useDispatch()
+
+    const useStyles = makeStyles((theme) => ({
+        borderImg: {
+            border: '#solid black',
+            height: "100",
+            cursor: "pointer"
+        },
+        root: {
+            paddingTop: "10em"
+        },
+    }));
+    const classes = useStyles();
+
+
     useEffect(() => {
         dispatch(detailProduct(_id))
     }, [])
 
+
+    const myProduct = {
+        _id: detailproduct._id,
+        name: detailproduct.name,
+        price: detailproduct.price,
+        img: detailproduct.img,
+        rating: detailproduct.rating,
+        quantity: detailproduct.quantity
+    }
+
     let stock = detailproduct.quantity
-    const myProduct = { _id: detailproduct._id, name: detailproduct.name, price: detailproduct.price, img: detailproduct.img, rating: detailproduct.rating, quantity: detailproduct.quantity }
 
 
     const handleAddCart = () => {
-        //  e.preventDefault()       
-        // let myProduct = { _id: detailProduct._id, piece: 1, name: detailProduct.name, price: detailProduct.price }
         dispatch(addCart(myProduct))
     }
 
 
+
+
     let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
-    //console.log(pricetoshow)
+    console.log(111111111111111111, detailproduct)
 
     return (
-        <div>
+        <div className={classes.root}>
             {(detailproduct.name) ?
-                <div>
-                    { stock === 0 ? <h1 style={{color: 'red'}}> Lo siento, articulo no disponible </h1> : null }
-                    <h1> {detailproduct.name} </h1>
-                    <img src={detailproduct.img} alt="img" w_idth='500px' height='500px' /> <br />
-                    <category> <b> Categoria: </b> {detailproduct.category} </category>
-                    <h4>Rating:
-                    <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
-                </h4>
-                    <span> <b> Descripción: </b>  {detailproduct.description} </span>
-                    <h5> Precio: $ {pricetoshow} </h5>
+
+                <Grid container spacing={1} style={{ maxWidth: 1100, }}>
+
+                    <Grid item sm={1}>
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center">
+                            {myProduct.img.map((img, index) => (
+                                <img src={img} alt="img" key={index} onClick={() => setSelectedImage(index)} height={80} width={80} style={{ border: "solid 2px #eee", cursor: "pointer" }} />
+                            ))}
+                        </Grid>
+                    </Grid>
+
+                    <Grid item sm={5}>
+
+                        <img src={detailproduct.img[selectedImage]} alt="img" height="500" width="100%" />
+
+                    </Grid>
+
+                    <Grid item sm={6}>
+                        <Grid container
+                            direction="column"
+                            style={{ height: '100%' }}>
+                            <Typography variant="subtitle1">
+                                {detailproduct.category[1] ? detailproduct.category[1] : detailproduct.category[0]}
+                            </Typography>
+                            <Divider />
+                            <Box mt={2}>
+                                <Typography variant="h4">{detailproduct.name}</Typography>
+                                <Typography variant="subtitle1" >{detailproduct.description}</Typography>
+                                <Typography variant="h5">${pricetoshow}</Typography>
+                                <Grid >
+                                    <Typography>
+                                        Rating:
+                                    </Typography>
+                                    <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
+                                </Grid>
+                                <Typography variant="subtitle1">Stock Actual: {stock}</Typography>
+                            </Box>
+                            <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }} onClick={() => handleAddCart()}>
+                                Agregar al carrito
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    {stock === 0 ? <h1 style={{ color: 'red' }}> Lo siento, articulo no disponible </h1> : null}
 
 
-                    <Button variant="contained" color="primary" onClick={() => handleAddCart()}>
-                        Agregar al carrito
-                    </Button>
+                    <Card >
+                        Comentarios del producto:
+                        {
+                            detailproduct.reviews.map((e, index) => (
+                                <Grid item xs={12} sm={6} md={4} lg={4}
+                                    key={index}>
+                                    <Card style={{ width: "500px" }}>
+                                        <Typography variant="h6">{e.users}</Typography>
+                                        <Typography variant="h6">{e.description}</Typography>
+                                        <Typography variant="h6">{e.rating}</Typography>
 
-                    <h5> Stock Actual: {stock} </h5>
-                </div> : <div style={{ marginTop: 500 }} >Loading...</div>}
+                                    </Card>
+                                </Grid>
+                            ))
+                        }
+                    </Card>
+
+                </Grid>
 
 
 
+                : <div style={{ marginTop: 500 }} >Loading...</div>
+            }
         </div>
     )
 }

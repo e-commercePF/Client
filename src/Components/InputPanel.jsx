@@ -5,7 +5,8 @@ import { getAllCategories } from '../Redux/actions';
 
 
 export default function InputPanel({name, quantity, price, brand, description, img, isOnStock, rating,  sku,
-    __v, _id,  handleSelectQuant, handleSelectPrice, handleSubmitChanges, category, 
+    __v, _id,  handleSelectQuant, handleSelectPrice, handleSubmitChanges, category, handleAddCategory, 
+    handleDeleteCategory, cate
 }){
     const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
@@ -16,20 +17,7 @@ export default function InputPanel({name, quantity, price, brand, description, i
     useEffect(() => {
         dispatch(getAllCategories())        
     }, [])
-    const { categories } = useSelector(state=> state)
- 
-     const [myCategory, setMyCategory] = useState(category)
-
-    const handleAddCategory = (e)=> { 
-        if(myCategory.some(x=> x!== e)) {
-            setMyCategory([...myCategory, e])
-        }          
-    }
-    const handleDeleteCategory = (name)=> {
-        const newCategory = myCategory.filter(x=> x!== name)
-        setMyCategory(newCategory)
-        //console.log(myCategory)
-    }
+    const { categories } = useSelector(state=> state)    
 
     return (
         <div> 
@@ -55,7 +43,7 @@ export default function InputPanel({name, quantity, price, brand, description, i
             <Paper>
             Tus categorias seleccionadas: 
                 
-                    { myCategory.map(x=> {
+                    { category.map(x=> {
                     return <div>
                         <h4> {x} </h4>
                         <Button variant="contained" color="error" onClick={()=> handleDeleteCategory(x)}> X </Button>
@@ -66,7 +54,9 @@ export default function InputPanel({name, quantity, price, brand, description, i
             </div>
             : 
             <div>
-                { category.map(x=> <span> <b> {x} </b> </span>) }
+              
+                <span> Categorias </span> 
+                { cate.map(x=> <span> <b> {x} </b> </span>) }
             </div>
         }
             

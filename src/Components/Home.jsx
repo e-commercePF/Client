@@ -9,8 +9,7 @@ import Grid from '@mui/material/Grid';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        padding:"1em",
-
+        padding:"2em",
     },
 
 }));
@@ -35,9 +34,9 @@ export default function Home() {
     })
 
     return (
-        <div >
+        <div  className={classes.root}>
 
-            <Menu />
+            <Menu/>
             <Grid container spacing={2} >
                 {
                     (product.length !== 0) ?

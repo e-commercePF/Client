@@ -22,6 +22,7 @@ import Profile from './Components/Profile';
 import EmailActivate from './Components/emailActivate';
 import ResetPassword from './Components/ResetPassword'
 import ForgotPassword from './Components/ForgotPassword'
+import { Review } from './Components/Reviews';
 import Categories from './Components/Categories';
 
 
@@ -47,11 +48,12 @@ function App() {
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/createproduct" element={<CreatePage />} />
             <Route path="/admin/orders" element={<Orders />} />
-            <Route path='/me/:me' element = { <Profile /> } />
-            <Route path='/api/auth/email-activate/:token' element = { <EmailActivate /> } />
-            <Route path='/resetpassword/:token' element = { <ResetPassword /> } />
-            <Route path='/forgotpassword' element = { <ForgotPassword /> } />
-            <Route path='/admin/categories'  element={ <Categories />}/>
+            <Route path="/admin/categories" element={<Categories />} />
+            <Route path='/me/:me' element={<Profile />} />
+            <Route path='/api/auth/email-activate/:token' element={<EmailActivate />} />
+            <Route path='/resetpassword/:token' element={<ResetPassword />} />
+            <Route path='/forgotpassword' element={<ForgotPassword />} />
+            <Route path="/review/:productId" element={<Review />} />
           </Routes>
         </Container>
       </div>

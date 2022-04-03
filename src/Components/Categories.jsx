@@ -7,6 +7,9 @@ import { makeStyles } from '@mui/styles';
 import Swal from 'sweetalert2'
 import { createCategory } from "../Redux/actions"
 import { useNavigate } from "react-router-dom"
+import axios from 'axios'
+
+const {REACT_APP_BACKEND_URL} = process.env 
 
 const useStyles = makeStyles({
     input:{
@@ -18,6 +21,20 @@ const useStyles = makeStyles({
 export default function Categories(){
     const navigate = useNavigate()
     const clases = useStyles()
+
+    
+    useEffect(() =>{
+        let token = window.localStorage.getItem('token');
+        let config = { headers: {
+                Authorization: 'Bearer ' + token}}
+                axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+            .then(res => {
+                //console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+                navigate('/')
+            })
+           }, [navigate])
   
     const dispatch = useDispatch()
     useEffect(() => {

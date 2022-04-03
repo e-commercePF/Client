@@ -84,17 +84,21 @@ export default function Formulario() {
     };
 
     const [imagen, setImg] = useState([])
-    useEffect(() => {        
-            let token = window.localStorage.getItem('token');
-            let config = { headers: {
-                    Authorization: 'Bearer ' + token}}
-              axios.get('http://localhost:3000/api/users/admin/verify', config)
-                .then(res => {
-                    console.log(res.data)
-                }).catch(err => {
-                    console.log(err)
-                   return navigate('/')
-                })               
+    useEffect(() => {
+        console.log(1111111, imagen)
+        let token = window.localStorage.getItem('token');
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        axios.get('http://localhost:3000/api/users/admin/verify', config)
+            .then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+                return navigate('/')
+            })
     }, [imagen, navigate])
 
     const theme = useTheme();
