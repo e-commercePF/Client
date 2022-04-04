@@ -21,7 +21,9 @@ export const GET_ALL_USERS = "GET_ALL_USERS"
 export const DELETE_ONE_ITEM_FROM_STOCK = "DELETE_ONE_ITEM_FROM_STOCK"
 export const UPDATE_USERS = "UPDATE_USERS"
 export const GET_PRODUCT_PAGINADO = "GET_PRODUCT_PAGINADO"
-const {REACT_APP_BACKEND_URL} = process.env 
+export const IS_ADMIN = 'IS_ADMIN'
+export const GET_SHOP = "GET_SHOP"
+const { REACT_APP_BACKEND_URL } = process.env
 
 
 export function getAllProducts() {
@@ -205,8 +207,6 @@ export function getAllBrand() {
   }
 }
 
-
-
 export function filterBy(value) {
   return async function (dispatch) {
     try {
@@ -220,8 +220,6 @@ export function filterBy(value) {
     }
   }
 }
-
-
 
 export function filterByCategories(value) {
   return async function (dispatch) {
@@ -279,7 +277,6 @@ export function updateUsers(user) {
   } catch (e) { console.log(e) }
 }
 
-
 export function filterByRange(maxValue, minValue) {
   return async function (dispatch) {
     try {
@@ -293,7 +290,6 @@ export function filterByRange(maxValue, minValue) {
     }
   }
 }
-
 
 export function deleteUsers(user) {
   try {
@@ -317,3 +313,129 @@ export function getProductPagination() {
   }
 }
 
+export function isAdmin(token) {
+  return async function (dispatch) {
+    console.log(token)
+    try {
+      let config = {
+        headers: {
+          Authorization: 'Bearer' + token
+        }
+      }
+      let isTheAdmin = await axios(`${REACT_APP_BACKEND_URL}/admin/verify`, null, config)
+      return dispatch({
+        type: IS_ADMIN,
+        payload: isTheAdmin
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function GetFilters(filters) {
+  return async function (dispatch) {
+    try {
+      var payload = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/forPage`, { params: filters });
+      return dispatch({
+        type: FILTER_BY,
+        payload: payload.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+
+export function AddFilters(filters) {
+  // console.log('from actions',filters)
+  return function (dispatch) {
+    try {
+      return dispatch({
+        type: "ADD_FILTERS",
+        payload: filters,
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+export function getAllOrders(id) {
+  return function (dispatch) {
+    try {
+      let theOrders = axios(`${REACT_APP_BACKEND_URL}/api/orders/all`, id)
+      return dispatch({
+        type: "GET_ALL_ORDERS",
+        payload: theOrders
+      })
+    } catch (e) { console.log(e) }
+  }
+}
+
+// export function updateOrder(id, status, config) {
+//   return async function (dispatch) {
+//     try {
+//      await axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+     
+//     } catch (e) { return e }
+//   }
+// }
+
+export function updateOrder(id, status, config){
+  return function (dispatch){
+    const res = axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+    .then(res=> {
+      return res.data
+    }).catch(e=> {
+      if(e.response.status === 400){
+        return e.response.data.error
+      }
+    })
+    return res
+  }
+}
+
+export function resetPasswordByAdmin(id, config){
+  return async function(){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/auth/force-reset-password`, id, config)
+    }catch(e){ console.log(e) }
+  }
+}
+
+export function updateCategoy(old, actual){
+  return async function (){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/categories/update?nameCategory=${old}`, actual)
+    }catch (e) { console.log(e) }
+  }
+}
+
+export function createCategory(category){
+  return async function(){
+    try{
+      await axios.post(`${REACT_APP_BACKEND_URL}/api/categories/create`, category)
+    }catch (e) { console.log(e) }
+  }
+}
+
+export function deleteCategory(category){
+  return async function(){
+    try{
+      await axios.delete(`${REACT_APP_BACKEND_URL}/api/categories/delete/${category}`)
+    }catch(e) { console.log(e) }
+  }
+}
+
+export function getShopsByUser(config) {
+  return async function (dispatch) {
+    try {
+      let shop = await axios.get("http://localhost:3000/api/orders/allUser", config)
+      return dispatch({
+        type: GET_SHOP,
+        payload: shop.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+}

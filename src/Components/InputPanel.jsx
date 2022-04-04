@@ -1,13 +1,23 @@
-import { useState } from 'react'
-import { Button, Typography } from "@mui/material";
+import { useState, useEffect } from 'react'
+import { Button, Paper, Typography } from "@mui/material";
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCategories } from '../Redux/actions';
+
 
 export default function InputPanel({name, quantity, price, brand, description, img, isOnStock, rating,  sku,
-    __v, _id,  handleSelectQuant, handleSelectPrice, handleSubmitChanges
+    __v, _id,  handleSelectQuant, handleSelectPrice, handleSubmitChanges, category, handleAddCategory, 
+    handleDeleteCategory, cate
 }){
+    const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
     const handleEditProduct = ()=> {
         setEdit(!edit)       
     }
+
+    useEffect(() => {
+        dispatch(getAllCategories())        
+    }, [])
+    const { categories } = useSelector(state=> state)    
 
     return (
         <div> 
@@ -22,8 +32,35 @@ export default function InputPanel({name, quantity, price, brand, description, i
             { edit ? 
                 <span> Precio: <input type="number" name='quantity' min='0' placeholder={price} onChange={e=> handleSelectPrice(e.target.value)}/></span> 
             : <span> Precio: <b> $ { price }  </b> </span> }
-            
 
+            { edit ?
+            <div>
+            <select onChange={e=> handleAddCategory(e.target.value)}> 
+                <option value={category}> Selecciona las categorias de tu producto </option>
+                { categories.map(x=> <option value={x}> {x} </option>)}
+                
+            </select> 
+            <Paper>
+            Tus categorias seleccionadas: 
+                
+                    { category.map(x=> {
+                    return <div>
+                        <h4> {x} </h4>
+                        <Button variant="contained" color="error" onClick={()=> handleDeleteCategory(x)}> X </Button>
+                    </div>
+                    }) }
+                
+            </Paper>  
+            </div>
+            : 
+            <div>
+              
+                <span> Categorias </span> 
+                { cate.map(x=> <span> <b> {x} </b> </span>) }
+            </div>
+        }
+            
+          
             { edit ?                     
                  <Button variant="contained" color="secondary" 
                

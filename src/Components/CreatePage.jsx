@@ -1,5 +1,5 @@
-import { Button, Typography } from "@mui/material";
-import { useFormik, Field, Form, FieldArray } from "formik"
+import { Button, Grid } from "@mui/material";
+import { useFormik } from "formik"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
@@ -13,9 +13,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
-
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../firebase";
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -29,7 +34,9 @@ const MenuProps = {
         },
     },
 };
-
+const Input = styled('input')({
+    display: 'none',
+});
 function getStyles(name, text, theme) {
     return {
         fontWeight:
@@ -40,11 +47,72 @@ function getStyles(name, text, theme) {
 }
 
 export default function Formulario() {
+    let file
+    const navigate = useNavigate()
     const { categories, brands } = useSelector(state => state)
     const dispatch = useDispatch()
+    const [progress, setProgress] = useState(0);
+    const formHandler = (e) => {
+        e.preventDefault();
+        file = e.target[0].files[0];
+        // uploadFiles(file);
+        // console.log(file)
+    };
+
+    const pushToImagen = (e) => {
+        setImg([...imagen, e])
+        console.log(3333, e)
+
+    }
+
+    const uploadFiles = (file) => {
+        //
+        if (!file) return;
+        const sotrageRef = ref(storage, `files/${file.name}`);
+        const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const prog = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(prog);
+            },
+            (error) => console.log(error),
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setImg([...imagen, downloadURL])
+                    console.log("File available at", downloadURL);
+                });
+            }
+        );
+    };
+
+    const [imagen, setImg] = useState([])
+    useEffect(() => {
+        console.log(1111111, imagen)
+        let token = window.localStorage.getItem('token');
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        axios.get('http://localhost:3000/api/users/admin/verify', config)
+            .then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+                return navigate('/')
+            })
+    }, [imagen, navigate])
+
     const theme = useTheme();
     const formik = useFormik({
-        onSubmit: async (valores, { resetForm }) => {           
+        onSubmit: async (valores, { resetForm }) => {
+            if (imagen.length >= 1) {
+                valores.img = imagen
+            }
             let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
             if (infoproduct.data.message) {
                 Swal.fire({
@@ -52,6 +120,7 @@ export default function Formulario() {
                     title: 'Oops...',
                     text: 'Something went wrong!',
                 })
+
             } else {
                 Swal.fire({
                     title: 'Producto cargado con éxito',
@@ -64,11 +133,11 @@ export default function Formulario() {
             description: "",
             price: "",
             quantity: "",
-            img: "",
+            img: [],
             category: [],
-            brand: ""
+            brand: "",
+            image: []
         },
-
         validate: (valores) => {
             let errors = {}
 
@@ -115,7 +184,6 @@ export default function Formulario() {
     }, [])
 
     return (<div>
-
         <div>
             <form onSubmit={formik.handleSubmit}>
 
@@ -169,19 +237,81 @@ export default function Formulario() {
                     helperText={formik.touched.quantity && formik.errors.quantity}
                     onBlur={formik.handleBlur}
                 />
+                <Grid>
+                    <TextField
+                        style={{ marginTop: "20px" }}
+                        fullWidth
+                        id="img"
+                        name="img"
+                        label="Imágen producto"
+                        value={formik.values.img}
+                        onChange={formik.handleChange}
+                        error={formik.touched.img && Boolean(formik.errors.img)}
+                        helperText={formik.touched.img && formik.errors.img}
+                        onBlur={formik.handleBlur}
+                    />
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => pushToImagen(formik.values.img)
+                        }
+                    >
+                        Agregar imagen
+                    </Button>
 
-                <TextField
-                    style={{ marginTop: "20px" }}
-                    fullWidth
-                    id="img"
-                    name="img"
-                    label="Imágen producto"
-                    value={formik.values.img}
-                    onChange={formik.handleChange}
-                    error={formik.touched.img && Boolean(formik.errors.img)}
-                    helperText={formik.touched.img && formik.errors.img}
-                    onBlur={formik.handleBlur}
-                />
+                </Grid>
+
+
+                <Stack direction="row" alignItems="center" spacing={2}>
+
+                    <label>
+                        <Input
+                            multiple
+                            hidden={false}
+                            accept="image/*"
+                            id="icon-button-file"
+                            type="file"
+                            name="image"
+                            onChange={(event) => {
+                                formik.setFieldValue("image", event.currentTarget.files[0]);
+                            }} className="form-control" />
+
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+
+                        </IconButton>
+                        <h5>Uploading done {progress}%</h5>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            fullWidth
+                            onClick={() => uploadFiles(formik.values.image)}
+                        >
+                            Agregar imagen
+                        </Button>
+                    </label>
+                </Stack>
+                <div style={{ flexDirection: "row" }}>{
+                    imagen.length > 0 ? <div>{
+                        imagen.map(e => {
+                            return <div>
+                                <img src={e} alt="firebase-img" style={{ width: "200px", height: "200px" }} />
+                            </div>
+                        })
+                    }
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => setImg([])}
+                        >
+                            Quitar imágenes
+                        </Button>
+                    </div> : <></>
+
+                }
+                </div>
+
+
                 <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
                     <InputLabel id="demo-multiple-chip-label">Categorías</InputLabel>
                     <Select
@@ -200,6 +330,7 @@ export default function Formulario() {
                                     <Chip key={value} label={value} />
                                 ))}
                             </Box>
+
                         )}
                         MenuProps={MenuProps}
                     >
@@ -208,8 +339,6 @@ export default function Formulario() {
                                 key={name}
                                 value={name}
                                 style={getStyles(name, formik.values.category, theme)}
-                            // error={formik.touched.category && Boolean(formik.errors.category)}
-                            // helperText={formik.touched.category && formik.errors.category}
                             >
                                 {name}
                             </MenuItem>
@@ -249,4 +378,4 @@ export default function Formulario() {
         </div>
 
     </div >)
-}
+} 

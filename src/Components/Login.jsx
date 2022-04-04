@@ -6,7 +6,7 @@ import { Button, Typography } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import  {Link, useNavigate}  from 'react-router-dom'
-
+import  Swal from 'sweetalert2'
 ///////////////// material ui ///////////////////////////////////
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	container: {
 		opacity: '0.8',
-		height: '60%',
+		height: '70%',
 		marginTop: theme.spacing(10),
 		[theme.breakpoints.down(400 + theme.spacing(2) + 2)]: {
 			marginTop: 0,
@@ -52,11 +52,10 @@ export default function LogIn() {
 	const navigate = useNavigate();
     const [password,setPassword] = useState('');
     const [email,setEmail] = useState('');
-    const [name,setName] = useState('');
+    const [error,setError] = useState('');
 	const classes = useStyles()
- 
  const {REACT_APP_GOOGLEKEY, REACT_APP_BACKEND_URL} = process.env 
- console.log(REACT_APP_BACKEND_URL)
+ //console.log(REACT_APP_BACKEND_URL)
 	useEffect(()=>{
 	    const loggedUserJSON = window.localStorage.getItem('token')
       if(loggedUserJSON ){
@@ -73,10 +72,8 @@ export default function LogIn() {
               tokenId: response.tokenId
             }
           }).then(response => { window.localStorage.setItem("token", response.data.tokenId);
-		 // window.location.reload(false);
-
-		  window.location.reload();
-		})
+		  window.location.reload(false);
+		  navigate("/") })
 		}
 		  //  console.log("Google login success", response); 
 		  /*{
@@ -93,13 +90,7 @@ export default function LogIn() {
 		}
 	
 		const handleRegister = async (event) => {
-			const  ExpRegEmail =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
-		 if( !email || !password){
-			 return alert('por favor llene todos los campos')
-		 } if(email.match(ExpRegEmail)==null){
-			 return alert('por favor ingrese un email valido')
-		 }
-			  try {
+			 try {
 				axios({
 					method: 'POST',
 					url: `${REACT_APP_BACKEND_URL}/api/auth/signin`,
@@ -108,83 +99,17 @@ export default function LogIn() {
 					  password: password,
 					}
 				  }).then(response =>{
-					  if(response.data.error){
-						  return alert(response.data.error)
-					  }else{
-					window.localStorage.setItem("token", response.data.tokenId)/*{
-																	  googleToken,
-																	  user: {_id, name, email} */
-						  window.location.reload(false);
-						   navigate("/login")
-					}
-				  }).catch(err=>{
-					  console.log("ojala no salgas xd", err)
-				  })  // en caso de que el logueo sea exitoso
+					window.localStorage.setItem("token", response.data.tokenId)
+				    window.location.reload(false);
+				   }).catch(err=>{ 
+					   if(err.response.status === 400){
+						Swal.fire(err.response.data.error)
+				   }}) 
 			  }      
 			catch(e) { 
 				console.log("HandleRegister", e)
 			}
-		}/*
-const  Loginbutton = () => {
-return (
-	<Grid container component='main' className={classes.root}>
-			<CssBaseline />
-			<Container component={Paper} elevation={5} maxWidth='xs' className={classes.container}>
-				<div className={classes.div}>
-					<Avatar className={classes.avatar}>
-						<LockOutlinedIcon />
-					</Avatar>
-					<Typography component='h1' variant='h5'>Sign In</Typography>
-					<form className={classes.form}>
-						<TextField
-							fullWidth
-							autoFocus
-							color='primary'
-							margin='normal'
-							variant='outlined'
-							label='name'
-							name='name'
-							value={name}
-							onChange={(e)=> {setName(e.target.value)}}
-						/>
-						<TextField
-							fullWidth
-							type='password'
-							color='primary'
-							margin='normal'
-							variant='outlined'
-							label='Password'
-							name='password'
-							value={password}
-						  onChange={(e)=> {setPassword(e.target.value)}}
-						/>
-								<TextField
-							fullWidth
-							autoFocus
-							color='primary'
-							margin='normal'
-							variant='outlined'
-							label='email'
-							name='email'
-							value={email}
-							onChange={(e)=> {setName(e.target.value)}}
-						/>
-						<Button
-							fullWidth
-							variant='contained'
-							color='secondary'
-							className={classes.button}
-							onClick={() => onSubmit()}
-						>
-							Sign In
-						</Button>
-					</form>
-				</div>
-			</Container>
-		</Grid>
-)
-
-}  */
+		}
 
 
 return (
@@ -193,10 +118,16 @@ return (
 	  <CssBaseline />
 	  <Container component={Paper} elevation={5} maxWidth='xs' className={classes.container}>
 		  <div className={classes.div}>
+
 			  <Avatar className={classes.avatar}>
 				  <LockOutlinedIcon />
 			  </Avatar>
 			  <Typography component='h1' variant='h5'>Sign In</Typography>
+			  {/*
+				  error ?  <Typography component='h4' variant='h6'>{error}</Typography> : null 
+*/}
+
+
 			  <form className={classes.form}>
 
 			  <TextField
@@ -223,7 +154,7 @@ return (
 					onChange={(e)=> {setPassword(e.target.value)}}
 				  />
 					
-				  <Button
+					<Button
 					  fullWidth
 					  variant='contained'
 					  color='secondary'
@@ -232,14 +163,19 @@ return (
 				  >
 					  Sign In
 				  </Button>
+		 	 
 			  </form>
 			  <GoogleLogin
                     clientId={REACT_APP_GOOGLEKEY}
-                    buttonText="Signup with Google"
+                    buttonText="Sign in with Google"
                     onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
+			  
+			  <span> If you have forgot your password, <Link to="/forgotpassword"> click here </Link> </span>
+			  <span>Or create a new account <Link to='/CreateUser'>here</Link>  </span>	
+
 		  </div>
 	  </Container>
 </Grid>   

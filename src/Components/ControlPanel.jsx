@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../Redux/actions";
-import Stock from "./Stock";
-import { Button, Grid, Box } from "@mui/material";
-import CreatePage from './CreatePage'
-import Users from "./Users";
+import { useEffect } from "react";
+import { Button, Grid } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import { Link } from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from '@mui/material/Card';
+import axios from 'axios'
+
 
 const useStyles = makeStyles({
     btn1: {
@@ -24,47 +21,26 @@ const useStyles = makeStyles({
 
 
 export default function ControlPanel() {
-    const clases = useStyles()
+    const clases = useStyles()     
+    const navigate = useNavigate()
 
-    const [stock, setStock] = useState(false)
-    const handleShowStock = () => {
-        setStock(!stock)
-    }
 
-    const [create, setCreate] = useState(false)
-    const handleShowCreate = () => {
-        setCreate(!create)
-    }
-
-    const [user, setUser] = useState(false)
-    const handleShowUser = () => {
-        setUser(!user)
-    }
+    useEffect(() =>{
+        let token = window.localStorage.getItem('token');
+        let config = { headers: {
+                Authorization: 'Bearer ' + token}}
+          axios.get('http://localhost:3000/api/users/admin/verify', config)
+            .then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+               return navigate('/')
+            })
+           },[navigate])
 
     return <div className={clases.container}>
         <h1>Bienvenido Administrador</h1>
-        {/* <Grid item xs={12}>
-                   
-                <div >
-                     <Button variant="contained" color="primary" onClick={handleShowStock} className={clases.btn1}> Stock </Button>
-                 </div>
-                 {stock ? <Stock /> : null}
-                 <div>
-                     <Button variant="contained" color="primary" onClick={handleShowCreate} className={clases.btn1}> Cargar articulo Nuevo </Button>
-                 </div>
-                 {create ? <CreatePage /> : null}
-                 <div>
-                     <Button variant="contained" color="primary" onClick={handleShowUser} className={clases.btn1}> Ver y editar usuarios </Button>
-                 </div>
-                 {user ? <Users /> : null}
-                    
-
-                 </Grid> */}
-
-
-
-
-
+      
         <Grid container spacing={1} style={{ minWidth: "1200px" }}>
             <Card sx={{ width: 400 }}>
                 <CardContent>
@@ -142,7 +118,24 @@ export default function ControlPanel() {
                 </CardActions>
             </Card>
 
-
+            <Card sx={{ width: 400 }}>
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                        Categorias
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        Edita, elimina y crea nuevas categorias para el stock de Sports Market
+                    </Typography>
+                    <Typography variant="body2">
+                        Si requieres eliminar o actualizar
+                        <br />
+                        categorias,  haga click acá.
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}>Ver y editar Categorias </Button></Link>
+                </CardActions>
+            </Card>
         </Grid>
     </div>
 }

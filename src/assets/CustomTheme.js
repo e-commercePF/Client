@@ -11,7 +11,7 @@ const CustomTheme = createTheme({
       darker: '#053e85',
     },
     secondary:{
-        main:'#009688',
+        main:'#000000',
     },
      navBtnColor: {
       main:'#00000',
@@ -23,7 +23,8 @@ const CustomTheme = createTheme({
     MuiCardHeader:{
       styleOverrides: {
         root:{     
-       maxHeight:"4vh", 
+       maxHeight:"6.5vh",
+       minHeight:"6.5vh" 
       }
       },
     }

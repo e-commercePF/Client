@@ -6,7 +6,7 @@ import { makeStyles } from  '@material-ui/core/styles'
 import { Grid, Container, Paper, Avatar, TextField, CssBaseline } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { Button , Typography} from "@mui/material";
-
+import Swal from 'sweetalert2'
 /////////////// material ui /////////////////
 const useStyles =  makeStyles(theme => ({
 	root: {
@@ -18,7 +18,7 @@ const useStyles =  makeStyles(theme => ({
 	},
 	container: {
 		opacity: '0.8',
-		height: '60%',
+		height: '80%',
 		marginTop: theme.spacing(10),
 		[theme.breakpoints.down(400 + theme.spacing(2) + 2)]: {
 			marginTop: 0,
@@ -89,13 +89,7 @@ const useStyles =  makeStyles(theme => ({
         console.log(response)
       }    
  const handleRegister = async (event) => {
-		const  ExpRegEmail =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
-		if( !email || !password || !name){
-			return alert('por favor llene todos los campos')
-		} if(email.match(ExpRegEmail)==null){
-			return alert('por favor ingrese un email valido')
-		}
-        try {
+	  try {
             axios({
                 method: 'POST',
                 url: `${REACT_APP_BACKEND_URL}/api/auth/signup`,
@@ -105,36 +99,20 @@ const useStyles =  makeStyles(theme => ({
                   password: password,
                 }
               }).then(response =>{
-				//window.localStorage.setItem("token",  response.data.tokenId); /*{
-                                                                //   googleToken,
-                                                                //   user: {_id, name, email}
-                                                                //   } */
-		    window.location.reload(false)
-                navigate("/login")
-              }).catch(err=>{
-                  return alert("el email ya fue registrado", err)
-              })
-           
-                
-            // en caso de que el logueo sea exitoso
-          
-        
-        }      
-        catch(e) { 
+				Swal.fire(response.data.message)
+				navigate('/')
+              }).catch(err=>{ 
+				if(err.response.status === 400){
+				 Swal.fire(err.response.data.error)
+			
+			}}) 
+           }catch(e) { 
             console.log("HandleRegister", e)
         }
-    }
+ }
 return(
 
 	<React.StrictMode>
-  <GoogleLogin
-                    clientId={REACT_APP_GOOGLEKEY}
-                    buttonText="Signup with Google"
-                    onSuccess={responseSuccessGoogle}
-                    onFailure={responseErrorGoogle}
-                    cookiePolicy={'single_host_origin'}
-                />
-     
 	  <Grid container component='main' className={classes.root}>
 	  <CssBaseline />
 	  <Container component={Paper} elevation={5} maxWidth='xs' className={classes.container}>
@@ -187,7 +165,15 @@ return(
 				  >
 					  registrarse
 				  </Button>
+				  <GoogleLogin
+                    clientId={REACT_APP_GOOGLEKEY}
+                    buttonText="Signup with Google"
+                    onSuccess={responseSuccessGoogle}
+                    onFailure={responseErrorGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
 			  </form>
+			  <span>Or sign in <Link to="/login">here</Link>  </span>	
 		  </div>
 	  </Container>
 </Grid>   

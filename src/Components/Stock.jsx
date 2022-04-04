@@ -1,18 +1,50 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
+const {REACT_APP_BACKEND_URL} = process.env 
 
 export default function Stock(){
+
+    const navigate = useNavigate()
+
+    useEffect(() =>{
+        let token = window.localStorage.getItem('token');
+        let config = { headers: {
+                Authorization: 'Bearer ' + token}}
+                axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+            .then(res => {
+                //console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+                navigate('/')
+            })
+           }, [navigate])
+           
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllProducts())
     }, [])
 
+    const [myCategory, setMyCategory] = useState([])
+
+    const handleAddCategory = (e)=> {
+        setMyCategory([...myCategory, e])
+        
+    }
+    const handleDeleteCategory = (name)=> {
+        const newCategory = myCategory.filter(x=> x!== name)
+        setMyCategory(newCategory)
+        
+    }
+
     const { product } = useSelector(state => state)
+    
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
 
@@ -30,12 +62,6 @@ export default function Stock(){
         _id: "",
     })
 
-    const [edit, setEdit] = useState(false)
-    const handleEditProduct = ()=> {
-        setEdit(!edit)
-       
-    }
-
     const [price, setPrice] = useState(0)
     const handleSelectPrice= (e)=> {
         setPrice(Number(e))
@@ -46,17 +72,17 @@ export default function Stock(){
     const handleSelectQuant= (e)=> {
         setQuant(Number(e))         
     }
-     
-
+         
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
+            category: myCategory || x.category,
             brand: x.brand,
             description: x.description,
             img: x.img,
             isOnStock: x.isOnStock,
             name: x.name,
-            price: price ||x.price,
-            quantity: quant ,            
+            price: price || x.price,
+            quantity: quant,            
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
@@ -91,13 +117,6 @@ export default function Stock(){
                 window.location.reload()
                }, 3000) 
               })
-
-            // let check = window.confirm("¿Estas seguro que deseas modificar la base de datos?")
-            // if(check){
-            //     dispatch(editTheProduct(myNewDataProduct))
-            //     alert("La base de datos se ha actualizado")
-            //     window.location.reload()
-            //     }  
         }
      }
 
@@ -123,17 +142,9 @@ export default function Stock(){
             window.location.reload()
            }, 3000) 
           })
-        
-         
-        //  let check = window.confirm(`Estas a punto de eliminar un producto definitivamente, 
-        //     esta accion es irremediable ¿estas seguro que deseas continual?`)
 
-        //  if(check){
-        //      dispatch(deleteOneItemFromStock(x._id))
-        //      alert('El producto fue eliminado con exito')
-        //      window.location.reload()
-        //  }
      }
+
     return (
         <div>
              <h3> Tu Inventario actual: </h3>
@@ -141,7 +152,7 @@ export default function Stock(){
             {
         product.map(x=> {
             return <div> 
-
+                 
                 <InputPanel 
                 name= {x.name}
                 quantity= {x.quantity}
@@ -154,9 +165,15 @@ export default function Stock(){
                 sku= {x.sku}
                 __v= {x.__v}
                 _id= {x._id}
+                category={myCategory}
+                handleDeleteCategory={handleDeleteCategory}
+                handleAddCategory={handleAddCategory}
                 handleSelectQuant= {handleSelectQuant}
                 handleSelectPrice = {handleSelectPrice}
                 handleSubmitChanges= {()=> handleSubmitChanges(x)}
+                cate= {x.category}
+                
+             
                 />                 
                
                 <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>

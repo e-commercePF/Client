@@ -91,7 +91,7 @@ export default function Productcard({ id, price, name, description, img, rating,
       <CardMedia
         component="img"
         height="200"
-        image={img}
+        image={img[0]}
         alt="myProduct"
       />
 
