@@ -9,22 +9,23 @@ import Card from '@mui/material/Card';
 import axios from 'axios'
 
 
-const useStyles = makeStyles({
-    btn1: {
-        marginLeft: '-80%',
-        margin: '1rem'
-    },
+const useStyles = makeStyles({   
     container: {
         display: 'grid'
+    }, 
+    card: {
+        backgroundColor: 'rgb(173, 184, 175)',
+        boxShadow: '0 5px 5px rgb(0,0,0,0.1)', 
+        borderRadius: '5px',
+        border: 'solid 1px black'
     }
 })
 
 
 export default function ControlPanel() {
     const clases = useStyles()     
+
     const navigate = useNavigate()
-
-
     useEffect(() =>{
         let token = window.localStorage.getItem('token');
         let config = { headers: {
@@ -41,8 +42,8 @@ export default function ControlPanel() {
     return <div className={clases.container}>
         <h1>Bienvenido Administrador</h1>
       
-        <Grid container spacing={1} style={{ minWidth: "1200px" }}>
-            <Card sx={{ width: 400 }}>
+        <Grid container spacing={1} >
+            <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Lista de Stock Disponible
@@ -57,11 +58,11 @@ export default function ControlPanel() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/stock" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}> Stock </Button></Link>
+                    <Link to="/admin/stock" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '10em'}}> Stock </Button></Link>
                 </CardActions>
             </Card>
 
-            <Card sx={{ width: 400 }}>
+            <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Lista de Usuarios
@@ -76,11 +77,11 @@ export default function ControlPanel() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/users" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}>Ver y editar usuarios </Button></Link>
+                    <Link to="/admin/users" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '5em'}}>Ver y editar usuarios </Button></Link>
                 </CardActions>
             </Card>
 
-            <Card sx={{ width: 400 }}>
+            <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Crear un producto nuevo
@@ -95,11 +96,11 @@ export default function ControlPanel() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/createproduct" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}> Cargar articulo Nuevo </Button></Link>
+                    <Link to="/admin/createproduct" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em'}}> Cargar articulo Nuevo </Button></Link>
                 </CardActions>
             </Card>
 
-            <Card sx={{ width: 400 }}>
+            <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Ver tus Ordenes de venta
@@ -114,11 +115,11 @@ export default function ControlPanel() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/orders" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}> Ordenes de Venta </Button></Link>
+                    <Link to="/admin/orders" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em'}}> Ordenes de Venta </Button></Link>
                 </CardActions>
             </Card>
 
-            <Card sx={{ width: 400 }}>
+            <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Categorias
@@ -133,7 +134,7 @@ export default function ControlPanel() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="primary" className={clases.btn1}>Ver y editar Categorias </Button></Link>
+                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em'}}>Ver y editar Categorias </Button></Link>
                 </CardActions>
             </Card>
         </Grid>

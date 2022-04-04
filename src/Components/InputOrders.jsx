@@ -45,14 +45,15 @@ export default function InputOrders({send, id}){
                             x
                          )      
                    }
-                                 
+               //}).then(x=> {
+                //   window.location.reload()
                }).catch(e=> {
                    return e 
                })                                 
             }
-           setTimeout(()=> {
-            window.location.reload()
-           }, 2000) 
+        //    setTimeout(()=> {
+        //     window.location.reload()
+        //    }, 2000) 
           })
     }
 

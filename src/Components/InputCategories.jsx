@@ -31,20 +31,24 @@ export default function InputCategories({category}){
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, editar!'
+            confirmButtonText: 'Si, editar!', 
+            allowEnterKey: true
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(updateCategoy(category, objeto))
-             // console.log(category, objeto)
-              Swal.fire(                
-                'La base de datos se ha actualizado.',
-                'success'
-              )                            
-            }
-           setTimeout(()=> {
-            window.location.reload()
-           }, 1500) 
-          })        
+              dispatch(updateCategoy(category, objeto))  
+              } 
+           })           
+          //   Swal.fire({
+          //   title: 'La base de datos se ha actualizado.',
+          //   text: "Sucess",
+          //   confirmButtonText: 'OK', 
+          // }.then(x=> {
+          //   if (x.isConfirmed){
+          //     window.location.reload()
+          //   }
+          // })) 
+           
+                        
     }
 
     const handleDeleteCategory = (x)=> {
@@ -65,9 +69,9 @@ export default function InputCategories({category}){
                 'success'
               )                            
             }
-           setTimeout(()=> {
-            window.location.reload()
-           }, 1500) 
+          //  setTimeout(()=> {
+          //   window.location.reload()
+          //  }, 1500) 
           })        
     }
     
@@ -77,7 +81,7 @@ export default function InputCategories({category}){
             <Paper elevation={3}> 
             { !edit?<div>              
                     <h2> <b> { category } </b> </h2>
-                    <Button onClick={()=> setEdit(!edit)}> Editar Categoria </Button>
+                    <Button variant="contained" color='secondary'  onClick={()=> setEdit(!edit)}> Editar Categoria </Button>
                 </div> : <div>
                 <Input type="text" 
                     placeholder={category}
