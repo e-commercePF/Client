@@ -75,7 +75,7 @@ export default function Profile() {
 
             {
                 myShop.length < 1 ? <h2> Aún no compras nada,
-                    que esperas ve el catalogo de Sports Market, la mejor tienda deportiva de America Latina
+                    ¿que esperas?, ve el catalogo de Sports Market, la mejor tienda deportiva de América Latina
                 </h2> :
                     myShop.map(x => {
                         return <div>

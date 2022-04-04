@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { makeStyles } from '@mui/styles';
 
 const {REACT_APP_BACKEND_URL} = process.env 
 
+const useStyles = makeStyles({
+    paper: {
+    backgroundColor: 'rgb(213, 217, 222)',
+    boxShadow: '0 5px 5px rgb(0,0,0,0.1)', 
+    borderRadius: '10px',
+    border: 'solid 1px black',
+    margin: '2em' 
+    }
+    
+})
+
 export default function Stock(){
+
+    const clases = useStyles()
 
     const navigate = useNavigate()
 
@@ -113,9 +127,9 @@ export default function Stock(){
                     'success'
                   )                            
                 }
-               setTimeout(()=> {
-                window.location.reload()
-               }, 3000) 
+            //    setTimeout(()=> {
+            //     window.location.reload()
+            //    }, 3000) 
               })
         }
      }
@@ -152,7 +166,7 @@ export default function Stock(){
             {
         product.map(x=> {
             return <div> 
-                 
+                <Paper className={clases.paper}>
                 <InputPanel 
                 name= {x.name}
                 quantity= {x.quantity}
@@ -172,14 +186,17 @@ export default function Stock(){
                 handleSelectPrice = {handleSelectPrice}
                 handleSubmitChanges= {()=> handleSubmitChanges(x)}
                 cate= {x.category}
+                handleDeleteProduct={()=> handleDeleteProduct(x)}
                 
              
-                />                 
+                />                
                
-                <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>
+                {/* <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button> */}
+                </Paper> 
             </div>                        
                 })   
-            }     
+            } 
+
     <h1> Tu inversion en SportsMarket: <b> $ {investment} </b> </h1>
         </div>
     )

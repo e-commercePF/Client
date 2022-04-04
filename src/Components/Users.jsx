@@ -93,9 +93,9 @@ export default function Users(){
                     'success'
                   )                            
                 }
-               setTimeout(()=> {
-                window.location.reload()
-               }, 3000) 
+              //  setTimeout(()=> {
+              //   window.location.reload()
+              //  }, 3000) 
               })
         }  
     }
@@ -119,9 +119,9 @@ export default function Users(){
                 'success'
               )                            
             }
-           setTimeout(()=> {
-            window.location.reload()
-           }, 3000) 
+          //  setTimeout(()=> {
+          //   window.location.reload()
+          //  }, 3000) 
           })     
     }
 
@@ -139,9 +139,10 @@ export default function Users(){
                 email= {x.email}
                 handleChangeRole= {handleChangeRole}
                 handleEditUser= {()=> handleEditUser(x)}
+                deleteUser= {()=> deleteUser(x._id)}
                 />
-
-                <Button variant="contained" color="error" onClick={()=> deleteUser(x._id)} > Eliminar Usuario </Button>
+{/* 
+                <Button variant="contained" color="error" onClick={()=> deleteUser(x._id)} > Eliminar Usuario </Button> */}
                     
                 </div>
             })}
