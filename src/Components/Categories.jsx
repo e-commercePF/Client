@@ -81,19 +81,20 @@ export default function Categories(){
     
 
     return(
-        <div>             
-            <h1> A continuación puedes ver y editar las categorias de tus productos: </h1>
-            { categories.map(x=>  <InputCategories category={ x } />) }
-
+        <div>  
             <Paper>
-                <h2>Deseas crear una nueva Categoria:</h2>
+                <h1>Deseas crear una nueva Categoria:</h1>
                 <Input className={clases.input}
                 placeholder='Escribe tu nueva categoria'
                 onChange={e=> handleInputChange(e.target.value)}
                 /> 
 
-                <Button variant="contained" color="primary" onClick={()=> handleSubmitNewCategory(newCategory)}> Cargar Nueva Categoria </Button>
-            </Paper>
+                <Button variant="contained" style={{backgroundColor: "black", color: 'white', borderRadius: '5px'}} onClick={()=> handleSubmitNewCategory(newCategory)}> Cargar Nueva Categoria </Button>
+            </Paper>           
+            <h1> Deseas ver o editar las categorias de tus productos: </h1>
+            { categories.map(x=>  <InputCategories category={ x } />) }
+
+            
 
         </div>
     )
