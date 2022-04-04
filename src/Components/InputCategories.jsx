@@ -81,15 +81,16 @@ export default function InputCategories({category}){
             <Paper elevation={3}> 
             { !edit?<div>              
                     <h2> <b> { category } </b> </h2>
-                    <Button variant="contained" color='secondary'  onClick={()=> setEdit(!edit)}> Editar Categoria </Button>
+                    <Button variant="contained" color='secondary' style={{marginTop: '1rem', width: '40%'}} onClick={()=> setEdit(!edit)}> Editar Categoria </Button>
                 </div> : <div>
                 <Input type="text" 
                     placeholder={category}
                 onChange={e=> handleEditCategory(e.target.value)} />
-                <Button variant="contained" color='primary'  onClick={()=> handleSubmitCategory()}> Guardar Cambios </Button>
+                <Button variant="contained" color='secondary' style={{marginTop: '1rem', width: '50%'}} onClick={()=> handleSubmitCategory()}> Guardar Cambios </Button>
               </div>   
             }
             <Button variant="contained" color="error"
+            style={{marginTop: '1rem', marginBottom: '1rem', width: '40%'}}
             onClick={()=> handleDeleteCategory(category)}
             >Eliminar Categoria </Button>
             {/* <span> {category} </span> */}

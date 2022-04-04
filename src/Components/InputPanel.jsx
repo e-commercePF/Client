@@ -81,14 +81,14 @@ export default function InputPanel({name, quantity, price, brand, description, i
             { edit ? 
         
                  <Button variant="contained" color="secondary" 
-               
+                    style={{marginTop: '1em'}}
                  onClick={(x)=> handleSubmitChanges(x)}
                 >
                     Guardar Cambios
-                </Button> : <Button variant="contained" color="secondary" onClick={()=> handleEditProduct()} >
+                </Button> : <Button variant="contained" color="secondary" style={{marginTop: '1em'}} onClick={()=> handleEditProduct()} >
                     Editar Producto
                 </Button> }
-            <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct()} > Eliminar Producto </Button>
+            <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct()} style={{marginTop: '1em'}}> Eliminar Producto </Button>
             </Grid>
                 
         </div>

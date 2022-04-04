@@ -80,13 +80,13 @@ export default function InputUsers({id, name, role, email, handleChangeRole, han
             <div className={clases.btn} style={{display: 'grid', gridTemplateColumns: 'repeate(1, 1fr)', marginLeft: '3rem'}}>
 
             {edit ? 
-                    <Button variant="contained" color="primary" className={clases.btn1}style={{maxWidth: '30%', padding: '0.5em'}} onClick={(x)=> handleEditUser(x)} > Actualizar Usuario </Button>     
-                   : <Button variant="contained" color="secondary"style={{maxWidth: '30%'}} onClick={handleEditProduct}> Actualizar Usuario </Button>
+                    <Button variant="contained" color="primary" className={clases.btn1}style={{maxWidth: '40%', marginLeft: '30%', marginTop: '1em'}} onClick={ (x)=> handleEditUser(x) } > Actualizar Usuario </Button>     
+                   : <Button variant="contained" color="secondary"style={{maxWidth: '40%', marginLeft: '30%', marginTop: '1em'}} onClick={handleEditProduct}> Actualizar Usuario </Button>
             }
             
-            <Button variant="contained" className={clases.btn1} color='error' style={{ maxWidth: '30%'}} onClick={()=> handleResetPassword()}>Resetear Password </Button>        
+            <Button variant="contained" className={clases.btn1} color='error' style={{ maxWidth: '40%', marginLeft: '30%', marginTop: '1em'}} onClick={()=> handleResetPassword()}>Resetear Password </Button>        
             
-            <Button variant="contained" color="error" className={clases.btn1} onClick={()=> deleteUser()}style={{maxWidth: '30%'}} > Eliminar Usuario </Button>
+            <Button variant="contained" color="error" className={clases.btn1} onClick={()=> deleteUser()}style={{maxWidth: '40%', marginLeft: '30%', marginTop: '1em'}} > Eliminar Usuario </Button>
             </div>
 
         </Paper>

@@ -60,7 +60,7 @@ export default function InputOrders({send, id}){
 
     return (
         <div> 
-            {  edit ? <div>            
+            {  edit ? <div style={{marginBottom: '1rem'}}>            
                 <select onChange={e=> handleStatus(e.target.value)}>
                     <option > Selecciona el status del pedido </option>
                     <option value= 'pending'> Pendiente </option>   
@@ -68,11 +68,11 @@ export default function InputOrders({send, id}){
                     <option value='completed'> Completada </option>    
                     <option value='canceled'> Cancelada </option>    
             </select>             
-         <Button color='info' onClick={()=> handleSubmitEvent()}>  Guardar Cambios </Button>
+         <Button variant='contained' color='secondary' style={{marginBottom: '1rem'}} onClick={()=> handleSubmitEvent()}>  Guardar Cambios </Button>
           </div>  
-          :  <div>
+          :  <div style={{marginBottom: '1rem'}}>
                 <span> Status del envio <b> { send } </b> </span>
-                <Button color='info' onClick={()=>  setEdit(!edit)}> Cambiar status del pedido </Button>    
+                <Button variant='contained' color='secondary'  style={{marginBottom: '1rem', marginTop: '0.5rem'}} onClick={()=>  setEdit(!edit)}> Cambiar status del pedido </Button>    
            </div>            
             }
         </div>
