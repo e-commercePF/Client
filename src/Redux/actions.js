@@ -370,11 +370,26 @@ export function getAllOrders(id) {
   }
 }
 
-export function updateOrder(id, status, config) {
-  return async function (dispatch) {
-    try {
-      await axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
-    } catch (e) { console.log(e) }
+// export function updateOrder(id, status, config) {
+//   return async function (dispatch) {
+//     try {
+//      await axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+     
+//     } catch (e) { return e }
+//   }
+// }
+
+export function updateOrder(id, status, config){
+  return function (dispatch){
+    const res = axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+    .then(res=> {
+      return res.data
+    }).catch(e=> {
+      if(e.response.status === 400){
+        return e.response.data.error
+      }
+    })
+    return res
   }
 }
 
