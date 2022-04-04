@@ -28,7 +28,7 @@ export default function Productcard({ id, price, name, description, img, rating,
   const classes = useStyles();
 
   const _id = id
-  let myProduct = { _id, name, price, img, rating, quantity }
+  let myProduct = { _id, name, price, img, rating, quantity, description }
   const functionToAddProductsToMyCart = () => {
     dispatch(addCart(myProduct))
   }
