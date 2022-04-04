@@ -1,4 +1,4 @@
-import { Button, Typography, Grid, Divider, Box, Paper, Card } from "@mui/material";
+import { Button, Typography, Grid, Divider, Box, Paper } from "@mui/material";
 import Rating from '@material-ui/lab/Rating';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,10 +49,7 @@ export default function Detail() {
     }
 
 
-
-
     let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
-    console.log(111111111111111111, detailproduct)
 
     return (
         <div className={classes.root}>
@@ -71,6 +68,7 @@ export default function Detail() {
                             ))}
                         </Grid>
                     </Grid>
+
 
                     <Grid item sm={5}>
 
@@ -91,9 +89,7 @@ export default function Detail() {
                                 <Typography variant="subtitle1" >{detailproduct.description}</Typography>
                                 <Typography variant="h5">${pricetoshow}</Typography>
                                 <Grid >
-                                    <Typography>
-                                        Rating:
-                                    </Typography>
+                                    <Typography variant="subtitle1">Rating:</Typography>
                                     <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
                                 </Grid>
                                 <Typography variant="subtitle1">Stock Actual: {stock}</Typography>
@@ -105,29 +101,25 @@ export default function Detail() {
                     </Grid>
 
                     {stock === 0 ? <h1 style={{ color: 'red' }}> Lo siento, articulo no disponible </h1> : null}
+                    
 
-
-                    <Card >
-                        Comentarios del producto:
+                    <Grid  sm={12} sx={{padding:"5em"}}>
+                        <Paper elevation={3}>
+                        <Typography variant="h5"> Comentarios del producto:</Typography>
+                        <Divider></Divider>
                         {
                             detailproduct.reviews.map((e, index) => (
-                                <Grid item xs={12} sm={6} md={4} lg={4}
-                                    key={index}>
-                                    <Card style={{ width: "500px" }}>
+                               <Grid item  sm={12}>
                                         <Typography variant="h6">{e.users}</Typography>
                                         <Typography variant="h6">{e.description}</Typography>
-                                        <Typography variant="h6">{e.rating}</Typography>
-
-                                    </Card>
-                                </Grid>
+                                        <Rating name="half-rating-read" value={e.rating} precision={0.5} readOnly />
+                                        
+                             </Grid>
                             ))
                         }
-                    </Card>
-
+                        </Paper>
+                    </Grid>
                 </Grid>
-
-
-
                 : <div style={{ marginTop: 500 }} >Loading...</div>
             }
         </div>
