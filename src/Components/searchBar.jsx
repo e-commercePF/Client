@@ -49,7 +49,7 @@ export default function SearchBar() {
     return (<>
         <div className="inputsearch">
 
-            <form>
+            <form >
                 <Grid container spacing={2} justifyContent="center"
                     alignItems="center">
                     <Autocomplete
