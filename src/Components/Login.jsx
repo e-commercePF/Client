@@ -7,6 +7,7 @@ import { makeStyles } from '@mui/styles';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import  {Link, useNavigate}  from 'react-router-dom'
 import  Swal from 'sweetalert2'
+import black from "@material-ui/core/colors/red"
 ///////////////// material ui ///////////////////////////////////
 
 const useStyles = makeStyles(theme => ({
@@ -15,17 +16,20 @@ const useStyles = makeStyles(theme => ({
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
 		height: '100vh',
+		
 		// paddingTop:"10vh"
 	},
 	container: {
 		opacity: '0.8',
-		height: '70%',
+		height: '80%',
 		marginTop: theme.spacing(10),
 		[theme.breakpoints.down(400 + theme.spacing(2) + 2)]: {
 			marginTop: 0,
 			width: '100%',
 			height: '100%'
-		}
+		
+		},
+		border: "1px solid black",
 	},
 	
 	div: {
@@ -36,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	avatar: {
 		margin: theme.spacing(1),
-		backgroundColor: theme.palette.primary.main
+	    backgroundColor:theme.palette.secondary.dark
 	},
 	form: {
 		width: '100%',
@@ -44,6 +48,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	button: {
 		margin: theme.spacing(3, 0, 2)
+	},
+	divgoogle:{
+		marginTop: theme.spacing(6),
 	}
 }))
 
@@ -75,17 +82,7 @@ export default function LogIn() {
 		  window.location.reload(false);
 		  navigate("/") })
 		}
-		  //  console.log("Google login success", response); 
-		  /*{
-                                                              googleToken,
-                                                              user: {_id, name, email}
-                                                              } */
-           
-	
-    
-		
-      
-	const responseErrorGoogle = (response) => {
+		const responseErrorGoogle = (response) => {
 		console.log(response)
 		}
 	
@@ -120,15 +117,10 @@ return (
 		  <div className={classes.div}>
 
 			  <Avatar className={classes.avatar}>
-				  <LockOutlinedIcon />
+				  <LockOutlinedIcon/>
 			  </Avatar>
 			  <Typography component='h1' variant='h5'>Sign In</Typography>
-			  {/*
-				  error ?  <Typography component='h4' variant='h6'>{error}</Typography> : null 
-*/}
-
-
-			  <form className={classes.form}>
+            <form className={classes.form}>
 
 			  <TextField
 					  fullWidth
@@ -165,6 +157,7 @@ return (
 				  </Button>
 		 	 
 			  </form>
+			  <div className={classes.divgoogle} >
 			  <GoogleLogin
                     clientId={REACT_APP_GOOGLEKEY}
                     buttonText="Sign in with Google"
@@ -172,10 +165,9 @@ return (
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
-			  
-			  <span> If you have forgot your password, <Link to="/forgotpassword"> click here </Link> </span>
-			  <span>Or create a new account <Link to='/CreateUser'>here</Link>  </span>	
-
+		  <Typography component='h5' variant='h8'>  If you have forgot your password, <Link to="/forgotpassword"> click here </Link>   </Typography>
+          <Typography component='h5' variant='h8'>Or create a new account <Link to='/CreateUser'>here</Link>   </Typography>
+		  </div>
 		  </div>
 	  </Container>
 </Grid>   
