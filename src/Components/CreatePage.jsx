@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useFormik } from "formik"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -56,8 +56,14 @@ export default function Formulario() {
         e.preventDefault();
         file = e.target[0].files[0];
         // uploadFiles(file);
-        console.log(file)
+        // console.log(file)
     };
+
+    const pushToImagen = (e) => {
+        setImg([...imagen, e])
+        console.log(3333, e)
+
+    }
 
     const uploadFiles = (file) => {
         //
@@ -104,8 +110,8 @@ export default function Formulario() {
     const theme = useTheme();
     const formik = useFormik({
         onSubmit: async (valores, { resetForm }) => {
-            if (valores.img === '') {
-                valores.img = imagen.join(' - ')
+            if (imagen.length >= 1) {
+                valores.img = imagen
             }
             let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
             if (infoproduct.data.message) {
@@ -114,6 +120,7 @@ export default function Formulario() {
                     title: 'Oops...',
                     text: 'Something went wrong!',
                 })
+
             } else {
                 Swal.fire({
                     title: 'Producto cargado con éxito',
@@ -126,10 +133,10 @@ export default function Formulario() {
             description: "",
             price: "",
             quantity: "",
-            img: "",
+            img: [],
             category: [],
             brand: "",
-            image: null
+            image: []
         },
         validate: (valores) => {
             let errors = {}
@@ -177,7 +184,6 @@ export default function Formulario() {
     }, [])
 
     return (<div>
-
         <div>
             <form onSubmit={formik.handleSubmit}>
 
@@ -231,22 +237,36 @@ export default function Formulario() {
                     helperText={formik.touched.quantity && formik.errors.quantity}
                     onBlur={formik.handleBlur}
                 />
-                <TextField
-                    style={{ marginTop: "20px" }}
-                    fullWidth
-                    id="img"
-                    name="img"
-                    label="Imágen producto"
-                    value={formik.values.img}
-                    onChange={formik.handleChange}
-                    error={formik.touched.img && Boolean(formik.errors.img)}
-                    helperText={formik.touched.img && formik.errors.img}
-                    onBlur={formik.handleBlur}
-                />
+                <Grid>
+                    <TextField
+                        style={{ marginTop: "20px" }}
+                        fullWidth
+                        id="img"
+                        name="img"
+                        label="Imágen producto"
+                        value={formik.values.img}
+                        onChange={formik.handleChange}
+                        error={formik.touched.img && Boolean(formik.errors.img)}
+                        helperText={formik.touched.img && formik.errors.img}
+                        onBlur={formik.handleBlur}
+                    />
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => pushToImagen(formik.values.img)
+                        }
+                    >
+                        Agregar imagen
+                    </Button>
+
+                </Grid>
+
+
                 <Stack direction="row" alignItems="center" spacing={2}>
 
                     <label>
                         <Input
+                            multiple
                             hidden={false}
                             accept="image/*"
                             id="icon-button-file"
@@ -271,6 +291,27 @@ export default function Formulario() {
                         </Button>
                     </label>
                 </Stack>
+                <div style={{ flexDirection: "row" }}>{
+                    imagen.length > 0 ? <div>{
+                        imagen.map(e => {
+                            return <div>
+                                <img src={e} alt="firebase-img" style={{ width: "200px", height: "200px" }} />
+                            </div>
+                        })
+                    }
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => setImg([])}
+                        >
+                            Quitar imágenes
+                        </Button>
+                    </div> : <></>
+
+                }
+                </div>
+
+
                 <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
                     <InputLabel id="demo-multiple-chip-label">Categorías</InputLabel>
                     <Select

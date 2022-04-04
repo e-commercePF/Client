@@ -42,7 +42,7 @@ export default function Orders() {
                 console.log(err)
                 navigate('/')
             })
-           }   ,[navigate])
+           }    ,[navigate])
 
     const dispatch = useDispatch()
         useEffect(() => {

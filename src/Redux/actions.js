@@ -370,11 +370,58 @@ export function getAllOrders(id) {
   }
 }
 
-export function updateOrder(id, status, config) {
-  return async function (dispatch) {
-    try {
-      await axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
-    } catch (e) { console.log(e) }
+// export function updateOrder(id, status, config) {
+//   return async function (dispatch) {
+//     try {
+//      await axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+     
+//     } catch (e) { return e }
+//   }
+// }
+
+export function updateOrder(id, status, config){
+  return function (dispatch){
+    const res = axios.put(`${REACT_APP_BACKEND_URL}/api/orders/${id}`, status, config)
+    .then(res=> {
+      return res.data
+    }).catch(e=> {
+      if(e.response.status === 400){
+        return e.response.data.error
+      }
+    })
+    return res
+  }
+}
+
+export function resetPasswordByAdmin(id, config){
+  return async function(){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/auth/force-reset-password`, id, config)
+    }catch(e){ console.log(e) }
+  }
+}
+
+export function updateCategoy(old, actual){
+  return async function (){
+    try{
+      await axios.put(`${REACT_APP_BACKEND_URL}/api/categories/update?nameCategory=${old}`, actual)
+    }catch (e) { console.log(e) }
+  }
+}
+
+export function createCategory(category){
+  return async function(){
+    try{
+      await axios.post(`${REACT_APP_BACKEND_URL}/api/categories/create`, category)
+    }catch (e) { console.log(e) }
+  }
+}
+
+export function deleteCategory(category){
+  return async function(){
+    try{
+      await axios.delete(`${REACT_APP_BACKEND_URL}/api/categories/delete/${category}`)
+    }catch(e) { console.log(e) }
   }
 }
 

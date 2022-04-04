@@ -10,14 +10,14 @@ export function Review() {
     const { productId } = useParams()
     const { myShop } = useSelector(state => state)
     const navigate = useNavigate()
-    console.log(222222, productId)
-    console.log(333333, myShop[0].userId)
+    // console.log(222222, productId)
+    // console.log(333333, myShop[0].userId)
     //    0 ${myShop[0].products[0]}
 
     const formik = useFormik({
         onSubmit: async (valores, { resetForm }) => {
             let review = await axios.post(`http://localhost:3000/api/review/create?userId=${myShop[0].userId}&productId=${productId}`, valores)
-            console.log(44444, review.data)
+            //console.log(44444, review.data)
             if (review.data.status === false) {
                 Swal.fire({
                     icon: 'error',

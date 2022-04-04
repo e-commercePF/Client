@@ -9,10 +9,12 @@ export default function InputOrders({send, id}){
     const [edit, setEdit] = useState(false)
     const dispatch = useDispatch()
     const [theStatus, setTheStatus] = useState('pending')
+    const [error, setError] = useState('')
 
     const handleStatus = (e)=> {
         setTheStatus(e)
     }
+
     const handleSubmitEvent = ()=> {
 
     let orderStatus = {
@@ -31,11 +33,22 @@ export default function InputOrders({send, id}){
             confirmButtonText: 'Si, modificar!'
           }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(updateOrder(id, orderStatus, config))
-              Swal.fire(
-                'pedido actualizado',
-                'success'
-              )                            
+               dispatch(updateOrder(id, orderStatus, config))
+               .then(x => {
+                   console.log(x)
+                   if(x._id){
+                    Swal.fire(
+                        'La base de datos se ha actualizado'
+                      )        
+                   }else {
+                       Swal.fire(
+                            x
+                         )      
+                   }
+                                 
+               }).catch(e=> {
+                   return e 
+               })                                 
             }
            setTimeout(()=> {
             window.location.reload()
@@ -49,10 +62,10 @@ export default function InputOrders({send, id}){
             {  edit ? <div>            
                 <select onChange={e=> handleStatus(e.target.value)}>
                     <option > Selecciona el status del pedido </option>
-                    <option value= 'dispatch'> Despachada </option>   
-                    <option value='finish'> Finalizada </option>
-                    <option value='pending'> Pendiente </option>    
-                    <option value='cancel'> Cancelada </option>    
+                    <option value= 'pending'> Pendiente </option>   
+                    <option value='dispatched'> Despachada </option>
+                    <option value='completed'> Completada </option>    
+                    <option value='canceled'> Cancelada </option>    
             </select>             
          <Button color='info' onClick={()=> handleSubmitEvent()}>  Guardar Cambios </Button>
           </div>  
