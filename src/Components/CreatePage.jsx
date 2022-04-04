@@ -123,9 +123,11 @@ export default function Formulario() {
 
             } else {
                 Swal.fire({
+                    icon: "success",
                     title: 'Producto cargado con éxito',
                 })
                 resetForm("")
+                setImg([])
             }
         },
         initialValues: {
