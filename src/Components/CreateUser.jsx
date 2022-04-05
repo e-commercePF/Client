@@ -14,17 +14,19 @@ const useStyles =  makeStyles(theme => ({
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
-		height: '100vh'
+		height: '100vh',
+		
 	},
 	container: {
 		opacity: '0.8',
-		height: '80%',
-		marginTop: theme.spacing(10),
+		height: '85%',
+		marginTop: theme.spacing(7),
 		[theme.breakpoints.down(400 + theme.spacing(2) + 2)]: {
 			marginTop: 0,
 			width: '100%',
 			height: '100%'
-		}
+		},
+		border: "1px solid black",
 	},
 	div: {
 		marginTop: theme.spacing(8),
@@ -34,7 +36,7 @@ const useStyles =  makeStyles(theme => ({
 	},
 	avatar: {
 		margin: theme.spacing(1),
-		backgroundColor: theme.palette.primary.main
+		backgroundColor:theme.palette.secondary.dark
 	},
 	form: {
 		width: '100%',
@@ -42,6 +44,9 @@ const useStyles =  makeStyles(theme => ({
 	},
 	button: {
 		margin: theme.spacing(3, 0, 2)
+	},
+	divgoogle2:{
+		marginTop: theme.spacing(3),
 	}
 }))  
 
@@ -165,15 +170,18 @@ return(
 				  >
 					  registrarse
 				  </Button>
-				  <GoogleLogin
+		
+			  </form>
+			  <div className={classes.divgoogle2}>
+			  <GoogleLogin
                     clientId={REACT_APP_GOOGLEKEY}
                     buttonText="Signup with Google"
                     onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
-			  </form>
-			  <span>Or sign in <Link to="/login">here</Link>  </span>	
+	 <Typography component='h5' variant='h8'> Or sign in <Link to="/login">here</Link> </Typography>	
+	 </div>
 		  </div>
 	  </Container>
 </Grid>   

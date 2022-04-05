@@ -5,8 +5,30 @@ import { useFormik } from "formik"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Swal from 'sweetalert2'
+import { makeStyles } from "@mui/styles";
+
+
+
+
+const useStyles = makeStyles({
+    container: {
+        display: 'grid'
+    },
+    card: {
+        backgroundColor: 'rgb(173, 184, 175)',
+        boxShadow: '0 5px 5px rgb(0,0,0,0.1)',
+        borderRadius: '5px',
+        border: 'solid 1px black',
+        alignSelf: "center",
+        justifyContent: "center"
+
+    }
+})
+
+
 
 export function Review() {
+    const clases = useStyles()
     const { productId } = useParams()
     const { myShop } = useSelector(state => state)
     const navigate = useNavigate()
@@ -22,7 +44,7 @@ export function Review() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Algo ha salido mal, ¿estás seguro de haber comprado este producto?',
+                    text: 'Algo ha salido mal, parece que ya haz hecho una review a este producto, o aún no lo compras.',
 
                 })
 
@@ -56,16 +78,16 @@ export function Review() {
             return errors
         }
     })
-    return (<div>
+    return (<div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
         <h2> Déjanos tu comentario del producto:</h2>
-        <form onSubmit={formik.handleSubmit}>
-            <Card style={{ flexDirection: "column" }}
-                container spacing={5}
-            >
+        <form onSubmit={formik.handleSubmit} style={{}}>
+            <Card
+                style={{ backgroundColor: "#e9e9e9", display: "flex", alignItems: "center", color: 'white', borderRadius: '5px', justifyContent: "center", flexDirection: "column" }}
+                sx={{ width: 500 }} className={clases.card}>
                 <TextField
                     multiline
                     minRows={5}
-                    style={{ marginTop: "100px", width: "500px" }}
+                    style={{ marginTop: "30px", width: "450px", justifyContent: "center", backgroundColor: "white" }}
                     id="description"
                     name="description"
                     label="Déjanos tu comentario"
@@ -78,7 +100,7 @@ export function Review() {
 
                 <TextField
 
-                    style={{ marginTop: "100px", width: "500px" }}
+                    style={{ marginTop: "30px", width: "450px", justifySelf: "center", backgroundColor: "white" }}
                     id="rating"
                     name="rating"
                     label="Puntuación"
@@ -88,7 +110,7 @@ export function Review() {
                     helperText={formik.touched.rating && formik.errors.rating}
                     onBlur={formik.handleBlur}
                 />
-                <Button color="primary" variant="contained" type="submit">
+                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', width: "300px", margin: "15px" }} color="primary" variant="contained" fullWidth type="submit">
                     Enviar Comentarios
                 </Button>
 

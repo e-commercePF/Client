@@ -1,20 +1,15 @@
 import { useDispatch, useSelector } from "react-redux"
 import Card from "./Card"
 import Grid from '@material-ui/core/Grid';
-import { Avatar, Button, Typography } from "@mui/material";
-import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Button } from "@mui/material";
+import { Home } from '@mui/icons-material';
+import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
-import { cleanDetail } from "../Redux/actions";
+import { cleanDetail, cleanResultSearch } from "../Redux/actions";
 
 
-const useStyles = makeStyles((theme) => ({
-    burguerButton: {
-        backgroundColor: 'blue',
-        color: 'white'
-    },
-}));
+
 
 export default function ResultSearch() {
     const { resultSearch, haveResult } = useSelector(state => state)
@@ -22,9 +17,13 @@ export default function ResultSearch() {
     });
     const classes = useStyles()
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(cleanResultSearch())
+    }, [])
 
     return (<div>
         <Grid
+            style={{ marginTop: "50px" }}
             container spacing={2}
             justifyContent="center"
             alignItems="center">
@@ -33,6 +32,7 @@ export default function ResultSearch() {
                     resultSearch.map((e, index) => (
                         <Grid item xs={12} sm={6} md={4} lg={3}
                             key={index}
+
                         >
                             <Card
                                 rating={e.rating}
@@ -50,7 +50,8 @@ export default function ResultSearch() {
                         </Grid>
 
                     ))
-                    : ((!haveResult) ? <div> Loading </div> : <></>)
+                    : ((!haveResult) ? <img src="https://c.tenor.com/L50odLAEKNgAAAAi/lifting-weights-gyms.gif" style={{ justifyContent: "center", height: "300px", width: "300px" }} alt="image-loading" />
+                        : <></>)
             }</Grid>
 
 
@@ -66,7 +67,7 @@ export default function ResultSearch() {
                 color="navBtnColor"
                 variant="contained"
                 endIcon={<Home />}
-                style={{ backgroundColor: 'black' }}
+                style={{ backgroundColor: 'black', marginTop: "30px" }}
                 className={classes.burguerButton}
             >
                 Volver
