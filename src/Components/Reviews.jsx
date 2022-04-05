@@ -44,7 +44,7 @@ export function Review() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Algo ha salido mal, ¿estás seguro de haber comprado este producto?',
+                    text: 'Algo ha salido mal, parece que ya haz hecho una review a este producto, o aún no lo compras.',
 
                 })
 
