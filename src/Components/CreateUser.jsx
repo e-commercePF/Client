@@ -7,6 +7,7 @@ import { Grid, Container, Paper, Avatar, TextField, CssBaseline } from '@materia
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { Button , Typography} from "@mui/material";
 import Swal from 'sweetalert2'
+import Checkbox from '@mui/material/Checkbox';
 /////////////// material ui /////////////////
 const useStyles =  makeStyles(theme => ({
 	root: {
@@ -19,7 +20,7 @@ const useStyles =  makeStyles(theme => ({
 	},
 	container: {
 		opacity: '0.8',
-		height: '85%',
+		height: '90%',
 		marginTop: theme.spacing(7),
 		[theme.breakpoints.down(400 + theme.spacing(2) + 2)]: {
 			marginTop: 0,
@@ -60,6 +61,7 @@ const useStyles =  makeStyles(theme => ({
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const classes = useStyles()
+	const [checked, setChecked] = useState(true);
 	const {REACT_APP_BACKEND_URL,REACT_APP_GOOGLEKEY} = process.env 
 
       useEffect(()=>{
@@ -102,6 +104,7 @@ const useStyles =  makeStyles(theme => ({
                   name: name,
                   email: email,
                   password: password,
+				  checked: checked,
                 }
               }).then(response =>{
 				Swal.fire(response.data.message)
@@ -161,6 +164,13 @@ return(
 					  value={email}
 					  onChange={(e)=> {setEmail(e.target.value)}}
 				  />
+				   <Typography component='h5' variant='h8'>
+				   do you want to subscribe to the newsletter ?  
+				      <Checkbox
+                       checked={checked}
+                       onChange={(e) => {setChecked(e.target.checked)}}
+                      inputProps={{ 'aria-label': 'controlled' }}/>
+					  </Typography>
 				  <Button
 					  fullWidth
 					  variant='contained'
@@ -168,7 +178,7 @@ return(
 					  className={classes.button}
 					  onClick={() => handleRegister()}
 				  >
-					  registrarse
+					  Register
 				  </Button>
 		
 			  </form>
