@@ -89,7 +89,7 @@ export default function Stock(){
          
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
-            category: myCategory || x.category,
+            category: myCategory === [] ? x.category : myCategory,
             brand: x.brand,
             description: x.description,
             img: x.img,
@@ -121,6 +121,7 @@ export default function Stock(){
               }).then((result) => {
                 if (result.isConfirmed) {
                   dispatch(editTheProduct(myNewDataProduct))
+                  window.location.reload()
                   Swal.fire(
                     'Producto modificado!',
                     'La base de datos se ha actualizado.',

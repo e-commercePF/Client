@@ -35,7 +35,8 @@ export default function InputCategories({category}){
             allowEnterKey: true
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(updateCategoy(category, objeto))  
+              dispatch(updateCategoy(category, objeto)) 
+              window.location.reload() 
               } 
            })           
           //   Swal.fire({
@@ -64,6 +65,7 @@ export default function InputCategories({category}){
             if (result.isConfirmed) {
             console.log('la categoria se elimino con exito')
             dispatch(deleteCategory(x))
+            window.location.reload()
               Swal.fire(                
                 'La categoria se ha eliminado.',
                 'success'

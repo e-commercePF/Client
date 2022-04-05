@@ -127,7 +127,7 @@ export default function Users(){
 
     return(
         <div> 
-            Aqui puedes editar a los Usuarios 
+            <h1> Aquí puedes editar a los Usuarios </h1>
 
             { users.map(x=> {
                 return <div>                    
