@@ -83,7 +83,7 @@ export default function Categories(){
     return(
         <div>  
             <Paper>
-                <h1>Deseas crear una nueva Categoria:</h1>
+                <h1>Crear una nueva Categoria:</h1>
                 <Input className={clases.input}
                 placeholder='Escribe tu nueva categoria'
                 onChange={e=> handleInputChange(e.target.value)}
@@ -91,7 +91,7 @@ export default function Categories(){
 
                 <Button variant="contained" style={{backgroundColor: "black", color: 'white', borderRadius: '5px'}} onClick={()=> handleSubmitNewCategory(newCategory)}> Cargar Nueva Categoria </Button>
             </Paper>           
-            <h1> Deseas ver o editar las categorias de tus productos: </h1>
+            <h1> Ver o editar las categorias de tus productos: </h1>
             { categories.map(x=>  <InputCategories category={ x } />) }
 
             

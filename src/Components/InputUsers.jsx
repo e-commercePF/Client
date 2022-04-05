@@ -50,6 +50,7 @@ export default function InputUsers({id, name, role, email, handleChangeRole, han
           }).then((result) => {
             if (result.isConfirmed) {
               dispatch(resetPasswordByAdmin(objeto, config))
+              window.location.reload()
               Swal.fire(
                 `${name} ha recibido un email para modificar su contraseña`,
                 'La base de datos se ha actualizado.',
