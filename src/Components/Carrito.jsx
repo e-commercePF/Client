@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Typography } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { clearCart, deleteOneItemFromCart, addCart, deleteAllSingleItemFromCart } from "../Redux/actions";
 import { makeStyles } from '@mui/styles';
 import Paper from "@material-ui/core/Paper";
@@ -164,7 +164,7 @@ export default function Carrito(){
                     state: {
                         userId: res.userId,
                         products:countMyItemResult.map(prod=> {
-                            return {
+                            return {                               
                                 name: prod.name,
                                 price: prod.price,
                                 quantity: prod.piece,
@@ -194,38 +194,48 @@ export default function Carrito(){
             {
                 isActive ? 
                 shopingCart.length > 0 ? countMyItemResult.map(x=> {
-                    return <div className={clases.main}>
-                         <Paper elevation={2} className={clases.paper}
-                            style={{width: '80%'}}
-                         >
+                    return <div className={clases.main} key={x._id}>
+                         <Paper elevation={2} className={clases.paper} 
+                            style={{width: '80%'}} >                         
                          <h4>{x.name}</h4> 
                          <img src={x.img} alt={x.name} className={clases.img}/>
                                  <h5> $ {x.price.toFixed(2)} </h5>
                                  <div className={clases.buttons} style={{marginLeft: '0', width: '90%'}}>
-                                     <Button variant="contained"  size='small' style={{height: 15,  }} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
+                                     <IconButton onClick={()=> deleteOneItemFromMyCart(x._id)}>
+                                        <Button variant="contained"  size='small' style={{height: 15,  }} className={clases.button_orange} > - </Button>
+                                     </IconButton>
                                          <h5 style={{}}>Cantidad: {x.piece} </h5>
-                                     <Button variant="contained"  size='small' style={{height: 15, }} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
+                                     <IconButton onClick={()=> addOneItem(x)}>   
+                                        <Button variant="contained"  size='small' style={{height: 15, }} className={clases.button_green} > + </Button>
+                                     </IconButton> 
                                  </div>
- 
-                                 <Button className={clases.button_red} variant="contained" onClick={()=> deleteAllSingleItems(x)}> X </Button>
+                                <IconButton onClick={()=> deleteAllSingleItems(x)}> 
+                                    <Button className={clases.button_red} variant="contained" > X </Button>
+                                </IconButton>
                          </Paper>
                       </div>
                     
                 }) : 'Tu carrito esta vacio'   :             
             
                shopingCart.length > 0 ? countMyItemResult.map(x=> {
-                   return <div className={clases.main}>
-                        <Paper elevation={2} className={clases.paper}>
+                   return <div className={clases.main} key={x._id}>
+                        <Paper elevation={2} className={clases.paper} >
                         <h4>{x.name}</h4> 
                         <img src={x.img} alt={x.name} className={clases.img}/>
                                 <h5> $ {x.price.toFixed(2)} </h5>
                                 <div className={clases.buttons}>
-                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_orange} onClick={()=> deleteOneItemFromMyCart(x._id)}> - </Button>
-                                        <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
-                                    <Button variant="contained"  size='small' style={{height: 15, marginTop: 20, marginLeft: '0.5rem'}} className={clases.button_green} onClick={()=> addOneItem(x)}> + </Button>
+                                    <IconButton onClick={()=> deleteOneItemFromMyCart(x._id)}>
+                                        <Button variant="contained"  size='small' style={{height: 15, marginTop: 20}} className={clases.button_orange} > - </Button>
+                                    </IconButton>    
+                                        
+                                    <h5 style={{marginLeft: 8, marginRigth: 8}}>Cantidad: {x.piece} </h5>
+                                    <IconButton onClick={()=> addOneItem(x)}>
+                                        <Button variant="contained"  size='small' style={{height: 15, marginTop: 20, marginLeft: '0.5rem'}} className={clases.button_green} > + </Button>
+                                    </IconButton>
                                 </div>
-
-                                <Button className={clases.button_red} variant="contained" onClick={()=> deleteAllSingleItems(x)}> X </Button>
+                                <IconButton onClick={()=> deleteAllSingleItems(x)}>
+                                    <Button className={clases.button_red} variant="contained" > X </Button>
+                                </IconButton>
                         </Paper>
                      </div>
                    
@@ -235,9 +245,10 @@ export default function Carrito(){
 
              {  shopingCart.length > 0 ? <h4> El total a pagar es: $ { myPay } </h4> : null }
 
-             {  shopingCart.length > 0 ?   <Button variant="contained" color='error' onClick={clearMyCart}>
+             {  shopingCart.length > 0 ? <IconButton onClick={clearMyCart}>
+               <Button variant="contained" color='error' >
                 Vaciar Carrito
-            </Button> : null}
+            </Button> </IconButton>: null}
 
             
             { myPay ? <StripeCheckout

@@ -79,8 +79,6 @@ export default function rootReducer(state = initialState, action) {
 
             let myResult = JSON.parse(localStorage.getItem("carrito"))
 
-            console.log(myResult)
-
             return {
                 ...state,
                 shopingCart: myResult

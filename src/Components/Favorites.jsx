@@ -20,7 +20,6 @@ export default function Favorites (){
     }, [favoriteItems])
 
     let productsToShow = favoriteItems
-    console.log(productsToShow)
 
     const deletemyProduct = (e)=> {
         dispatch(deleteFromFavorites(e))

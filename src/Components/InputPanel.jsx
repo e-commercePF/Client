@@ -73,7 +73,7 @@ export default function InputPanel({name, quantity, price, brand, description, i
             <div>
               
                 <span> Categorias </span> 
-                { cate.map(x=> <span> <b> {x} </b> </span>) }
+                { cate.map(x=> <span key={x}> <b> {x} </b> </span>) }
             </div>
         }
             
