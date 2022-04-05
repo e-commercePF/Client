@@ -79,7 +79,7 @@ export default function Productcard({ id, price, name, description, img, rating,
         }
 
         title={
-          <Link to={`/product/${id}`} style={{ textDecoration: "none", }} >
+          <Link to={`/product/${id}`} style={{ textDecoration: "none", color: "black" }} >
             {name}
           </Link>}
 
