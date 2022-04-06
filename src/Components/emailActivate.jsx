@@ -18,9 +18,6 @@ export default function EmailActivate() {
                 console.log(error)
 
             })
-
-
-
     }, [navigate, token])
 
 
