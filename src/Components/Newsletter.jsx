@@ -93,16 +93,19 @@ export default function Newsletter() {
 
 
 
-    return (<div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-        <h2> create your newsletter:</h2>
+    return (<div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", width: '80%' }}>
+       <div style={{maxWidth: '100%'}}>
+        <h2> Create your newsletter:</h2>
         <form onSubmit={formik.handleSubmit} style={{}}>
             <Card
-                style={{ backgroundColor: "#e9e9e9", display: "flex", alignItems: "center", color: 'white', borderRadius: '5px', justifyContent: "center", flexDirection: "column" }}
+                style={{ backgroundColor: "#e9e9e9", display: "flex", alignItems: "center", color: 'white', borderRadius: '5px', justifyContent: "center",
+                maxWidth: '100%', marginLeft: '10%',
+                flexDirection: "column" }}
                 sx={{ width: 500 }} className={clases.card}>
 
                 <TextField
 
-                    style={{ marginTop: "30px", width: "450px", justifySelf: "center", backgroundColor: "white" }}
+                    style={{ marginTop: "30px", width: "90%", justifySelf: "center", backgroundColor: "white" }}
                     id="title"
                     name="title"
                     label="Tittle"
@@ -114,7 +117,7 @@ export default function Newsletter() {
                 <TextField
                     multiline
                     minRows={5}
-                    style={{ marginTop: "30px", width: "450px", justifyContent: "center", backgroundColor: "white" }}
+                    style={{ marginTop: "30px", width: "90%", justifyContent: "center", backgroundColor: "white" }}
                     id="content"
                     name="content"
                     label="Write the Newsletter"
@@ -126,11 +129,13 @@ export default function Newsletter() {
                 />
 
 
-                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', width: "300px", margin: "15px" }} color="primary" variant="contained" fullWidth type="submit">
+                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', width: "60%", margin: "15px" }} color="primary" variant="contained" fullWidth type="submit">
                     Create
                 </Button>
 
             </Card>
+            
         </form>
+        </div>
     </div>)
 }
