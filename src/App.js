@@ -24,6 +24,7 @@ import ResetPassword from './Components/ResetPassword'
 import ForgotPassword from './Components/ForgotPassword'
 import { Review } from './Components/Reviews';
 import Categories from './Components/Categories';
+import Footer from './Components/Footer'
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
             <Route path="/review/:productId" element={<Review />} />
           </Routes>
         </Container>
+        <Footer/>
       </div>
     </ThemeProvider>
 
