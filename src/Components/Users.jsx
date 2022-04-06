@@ -88,16 +88,26 @@ export default function Users() {
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(updateUsers(user))
-          Swal.fire(
-            'Modified User!',
-            'The user has been successfully modified.',
-            'success'
-          )
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'The user has been updated'
+          })
         }
-         setTimeout(()=> {
+        setTimeout(() => {
           window.location.reload()
-         }, 3000) 
-      })
+        }, 3000)
+      }
+
+      )
+      // window.location.reload()
     }
   }
 

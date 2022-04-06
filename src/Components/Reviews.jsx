@@ -20,8 +20,8 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         border: 'solid 1px black',
         alignSelf: "center",
-        justifyContent: "center"
-
+        justifyContent: "center",
+        display: "flex",
     }
 })
 

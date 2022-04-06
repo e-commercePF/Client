@@ -21,7 +21,7 @@ export default function InputCategories({ category }) {
     }
   }
 
-  //console.log(category, editCategory)
+
   const objeto = {
     name: editCategory
   }
@@ -66,13 +66,23 @@ export default function InputCategories({ category }) {
       confirmButtonText: 'Yes, delete!'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('la categoria se elimino con exito')
+
         dispatch(deleteCategory(x))
-        window.location.reload()
-        Swal.fire(
-          'The category has been removed.',
-          'success'
-        )
+        // window.location.reload()
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-center',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'The category has been removed.'
+        })
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
       }
       //  setTimeout(()=> {
       //   window.location.reload()

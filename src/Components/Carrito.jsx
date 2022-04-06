@@ -101,7 +101,6 @@ export default function Carrito() {
                 }).catch(error => {
                     console.log(error)
                 })
-               
                 dispatch(clearCart())
                 navigate("/success", {
                     state: {
@@ -121,7 +120,6 @@ export default function Carrito() {
                         email: res.email
                     }
                 })
-               
             }
             catch (e) {
                 console.log(e)
@@ -167,7 +165,7 @@ export default function Carrito() {
                                         </Grid>
                                     )
                                 }
-                                ) : 'Tu carrito esta vacio' :
+                                ) : 'Your cart is empty' :
 
                             shopingCart.length > 0 ? countMyItemResult.map(x => {
                                 return (

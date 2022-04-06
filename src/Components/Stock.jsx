@@ -41,7 +41,7 @@ export default function Stock() {
                 console.log(err)
                 navigate('/')
             })
-    }, [navigate])
+    }, [])
 
     const dispatch = useDispatch()
     useEffect(() => {

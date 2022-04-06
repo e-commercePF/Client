@@ -56,6 +56,9 @@ export default function Detail() {
 
     let pricetoshow = myProduct.price ? myProduct.price.toFixed(2) : null
 
+    console.log(detailproduct.category)
+
+
     return (
         <div className={classes.root}>
             {(detailproduct.name) ?
@@ -98,28 +101,24 @@ export default function Detail() {
                                         <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
                                     </Grid>
                                     <Typography variant="subtitle1">Stock: {stock}</Typography>
-                                </Box>
-
-                                <IconButton onClick={() => handleAddCart()}>
-                                    <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }} >
+                                </Box>                                
+                                    <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }}  onClick={() => handleAddCart()} >
                                         Add to cart
                                     </Button>
-                                </IconButton>
-
                             </Grid>
                         </Grid>
 
                         {stock === 0 ? <h1 style={{ color: 'red' }}> Lo siento, articulo no disponible </h1> : null}
 
 
-                        <Grid item sm={12} sx={{ padding: "5em" }}>
+                        <Grid item sm={12} sx={{ marginTop:"5em", }}>
                             <Paper elevation={3}>
                                 <Typography variant="h5"> Comments:</Typography>
                                 <Divider></Divider>
                                 {
                                     detailproduct.reviews.map((e, index) => (
                                         <Grid item sm={12} key={index}>
-                                            <Typography variant="h6">{e.users}</Typography>
+                            
                                             <Typography variant="h6">{e.description}</Typography>
                                             <Rating name="half-rating-read" value={e.rating} precision={0.5} readOnly />
 
