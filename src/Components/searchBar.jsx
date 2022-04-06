@@ -55,7 +55,7 @@ export default function SearchBar() {
                         clearOnBlur
                         onSelect={(event) => onHandleSearch(event)}
                         value={search}
-                        disablePortal
+                        // disablePortal
                         id="combo-box-demo"
                         options={optionProduct}
                         sx={{ width: 300 }}

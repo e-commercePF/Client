@@ -56,8 +56,8 @@ export default function ResultSearch() {
 
 
         {(haveResult) ? <div>
-            <img src="https://c.tenor.com/L50odLAEKNgAAAAi/lifting-weights-gyms.gif" alt="img" width={300} style={{ marginTop: 50 }} />
-            <h2>We have not found a product </h2>
+            <img src="https://c.tenor.com/yGOEI_Z1jPYAAAAi/dinosandcomics-dinosaur.gif" alt="img" width={300} style={{ marginTop: 50 }} />
+            <h2>Sorry! we haven't found a product </h2>
 
         </div> : <></>}
         <Link to="/" style={{ textDecoration: "none" }}
