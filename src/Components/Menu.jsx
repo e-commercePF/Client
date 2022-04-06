@@ -10,7 +10,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  TextField }  from '@mui/material';
+  TextField,
+  Grid ,
+  Paper }  from '@mui/material';
 import { useDispatch ,  useSelector  } from "react-redux";
 import { AddFilters , GetFilters } from "../Redux/actions";
 import { useEffect , useState } from "react";
@@ -93,126 +95,138 @@ export default function Menu() {
 
 
 
-return (<div>
-  
-  <TextField
-      name='pricemin'
-      size="small"
-      id="lower"
-      label="Min Price"
-      variant="outlined"
-      // type="number"
-      value={input.pricemin}
-      onChange={handleFilter}
-      onBlur={handleFilter}
-  />
-  <TextField
-      name='pricemax'
-      size="small"
-      id="upper"
-      label="Max Price"
-      variant="outlined"
-      // type="number"
-      value={input.pricemax}
-      onChange={handleFilter}
-  />
+return (
+ <div>
+  <Grid container sm={12} sx={{padding:"1em"}}> 
+    <Grid container sm = {12} direction="row"  sx={{marginLeft:"21em"}}>
+          <TextField
+              color="secondary"
+              name='pricemin'
+              size="small"
+              id="lower"
+              label="Min Price"
+              variant="outlined"
+              // type="number"
+              value={input.pricemin}
+              onChange={handleFilter}
+              onBlur={handleFilter}
+          />
+          <TextField
+              color="secondary"
+              name='pricemax'
+              size="small"
+              id="upper"
+              label="Max Price"
+              variant="outlined"
+              // type="number"
+              value={input.pricemax}
+              onChange={handleFilter}
+          />  
+        </Grid>
 
-  <FormControl>
 
-    <FormLabel id="filter-buttons-group-label">Sort by..</FormLabel>
-    <RadioGroup
-      row
-      aria-labelledby="filter-buttons-group-label"
-      name="name"
-    >
-      <FormControlLabel
-      value="pasc" 
-      control={<Radio />} 
-      label="Price Asc"
-      onClick={handleFilter}
+        <Grid container sm = {12} direction="row">
+        <FormControl fullWidth>
+        <InputLabel id="categories-select-label">Categories</InputLabel>
+        <Select
+          color="secondary"
+          name='category'
+          labelId="categories-select-label"
+          id="categories-select"
+          value={input.category}
+          label="category"
+          onChange={handleFilter}
+        >
+        {categories.map((name) => (
+          <MenuItem
+          key={name}
+          value={name}
+          >
+          {name}
+          </MenuItem>
+          ))}
+        </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+        <InputLabel id="brands">brands</InputLabel>
+        <Select
+          color="secondary"
+          name='brand'
+          labelId="brand"
+          id="brands"
+          value={input.brand}
+          label="Brand"
+          onChange={handleFilter}
+        >
+        {brands.map((name) => (
+          <MenuItem
+          key={name}
+          value={name}
+          >
+          {name}
+          </MenuItem>
+          ))}
+        </Select>
+        </FormControl> 
+      </Grid>
+      
+      <Grid container sm = {12} direction="row"   sx={{marginLeft:"20em"}} >
+
+        <FormControl>
+          <FormLabel id="filter-buttons-group-label">Sort by..</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="filter-buttons-group-label"
+            name="name"
+          >
+            <FormControlLabel
+            color="secondary"
+            value="pasc" 
+            control={<Radio />} 
+            label="Price Asc"
+            onClick={handleFilter}
+            />
+
+            <FormControlLabel
+            color="secondary"
+            value="pdesc" 
+            control={<Radio />} 
+            label="Price dsc"
+            onClick={handleFilter}
+            />
+
+          <FormControlLabel 
+            color="secondary"
+            value="nasc" 
+            control={<Radio />} 
+            label="Name A/Z"
+            onClick={handleFilter}
+            />
+
+          <FormControlLabel 
+            color="secondary"
+            value="ndesc" 
+            control={<Radio />} 
+            label="Name Z/A"
+            onClick={handleFilter}
+            />
+          </RadioGroup>
+        </FormControl>
+        <Button onClick={clearFilter} sx={{padding:"2em"}} color="secondary"> clear filter </Button>
+      </Grid>
+    </Grid>
+
+    
+  <Stack >
+      <Pagination style={{ alignSelf: "center", marginBottom: "20px" }}
+          count={pages}
+          name="page"
+          page={input.page}
+          onChange={(event, value) => handlePage(event, value)}
+          size="large"
       />
-
-      <FormControlLabel
-      value="pdesc" 
-      control={<Radio />} 
-      label="Price dsc"
-      onClick={handleFilter}
-      />
-
-    <FormControlLabel 
-      value="nasc" 
-      control={<Radio />} 
-      label="Name A/Z"
-      onClick={handleFilter}
-      />
-
-    <FormControlLabel 
-      value="ndesc" 
-      control={<Radio />} 
-      label="Name Z/A"
-      onClick={handleFilter}
-      />
-    </RadioGroup>
-  </FormControl>
-
-<FormControl fullWidth>
-<InputLabel id="categories-select-label">Categories</InputLabel>
-<Select
-  name='category'
-  labelId="categories-select-label"
-  id="categories-select"
-  value={input.category}
-  label="category"
-  onChange={handleFilter}
->
- {categories.map((name) => (
-  <MenuItem
-  key={name}
-  value={name}
-  >
-  {name}
-  </MenuItem>
-  ))}
-</Select>
-</FormControl>
-
-<FormControl fullWidth>
-<InputLabel id="brands">brands</InputLabel>
-<Select
-  name='brand'
-  labelId="brand"
-  id="brands"
-  value={input.brand}
-  label="Brand"
-  onChange={handleFilter}
->
- {brands.map((name) => (
-  <MenuItem
-  key={name}
-  value={name}
-  >
-  {name}
-  </MenuItem>
-  ))}
-</Select>
-</FormControl>
-
- <Button
- onClick={clearFilter}
- > clear filter </Button>
-
-
-
-<Stack >
-    <Pagination style={{ alignSelf: "center", marginBottom: "20px" }}
-        count={pages}
-        name="page"
-        page={input.page}
-        onChange={(event, value) => handlePage(event, value)}
-        size="large"
-    />
-</Stack>
-
+  </Stack>
 
 
   </div>
