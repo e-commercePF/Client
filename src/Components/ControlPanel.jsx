@@ -32,7 +32,7 @@ export default function ControlPanel() {
                 Authorization: 'Bearer ' + token}}
           axios.get('http://localhost:3000/api/users/admin/verify', config)
             .then(res => {
-                console.log(res.data)
+               // console.log(res.data)
             }).catch(err => {
                 console.log(err)
                return navigate('/')

@@ -20,7 +20,7 @@ export default function Users(){
             Authorization: 'Bearer ' + token}}
       axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
         .then(res => {
-            console.log(res.data)
+           // console.log(res.data)
         }).catch(err => {
             console.log(err)
             navigate('/')
@@ -51,8 +51,6 @@ export default function Users(){
         setRole(e) 
             
     }
-  console.log(role) 
-
 
     const [user, setUser] = useState({
         createdAt: '',
@@ -130,7 +128,7 @@ export default function Users(){
             <h1> Aquí puedes editar a los Usuarios </h1>
 
             { users.map(x=> {
-                return <div>                    
+                return <div key={x._id}>                    
               
                 <InputUsers 
                 id= {x._id}

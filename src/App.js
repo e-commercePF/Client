@@ -25,6 +25,9 @@ import ForgotPassword from './Components/ForgotPassword'
 import { Review } from './Components/Reviews';
 import Categories from './Components/Categories';
 import Newsletter from './Components/Newsletter'
+import Footer from './Components/Footer'
+
+
 
 function App() {
   return (
@@ -57,6 +60,7 @@ function App() {
             <Route path="/admin/Newsletter" element={<Newsletter />} />
           </Routes>
         </Container>
+        <Footer/>
       </div>
     </ThemeProvider>
 

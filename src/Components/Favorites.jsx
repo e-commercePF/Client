@@ -41,7 +41,7 @@ export default function Favorites (){
                         <Paper elevation={3}>
                             <Grid container >
                             <Grid item sm = {3} mt={3}>
-                                <img src={e.img} alt="img" width={'90%'} height={'90%'} /> 
+                                <img src={e.img[0]} alt="img" width={'90%'} height={'90%'} /> 
                             </Grid>
                             <Grid item sm = {9}>
                                 <Grid container >
