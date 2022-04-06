@@ -66,14 +66,15 @@ export default function Formulario() {
     const { categories, brands } = useSelector(state => state)
     const dispatch = useDispatch()
     const [progress, setProgress] = useState(0);
-    const formHandler = (e) => {
-        e.preventDefault();
-        let file = e.target[0].files[0];
-        // uploadFiles(file);
-    };
+    // const formHandler = (e) => {
+    //     e.preventDefault();
+    //     let file = e.target[0].files[0];
+    //     uploadFiles(file);
+    // };
 
     const pushToImagen = (e) => {
         setImg([...imagen, e])
+        formik.values.img = ""
     }
 
     const uploadFiles = (file) => {
@@ -152,35 +153,35 @@ export default function Formulario() {
             let errors = {}
 
             if (!valores.name) {
-                errors.name = "Por favor ingrese un nombre"
+                errors.name = "Please, enter a name"
             }
 
             if (!valores.description) {
-                errors.description = "Por favor ingrese una descripción"
+                errors.description = "Please enter a description"
             }
 
             if (!valores.price) {
-                errors.price = "Por favor ingrese un precio de venta"
+                errors.price = "Please enter a sell price"
             } else if (valores.price > 1000000000 || valores.price < 1) {
-                errors.price = "¿Está seguro de publicar a ese precio?"
+                errors.price = "Are you sure post at that price?"
             } else if (!/^[0-9.]{1,10}$/.test(valores.price)) {
-                errors.price = "Solo puedes ingrsar números, los decimales van con punto ( . )"
+                errors.price = "Only numbers please, decimal numbers are with dot notation"
             }
 
             if (!valores.quantity) {
-                errors.quantity = "Por favor ingrese una cantidad"
+                errors.quantity = "Please enter a valid stock"
             } else if (valores.quantity > 1000000000) {
-                errors.quantity = "¿Está seguro de poseer ese stock?"
+                errors.quantity = "Are you sure post with that stock quantity?"
             } else if (!/^[0-9]{1,10}$/.test(valores.quantity)) {
-                errors.quantity = "Solo puede ingresar números "
+                errors.quantity = "Only numbers please"
             }
 
             if (!valores.category[0]) {
-                errors.category = "Selecciona al menos una categoría"
+                errors.category = "Select at least one category"
             }
 
             if (!valores.brand) {
-                errors.brand = "Selecciona al menos una marca"
+                errors.brand = "Select at least one brand"
             }
 
             return errors
@@ -202,7 +203,7 @@ export default function Formulario() {
                     fullWidth
                     id="name"
                     name="name"
-                    label="Nombre Producto"
+                    label="Product Name"
                     value={formik.values.name}
                     onChange={formik.handleChange}
                     error={formik.touched.name && Boolean(formik.errors.name)}
@@ -214,7 +215,7 @@ export default function Formulario() {
                     fullWidth
                     id="description"
                     name="description"
-                    label="Descripción Producto"
+                    label=" Product Description"
                     value={formik.values.description}
                     onChange={formik.handleChange}
                     error={formik.touched.description && Boolean(formik.errors.description)}
@@ -226,7 +227,7 @@ export default function Formulario() {
                     fullWidth
                     id="price"
                     name="price"
-                    label="Precio Producto"
+                    label="Product Price"
                     value={formik.values.price}
                     onChange={formik.handleChange}
                     error={formik.touched.price && Boolean(formik.errors.price)}
@@ -240,7 +241,7 @@ export default function Formulario() {
                     fullWidth
                     id="quantity"
                     name="quantity"
-                    label="Cantidad de Stock"
+                    label="Stock"
                     value={formik.values.quantity}
                     onChange={formik.handleChange}
                     error={formik.touched.quantity && Boolean(formik.errors.quantity)}
@@ -253,7 +254,7 @@ export default function Formulario() {
                         fullWidth
                         id="img"
                         name="img"
-                        label="Imágen producto"
+                        label="Product Image"
                         value={formik.values.img}
                         onChange={formik.handleChange}
                         error={formik.touched.img && Boolean(formik.errors.img)}
@@ -275,7 +276,7 @@ export default function Formulario() {
 
 
                 <Stack style={{ display: "flex" }} spacing={2}>
-                    <label style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                    <label style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
                         <Input
                             multiple
                             hidden={false}
@@ -291,7 +292,7 @@ export default function Formulario() {
                             <PhotoCamera />
 
                         </IconButton>
-                        <h5>Uploading done {progress}%</h5>
+                        <h5>{formik.values.image.name}</h5>
                         <Button
                             style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', width: "200px", marginLeft: "20px" }}
                             color="primary"
@@ -322,7 +323,7 @@ export default function Formulario() {
                                     variant="contained"
                                     onClick={() => setImg([])}
                                 >
-                                    Quitar imágenes
+                                    Clear Images
                                 </Button>
                             </Card>
 
@@ -335,7 +336,7 @@ export default function Formulario() {
 
 
                 <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
-                    <InputLabel id="demo-multiple-chip-label">Categorías</InputLabel>
+                    <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
                     <Select
                         labelId="demo-multiple-chip-label"
                         id="demo-multiple-chip"
@@ -369,7 +370,7 @@ export default function Formulario() {
                 </FormControl>
 
                 <FormControl style={{ margin: "20px" }} sx={{ m: 10, width: 500 }}>
-                    <InputLabel id="demo-simple-select-label">Marca</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Brand</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
