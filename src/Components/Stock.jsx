@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
-import { Button, Paper } from "@mui/material";
+import {  Paper } from "@mui/material";
 import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
         border: 'solid 1px black',
         margin: '2em'
     }
-
 })
 
 export default function Stock() {
@@ -83,7 +82,6 @@ export default function Stock() {
     const [price, setPrice] = useState(0)
     const handleSelectPrice = (e) => {
         setPrice(Number(e))
-
     }
 
     const [quant, setQuant] = useState(0)
@@ -115,7 +113,7 @@ export default function Stock() {
 
         if (check2 && myNewDataProduct.price > -1 && myNewDataProduct.quantity > -1) {
             Swal.fire({
-                title: 'You are about to edit a product!',
+                title: 'Your product will be updated!',
                 text: "This action is to modify the database, are you sure you want to continue??",
                 icon: 'warning',
                 showCancelButton: true,
@@ -125,23 +123,30 @@ export default function Stock() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     dispatch(editTheProduct(myNewDataProduct))
-                    window.location.reload()
-                    //   Swal.fire(
-                    //     'Producto modificado!',
-                    //     'La base de datos se ha actualizado.',
-                    //     'success'
-                    //   )                            
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                      })
+                      Toast.fire({
+                        icon: 'success',
+                        title: `The product has been updated`
+                      })
+                      setTimeout(() => {
+                        window.location.reload()
+                      }, 3000)
+                                         
                 }
-                //    setTimeout(()=> {
-                //     window.location.reload()
-                //    }, 3000) 
+               
             })
         }
     }
 
     const handleDeleteProduct = (x) => {
         Swal.fire({
-            title: 'You are about to remove a product permanently!',
+            title: 'Your product will be deleted!',
             text: "This action is irremediable, are you sure you want to continue?",
             icon: 'warning',
             showCancelButton: true,
@@ -151,17 +156,23 @@ export default function Stock() {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteOneItemFromStock(x._id))
-                Swal.fire(
-                    'Product delete!',
-                    'The database has been updated.',
-                    'success'
-                )
+                
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-center',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                  })
+                  Toast.fire({
+                    icon: 'success',
+                    title: `The product has been deleted`
+                  })
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 3000)
             }
-            setTimeout(() => {
-                window.location.reload()
-            }, 3000)
         })
-
     }
 
     return (

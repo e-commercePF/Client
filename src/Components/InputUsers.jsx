@@ -53,20 +53,24 @@ export default function InputUsers({ id, name, role, email, handleChangeRole, ha
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(resetPasswordByAdmin(objeto, config))
-        window.location.reload()
-        Swal.fire(
-          `${name} has received an email to modify his password`,
-          'The database has been updated.',
-          'success'
-        )
+        //window.location.reload()
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-center',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'success',
+          title: `${name} has received an email to modify the password`
+        })
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
       }
-      //    setTimeout(()=> {
-      //     window.location.reload()
-      //    }, 3000) 
     })
   }
-
-
 
   return (
     <Paper className={clases.paper}>

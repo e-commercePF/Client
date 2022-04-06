@@ -20,8 +20,7 @@ export default function InputCategories({ category }) {
       Authorization: 'Bearer ' + token
     }
   }
-
-
+  
   const objeto = {
     name: editCategory
   }
@@ -42,17 +41,6 @@ export default function InputCategories({ category }) {
         window.location.reload()
       }
     })
-    //   Swal.fire({
-    //   title: 'La base de datos se ha actualizado.',
-    //   text: "Sucess",
-    //   confirmButtonText: 'OK', 
-    // }.then(x=> {
-    //   if (x.isConfirmed){
-    //     window.location.reload()
-    //   }
-    // })) 
-
-
   }
 
   const handleDeleteCategory = (x) => {
@@ -84,9 +72,6 @@ export default function InputCategories({ category }) {
           window.location.reload()
         }, 3000)
       }
-      //  setTimeout(()=> {
-      //   window.location.reload()
-      //  }, 1500) 
     })
   }
 
