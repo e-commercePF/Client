@@ -9,38 +9,41 @@ import { createCategory } from "../Redux/actions"
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 
-const {REACT_APP_BACKEND_URL} = process.env 
+const { REACT_APP_BACKEND_URL } = process.env
 
 const useStyles = makeStyles({
-    input:{
+    input: {
         borderRadius: '0.5rem',
         border: 'solid 1px black'
     }
 })
 
-export default function Categories(){
+export default function Categories() {
     const navigate = useNavigate()
     const clases = useStyles()
 
-    
-    useEffect(() =>{
+
+    useEffect(() => {
         let token = window.localStorage.getItem('token');
-        let config = { headers: {
-                Authorization: 'Bearer ' + token}}
-                axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
                 //console.log(res.data)
             }).catch(err => {
                 console.log(err)
                 navigate('/')
             })
-           }, [navigate])
-  
+    }, [navigate])
+
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getAllCategories())        
+        dispatch(getAllCategories())
     }, [])
-    const { categories } = useSelector(state=> state)
+    const { categories } = useSelector(state => state)
 
 
 
@@ -50,51 +53,51 @@ export default function Categories(){
         name: newCategory
     }
 
-    const handleSubmitNewCategory = (newCategory)=> {
+    const handleSubmitNewCategory = (newCategory) => {
         Swal.fire({
-            title: `¡Estas a punto de crear una nueva categoria!`,
-            text: "Esta acción modificará la base de datos, ¿estas seguro que deseas continuar?",
+            title: `You are about to create a new category!`,
+            text: "This action will modify the database, are you sure you want to continue?",
             icon: 'info',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, crear!'
-          }).then((result) => {
+            confirmButtonText: 'Yes, create!'
+        }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(createCategory(objeto))
-              Swal.fire(
-                `${newCategory} se ha añadido a las categorias de Sports Market`,
-                'La base esta actualizada.',
-                'success'
-              )                            
+                dispatch(createCategory(objeto))
+                Swal.fire(
+                    `${newCategory} has been added to the categories of Sports Market`,
+                    'The database has been updated.',
+                    'success'
+                )
             }
-           setTimeout(()=> {
-            window.location.reload()
-           }, 3000) 
-          })
+            setTimeout(() => {
+                window.location.reload()
+            }, 3000)
+        })
     }
 
-    const handleInputChange = (e)=> {
+    const handleInputChange = (e) => {
         e = e.trim()
         setNewCategory(e)
     }
-    
 
-    return(
-        <div>  
+
+    return (
+        <div>
             <Paper>
-                <h1>Crear una nueva Categoria:</h1>
+                <h1>Create a new Category:</h1>
                 <Input className={clases.input}
-                placeholder='Escribe tu nueva categoria'
-                onChange={e=> handleInputChange(e.target.value)}
-                /> 
+                    placeholder='Write your new category'
+                    onChange={e => handleInputChange(e.target.value)}
+                />
 
-                <Button variant="contained" style={{backgroundColor: "black", color: 'white', borderRadius: '5px'}} onClick={()=> handleSubmitNewCategory(newCategory)}> Cargar Nueva Categoria </Button>
-            </Paper>           
-            <h1> Ver o editar las categorias de tus productos: </h1>
-            { categories.map((x,i)=>  <InputCategories key={i} category={ x } />) }
+                <Button variant="contained" style={{ backgroundColor: "black", color: 'white', borderRadius: '5px' }} onClick={() => handleSubmitNewCategory(newCategory)}> Create your new Category </Button>
+            </Paper>
+            <h1> View or edit your product categories: </h1>
+            {categories.map((x, i) => <InputCategories key={i} category={x} />)}
 
-            
+
 
         </div>
     )

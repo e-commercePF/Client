@@ -1,105 +1,108 @@
-import {  Input, Paper } from "@material-ui/core"
+import { Input, Paper } from "@material-ui/core"
 import { useState } from 'react'
 import { deleteCategory, updateCategoy } from "../Redux/actions"
 import Swal from 'sweetalert2'
 import { useDispatch } from "react-redux"
 import { Button } from "@mui/material"
 
-export default function InputCategories({category}){
-    const dispatch = useDispatch()
-    const [edit, setEdit] = useState(false)
+export default function InputCategories({ category }) {
+  const dispatch = useDispatch()
+  const [edit, setEdit] = useState(false)
 
-    const [editCategory, setEditCategory] = useState('')
+  const [editCategory, setEditCategory] = useState('')
 
-    const handleEditCategory = (e)=> {
-        setEditCategory(e)
+  const handleEditCategory = (e) => {
+    setEditCategory(e)
+  }
+  let token = window.localStorage.getItem('token')
+  let config = {
+    headers: {
+      Authorization: 'Bearer ' + token
     }
-    let token = window.localStorage.getItem('token')
-    let config = { headers: {
-            Authorization: 'Bearer ' + token}}
+  }
 
-            //console.log(category, editCategory)
-    const objeto = {
-        name: editCategory
-    }
+  //console.log(category, editCategory)
+  const objeto = {
+    name: editCategory
+  }
 
-    const handleSubmitCategory = ()=> {
-        Swal.fire({
-            title: `¡Estas a punto de editar una categoria!`,
-            text: "Esta acción modificará la base de datos, ¿estas seguro que deseas continuar?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, editar!', 
-            allowEnterKey: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-              dispatch(updateCategoy(category, objeto)) 
-              window.location.reload() 
-              } 
-           })           
-          //   Swal.fire({
-          //   title: 'La base de datos se ha actualizado.',
-          //   text: "Sucess",
-          //   confirmButtonText: 'OK', 
-          // }.then(x=> {
-          //   if (x.isConfirmed){
-          //     window.location.reload()
-          //   }
-          // })) 
-           
-                        
-    }
+  const handleSubmitCategory = () => {
+    Swal.fire({
+      title: `You are about to edit a category!`,
+      text: "This action will modify the database, are you sure you want to continue?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, edit!',
+      allowEnterKey: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(updateCategoy(category, objeto))
+        window.location.reload()
+      }
+    })
+    //   Swal.fire({
+    //   title: 'La base de datos se ha actualizado.',
+    //   text: "Sucess",
+    //   confirmButtonText: 'OK', 
+    // }.then(x=> {
+    //   if (x.isConfirmed){
+    //     window.location.reload()
+    //   }
+    // })) 
 
-    const handleDeleteCategory = (x)=> {
-        Swal.fire({
-            title: `¡Estas a punto de eliminar una categoria!`,
-            text: "Esta acción modificará la base de datos, ¿estas seguro que deseas continuar?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, eliminar!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-            console.log('la categoria se elimino con exito')
-            dispatch(deleteCategory(x))
-            window.location.reload()
-              Swal.fire(                
-                'La categoria se ha eliminado.',
-                'success'
-              )                            
-            }
-          //  setTimeout(()=> {
-          //   window.location.reload()
-          //  }, 1500) 
-          })        
-    }
-    
 
-    return(
-        <div>
-            <Paper elevation={3}> 
-            { !edit?<div>              
-                    <h2> <b> { category } </b> </h2>
-                    <Button variant="contained" color='secondary' style={{marginTop: '1rem', width: '40%'}} onClick={()=> setEdit(!edit)}
-                    > Editar Categoria </Button>
-                </div> : <div>
-                <Input type="text" 
-                    placeholder={category}
-                onChange={e=> handleEditCategory(e.target.value)} />
-                <Button variant="contained" color='secondary' style={{marginTop: '1rem', width: '50%'}} onClick={()=> handleSubmitCategory()}
-                 disabled={ editCategory.trim() === ''}
-                > Guardar Cambios </Button>
-              </div>   
-            }
-            <Button variant="contained" color="error"
-            style={{marginTop: '1rem', marginBottom: '1rem', width: '40%'}}
-            onClick={()=> handleDeleteCategory(category)}
-            >Eliminar Categoria </Button>
-            {/* <span> {category} </span> */}
-            </Paper>
+  }
+
+  const handleDeleteCategory = (x) => {
+    Swal.fire({
+      title: `You are about to delete a category!`,
+      text: "This action will modify the database, are you sure you want to continue?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('la categoria se elimino con exito')
+        dispatch(deleteCategory(x))
+        window.location.reload()
+        Swal.fire(
+          'The category has been removed.',
+          'success'
+        )
+      }
+      //  setTimeout(()=> {
+      //   window.location.reload()
+      //  }, 1500) 
+    })
+  }
+
+
+  return (
+    <div>
+      <Paper elevation={3}>
+        {!edit ? <div>
+          <h2> <b> {category} </b> </h2>
+          <Button variant="contained" color='secondary' style={{ marginTop: '1rem', width: '40%' }} onClick={() => setEdit(!edit)}
+          > Edit Category</Button>
+        </div> : <div>
+          <Input type="text"
+            placeholder={category}
+            onChange={e => handleEditCategory(e.target.value)} />
+          <Button variant="contained" color='secondary' style={{ marginTop: '1rem', width: '50%' }} onClick={() => handleSubmitCategory()}
+            disabled={editCategory.trim() === ''}
+          > Save changes </Button>
         </div>
-    )
+        }
+        <Button variant="contained" color="error"
+          style={{ marginTop: '1rem', marginBottom: '1rem', width: '40%' }}
+          onClick={() => handleDeleteCategory(category)}
+        >Delete Category </Button>
+        {/* <span> {category} </span> */}
+      </Paper>
+    </div>
+  )
 }

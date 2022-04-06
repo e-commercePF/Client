@@ -55,18 +55,17 @@ export default function SearchBar() {
                         clearOnBlur
                         onSelect={(event) => onHandleSearch(event)}
                         value={search}
-                        disablePortal
+                        // disablePortal
                         id="combo-box-demo"
                         options={optionProduct}
                         sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} placeholder="¿Qué estás buscando?" />}
+                        renderInput={(params) => <TextField {...params} placeholder="Search..." />}
                         type="submit"
                         disableListWrap={false}
 
-
                     />
-                    <Link to="/result" style={{ textDecoration: "none" }}
-                    >
+
+                    <Link to="/result" style={{ textDecoration: "none" }}>
                         <Button
                             style={{
 
@@ -80,6 +79,7 @@ export default function SearchBar() {
 
                             onClick={() => {
                                 if (!search) {
+
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops...',
@@ -88,11 +88,13 @@ export default function SearchBar() {
                                 } else if (search.length > 0) {
                                     dispatch((searchProduct(search)))
                                     setSearch("")
+                                    // navigate("/result")
+
                                     console.log(11111, search)
                                 }
                             }}
                         >
-                            Buscar
+                            Search
                         </Button>
                     </Link>
                 </Grid>
