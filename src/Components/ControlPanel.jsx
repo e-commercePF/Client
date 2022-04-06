@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Button, Grid } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import { Link, useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -9,13 +9,13 @@ import Card from '@mui/material/Card';
 import axios from 'axios'
 
 
-const useStyles = makeStyles({   
+const useStyles = makeStyles({
     container: {
         display: 'grid'
-    }, 
+    },
     card: {
         backgroundColor: 'rgb(173, 184, 175)',
-        boxShadow: '0 5px 5px rgb(0,0,0,0.1)', 
+        boxShadow: '0 5px 5px rgb(0,0,0,0.1)',
         borderRadius: '5px',
         border: 'solid 1px black'
     }
@@ -23,136 +23,139 @@ const useStyles = makeStyles({
 
 
 export default function ControlPanel() {
-    const clases = useStyles()     
+    const clases = useStyles()
 
     const navigate = useNavigate()
-    useEffect(() =>{
+    useEffect(() => {
         let token = window.localStorage.getItem('token');
-        let config = { headers: {
-                Authorization: 'Bearer ' + token}}
-          axios.get('http://localhost:3000/api/users/admin/verify', config)
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        axios.get('http://localhost:3000/api/users/admin/verify', config)
             .then(res => {
-               // console.log(res.data)
+                // console.log(res.data)
             }).catch(err => {
                 console.log(err)
-               return navigate('/')
+                return navigate('/')
             })
-           },[navigate])
+    }, [navigate])
 
     return <div className={clases.container}>
-        <h1>Bienvenido Administrador</h1>
-      
+        <h1>Welcome Administrator</h1>
+
         <Grid container spacing={1} >
             <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Lista de Stock Disponible
+                        Available Stock List
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Edita tu stock
+                        Edit your stock
                     </Typography>
                     <Typography variant="body2">
-                        Si requieres mirar tu stock
+                        If you want to look your stock,
                         <br />
-                        haga click acá.
+                        click here.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/stock" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '10em'}}> Stock </Button></Link>
+                    <Link to="/admin/stock" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '10em' }}> Stock </Button></Link>
                 </CardActions>
             </Card>
 
             <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Lista de Usuarios
+                        Users list
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Edita tu lista de usuarios y roles
+                        Edit your list of users and roles
                     </Typography>
                     <Typography variant="body2">
-                        Si requieres eliminar o actualizar
+                        If you want delete or edit
                         <br />
-                        un usuario,  haga click acá.
+                        an user, click here.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/users" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '5em'}}>Ver y editar usuarios </Button></Link>
+                    <Link to="/admin/users" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '5em' }}>See and edit users </Button></Link>
                 </CardActions>
             </Card>
 
             <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Crear un producto nuevo
+                        Upload a new product
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Agrega un producto a tu página
+                        Add a new product to your page
                     </Typography>
                     <Typography variant="body2">
-                        Si requieres agregar un producto a
+                        If you want add a new producto to
                         <br />
-                        tu página, haga click acá.
+                        your page, click here.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/createproduct" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em'}}> Cargar articulo Nuevo </Button></Link>
+                    <Link to="/admin/createproduct" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em' }}> Upload a new product </Button></Link>
                 </CardActions>
             </Card>
 
             <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Ver tus Ordenes de venta
+                        See your sales Orders
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Ve y edita tus ordenes de venta
+                        See and edit your Sales Orders
                     </Typography>
                     <Typography variant="body2">
-                        Si requieres editar o cambiar estado
+                        If you want see or edit status
                         <br />
-                        a una orden de venta, haga click acá
+                        of a sale order, click here.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/orders" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em'}}> Ordenes de Venta </Button></Link>
-                </CardActions>
+                    <Link to="/admin/orders" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em' }}>See your sales orders</Button></Link>                </CardActions>
             </Card>
 
             <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Categorias
+                        Categories
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Edita, elimina y crea nuevas categorias para el stock de Sports Market
+                        Edit, delete or create categories for your stock
                     </Typography>
                     <Typography variant="body2">
-                        Si requieres eliminar o actualizar
+                        If you want delete or update
                         <br />
-                        categorias,  haga click acá.
+                        categories, click here.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em'}}>Ver y editar Categorias </Button></Link>
+                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em' }}>See and edit categories </Button></Link>
                 </CardActions>
             </Card>
             <Card sx={{ width: 350 }} className={clases.card}>
                 <CardContent>
                     <Typography variant="h5" component="div">
-                    newsletter
+                        Newsletter
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    create your newsletters
+                        Create your Newsletters
+                        <br />
                     </Typography>
                     <Typography variant="body2">
-                    to create your newsletters
+                        To create your newsletters
                         <br />
-                    and send them click here
+                        and send them, click here.
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to="/admin/Newsletter" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em'}}>  newsletters </Button></Link>
+                    <Link to="/admin/Newsletter" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em' }}>  newsletters </Button></Link>
                 </CardActions>
             </Card>
 

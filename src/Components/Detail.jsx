@@ -97,15 +97,15 @@ export default function Detail() {
                                         <Typography variant="subtitle1">Rating:</Typography>
                                         <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
                                     </Grid>
-                                    <Typography variant="subtitle1">Stock Actual: {stock}</Typography>
+                                    <Typography variant="subtitle1">Stock: {stock}</Typography>
                                 </Box>
-                                
-                                <IconButton onClick={() => handleAddCart()}>                                    
+
+                                <IconButton onClick={() => handleAddCart()}>
                                     <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }} >
-                                        Agregar al carrito
-                                    </Button>                                   
+                                        Add to cart
+                                    </Button>
                                 </IconButton>
-                                
+
                             </Grid>
                         </Grid>
 
@@ -114,7 +114,7 @@ export default function Detail() {
 
                         <Grid item sm={12} sx={{ padding: "5em" }}>
                             <Paper elevation={3}>
-                                <Typography variant="h5"> Comentarios del producto:</Typography>
+                                <Typography variant="h5"> Comments:</Typography>
                                 <Divider></Divider>
                                 {
                                     detailproduct.reviews.map((e, index) => (

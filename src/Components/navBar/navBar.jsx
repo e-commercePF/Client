@@ -4,7 +4,7 @@ import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {  cleanDetail, isAdmin } from "../../Redux/actions";
+import { cleanDetail, isAdmin } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -113,7 +113,7 @@ export default function NavBar() {
                                             color="navBtnColor"
                                             variant="contained"
                                         >
-                                            Panel de control
+                                            Control Panel
                                         </Button>
                                     </Link> : null
                             }
@@ -139,7 +139,7 @@ export default function NavBar() {
                                             variant="contained"
                                             endIcon={<InsertEmoticonIcon />}
                                         >
-                                            Perfil
+                                            Profile
                                         </Button>
                                     </Link> : null
                             }
@@ -155,7 +155,7 @@ export default function NavBar() {
                                             color="navBtnColor"
                                             variant="contained"
                                             endIcon={<Login />} >
-                                            Registrarse
+                                            Sign Up
                                         </Button>
                                     </Link>
                             }
@@ -165,7 +165,7 @@ export default function NavBar() {
                                 endIcon={<FavoriteBorderIcon />}
                                 onClick={(e) => navigate('./favorites')}
                             >
-                                Mis favoritos
+                                Favorites
                             </Button>
 
                             <Button
@@ -174,7 +174,7 @@ export default function NavBar() {
                                 endIcon={<ShoppingCart />}
                                 onClick={(e) => navigate('./carrito')}
                             >
-                                Carrito
+                                Cart
                             </Button>
 
                             {isDisable === false ? <Carrito /> : null}
@@ -197,18 +197,18 @@ export default function NavBar() {
                                 {/* REPETIR CODIGO QUE SE DESEA RENDERIZAR EN EL MENU DE HAMBURGUESA  */}
 
                                 {
-                                response ?
-                                    <Link to="/admin" style={{ textDecoration: "none" }}  >
+                                    response ?
+                                        <Link to="/admin" style={{ textDecoration: "none" }}  >
 
-                                        <Button
-                                            color="navBtnColor"
-                                            variant="contained"
-                                            style={{ backgroundColor: 'black' }} 
-                                        >
-                                            Panel de control
-                                        </Button>
-                                    </Link> : null
-                            }
+                                            <Button
+                                                color="navBtnColor"
+                                                variant="contained"
+                                                style={{ backgroundColor: 'black' }}
+                                            >
+                                                Control Panel
+                                            </Button>
+                                        </Link> : null
+                                }
 
                                 <Link to="/" style={{ textDecoration: "none" }}
                                     onClick={() => dispatch(cleanDetail())}
@@ -258,7 +258,7 @@ export default function NavBar() {
                                                 style={{ backgroundColor: 'black' }}
 
                                             >
-                                                Registrarse
+                                                Sign Up
                                             </Button>
                                         </Link>
                                 }
@@ -269,7 +269,7 @@ export default function NavBar() {
                                     onClick={(e) => navigate('./favorites')}
                                     style={{ backgroundColor: 'black' }}
                                 >
-                                    Mis favoritos
+                                    Favorites
                                 </Button>
 
                                 <Button
@@ -279,7 +279,7 @@ export default function NavBar() {
                                     onClick={(e) => navigate('./carrito')}
                                     style={{ backgroundColor: 'black' }}
                                 >
-                                    Carrito
+                                    Cart
                                 </Button>
                                 { /* FIN DE LA HAMBURGUESA */}
 
