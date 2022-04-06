@@ -1,29 +1,26 @@
-import { Input, AppBar, Toolbar } from "@material-ui/core"
+import { AppBar, Toolbar } from "@material-ui/core"
 import { Button, Typography } from "@mui/material";
 import "./navBar.css"
 import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { searchProduct, cleanDetail, isAdmin } from "../../Redux/actions";
+import { useDispatch } from "react-redux";
+import {  cleanDetail, isAdmin } from "../../Redux/actions";
 import { Link, useNavigate } from 'react-router-dom';
 import Carrito from "../Carrito";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LogoutButton from "../LogoutButton "
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/system';
-import Menu from '../Menu'
 import { useTheme, } from "@material-ui/core/styles";
 import { useMediaQuery, SwipeableDrawer, Divider, } from "@mui/material";
 import { Hidden, IconButton } from "@mui/material";
 import { ChevronRight } from "@material-ui/icons";
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
 import axios from 'axios'
-import ControlPanel from '../../Components/ControlPanel';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import SearchBar from "../searchBar";
+
 const { REACT_APP_BACKEND_URL } = process.env
-
-
 
 const useStyles = makeStyles((theme) => ({
     burguerButton: {
@@ -63,9 +60,6 @@ export default function NavBar() {
         }
     }, [token])
 
-
-
-
     function onHandleSearch(event) {
         event.preventDefault()
         setSearch(event.target.value)
@@ -89,7 +83,7 @@ export default function NavBar() {
     return (<div className="header">
 
 
-        <AppBar style={
+        <AppBar onOpen style={
             {
                 position: "sticky",
                 // position: "fixed",
@@ -202,6 +196,20 @@ export default function NavBar() {
 
                                 {/* REPETIR CODIGO QUE SE DESEA RENDERIZAR EN EL MENU DE HAMBURGUESA  */}
 
+                                {
+                                response ?
+                                    <Link to="/admin" style={{ textDecoration: "none" }}  >
+
+                                        <Button
+                                            color="navBtnColor"
+                                            variant="contained"
+                                            style={{ backgroundColor: 'black' }} 
+                                        >
+                                            Panel de control
+                                        </Button>
+                                    </Link> : null
+                            }
+
                                 <Link to="/" style={{ textDecoration: "none" }}
                                     onClick={() => dispatch(cleanDetail())}
                                 >
@@ -209,7 +217,7 @@ export default function NavBar() {
                                         color="navBtnColor"
                                         variant="contained"
                                         endIcon={<Home />}
-                                        style={{ backgroundColor: 'blue' }}
+                                        style={{ backgroundColor: 'black' }}
                                         className={classes.burguerButton}
                                     >
                                         Home
@@ -224,7 +232,7 @@ export default function NavBar() {
                                                 color="navBtnColor"
                                                 variant="contained"
                                                 endIcon={<InsertEmoticonIcon />}
-                                                style={{ backgroundColor: 'blue' }}
+                                                style={{ backgroundColor: 'black' }}
                                             >
                                                 Perfil
                                             </Button>
@@ -232,7 +240,7 @@ export default function NavBar() {
                                 }
 
                                 <Button
-                                    style={{ backgroundColor: 'blue', maxWidth: '80%' }} >
+                                    style={{ backgroundColor: 'black', maxWidth: '80%' }} >
 
                                     <LogoutButton />
 
@@ -247,7 +255,7 @@ export default function NavBar() {
                                                 color="navBtnColor"
                                                 variant="contained"
                                                 endIcon={<Login />}
-                                                style={{ backgroundColor: 'blue' }}
+                                                style={{ backgroundColor: 'black' }}
 
                                             >
                                                 Registrarse
@@ -259,7 +267,7 @@ export default function NavBar() {
                                     variant="contained"
                                     endIcon={<FavoriteBorderIcon />}
                                     onClick={(e) => navigate('./favorites')}
-                                    style={{ backgroundColor: 'blue' }}
+                                    style={{ backgroundColor: 'black' }}
                                 >
                                     Mis favoritos
                                 </Button>
@@ -269,7 +277,7 @@ export default function NavBar() {
                                     variant="contained"
                                     endIcon={<ShoppingCart />}
                                     onClick={(e) => navigate('./carrito')}
-                                    style={{ backgroundColor: 'blue' }}
+                                    style={{ backgroundColor: 'black' }}
                                 >
                                     Carrito
                                 </Button>

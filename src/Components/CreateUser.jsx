@@ -7,6 +7,7 @@ import { Grid, Container, Paper, Avatar, TextField, CssBaseline } from '@materia
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { Button , Typography} from "@mui/material";
 import Swal from 'sweetalert2'
+import Checkbox from '@mui/material/Checkbox';
 /////////////// material ui /////////////////
 const useStyles =  makeStyles(theme => ({
 	root: {
@@ -14,17 +15,19 @@ const useStyles =  makeStyles(theme => ({
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
-		height: '100vh'
+		height: '100vh',
+		
 	},
 	container: {
 		opacity: '0.8',
-		height: '80%',
-		marginTop: theme.spacing(10),
+		height: '90%',
+		marginTop: theme.spacing(7),
 		[theme.breakpoints.down(400 + theme.spacing(2) + 2)]: {
 			marginTop: 0,
 			width: '100%',
 			height: '100%'
-		}
+		},
+		border: "1px solid black",
 	},
 	div: {
 		marginTop: theme.spacing(8),
@@ -34,7 +37,7 @@ const useStyles =  makeStyles(theme => ({
 	},
 	avatar: {
 		margin: theme.spacing(1),
-		backgroundColor: theme.palette.primary.main
+		backgroundColor:theme.palette.secondary.dark
 	},
 	form: {
 		width: '100%',
@@ -42,6 +45,9 @@ const useStyles =  makeStyles(theme => ({
 	},
 	button: {
 		margin: theme.spacing(3, 0, 2)
+	},
+	divgoogle2:{
+		marginTop: theme.spacing(3),
 	}
 }))  
 
@@ -55,6 +61,7 @@ const useStyles =  makeStyles(theme => ({
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const classes = useStyles()
+	const [checked, setChecked] = useState(true);
 	const {REACT_APP_BACKEND_URL,REACT_APP_GOOGLEKEY} = process.env 
 
       useEffect(()=>{
@@ -89,7 +96,7 @@ const useStyles =  makeStyles(theme => ({
         console.log(response)
       }    
  const handleRegister = async (event) => {
-	  try {
+	  try {console.log(checked)
             axios({
                 method: 'POST',
                 url: `${REACT_APP_BACKEND_URL}/api/auth/signup`,
@@ -97,6 +104,7 @@ const useStyles =  makeStyles(theme => ({
                   name: name,
                   email: email,
                   password: password,
+				  newsLetter: checked,
                 }
               }).then(response =>{
 				Swal.fire(response.data.message)
@@ -110,6 +118,7 @@ const useStyles =  makeStyles(theme => ({
             console.log("HandleRegister", e)
         }
  }
+ console.log(checked)
 return(
 
 	<React.StrictMode>
@@ -156,6 +165,13 @@ return(
 					  value={email}
 					  onChange={(e)=> {setEmail(e.target.value)}}
 				  />
+				   <Typography component='h5' variant='h8'>
+				   do you want to subscribe to the newsletter ?  
+				      <Checkbox
+                       checked={checked}
+                       onChange={(e) => {setChecked(e.target.checked)}}
+                      inputProps={{ 'aria-label': 'controlled' }}/>
+					  </Typography>
 				  <Button
 					  fullWidth
 					  variant='contained'
@@ -163,17 +179,20 @@ return(
 					  className={classes.button}
 					  onClick={() => handleRegister()}
 				  >
-					  registrarse
+					  Register
 				  </Button>
-				  <GoogleLogin
+		
+			  </form>
+			  <div className={classes.divgoogle2}>
+			  <GoogleLogin
                     clientId={REACT_APP_GOOGLEKEY}
                     buttonText="Signup with Google"
                     onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
-			  </form>
-			  <span>Or sign in <Link to="/login">here</Link>  </span>	
+	 <Typography component='h5' variant='h8'> Or sign in <Link to="/login">here</Link> </Typography>	
+	 </div>
 		  </div>
 	  </Container>
 </Grid>   

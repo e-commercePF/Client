@@ -6,7 +6,8 @@ import { makeStyles } from '@mui/styles';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getShopsByUser } from "../Redux/actions";
-
+import Swal from 'sweetalert2';
+const {REACT_APP_BACKEND_URL} = process.env 
 const useStyles = makeStyles({
     card: {
         margin: '1.5rem',
@@ -41,6 +42,8 @@ export default function Profile() {
     const [edit, setEdit] = useState(false)
     const [url, setUrl] = useState('')
 
+
+
     function handeSelectPic(x) {
         try {
             //url = JSON.stringify(url)
@@ -51,6 +54,41 @@ export default function Profile() {
 
     let img = localStorage.getItem('foto')
 
+    const unsuscribe = async () => {
+        const token = localStorage.getItem('token');
+       const config = { headers: { Authorization: "Bearer " + token }}
+        try { const news = await axios.put(`${REACT_APP_BACKEND_URL}/api/users/suscribe`,{
+            newsLetter:false,
+            },config).then(response =>{
+				Swal.fire(response.data.message)
+			  }).catch(err=>{ 
+				if(err.response.status === 400){
+				 Swal.fire(err.response.data.error)
+                }}) 
+           }catch(e) { 
+            console.log("HandleRegister", e)
+        }
+
+
+}
+
+    const suscribe = async () => {
+        const token = localStorage.getItem('token');
+       const config = { headers: { Authorization: "Bearer " + token }}
+        try { const news = await axios.put(`${REACT_APP_BACKEND_URL}/api/users/suscribe`,{
+            newsLetter:true,
+            },config).then(response =>{
+				Swal.fire(response.data.message)
+			  }).catch(err=>{ 
+				if(err.response.status === 400){
+				 Swal.fire(err.response.data.error)
+                }}) 
+           }catch(e) { 
+            console.log("HandleRegister", e)
+        }
+
+
+}
     //console.log(myShop)
 
     let contador = 1
@@ -72,10 +110,11 @@ export default function Profile() {
                     </div>
             }
 
+           <Button  onClick={() => suscribe()}>subscribe to newsletter</Button>  or    <Button  onClick={() => unsuscribe()}>unsubscribe</Button>
 
             {
                 myShop.length < 1 ? <h2> Aún no compras nada,
-                    que esperas ve el catalogo de Sports Market, la mejor tienda deportiva de America Latina
+                    ¿que esperas?, ve el catalogo de Sports Market, la mejor tienda deportiva de América Latina
                 </h2> :
                     myShop.map(x => {
                         return <div>

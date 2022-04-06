@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, editTheProduct, deleteOneItemFromStock } from "../Redux/actions";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import InputPanel from "./InputPanel";
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { makeStyles } from '@mui/styles';
 
 const {REACT_APP_BACKEND_URL} = process.env 
 
+const useStyles = makeStyles({
+    paper: {
+    backgroundColor: 'rgb(213, 217, 222)',
+    boxShadow: '0 5px 5px rgb(0,0,0,0.1)', 
+    borderRadius: '10px',
+    border: 'solid 1px black',
+    margin: '2em' 
+    }
+    
+})
+
 export default function Stock(){
+
+    const clases = useStyles()
 
     const navigate = useNavigate()
 
@@ -47,6 +61,7 @@ export default function Stock(){
     
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
+    investment = investment.toFixed(2)
 
     const [myNewDataProduct, setMyNewDataProduct] = useState({
         brand: "",
@@ -75,7 +90,7 @@ export default function Stock(){
          
     const handleChangeProduct = (x)=> {
         setMyNewDataProduct({
-            category: myCategory || x.category,
+            category: myCategory === [] ? x.category : myCategory,
             brand: x.brand,
             description: x.description,
             img: x.img,
@@ -107,15 +122,16 @@ export default function Stock(){
               }).then((result) => {
                 if (result.isConfirmed) {
                   dispatch(editTheProduct(myNewDataProduct))
-                  Swal.fire(
-                    'Producto modificado!',
-                    'La base de datos se ha actualizado.',
-                    'success'
-                  )                            
+                  window.location.reload()
+                //   Swal.fire(
+                //     'Producto modificado!',
+                //     'La base de datos se ha actualizado.',
+                //     'success'
+                //   )                            
                 }
-               setTimeout(()=> {
-                window.location.reload()
-               }, 3000) 
+            //    setTimeout(()=> {
+            //     window.location.reload()
+            //    }, 3000) 
               })
         }
      }
@@ -151,9 +167,10 @@ export default function Stock(){
 
             {
         product.map(x=> {
-            return <div> 
-                 
+            return <div key={x._id}> 
+                <Paper className={clases.paper}>
                 <InputPanel 
+                key={x._id}
                 name= {x.name}
                 quantity= {x.quantity}
                 price= {x.price}
@@ -172,14 +189,17 @@ export default function Stock(){
                 handleSelectPrice = {handleSelectPrice}
                 handleSubmitChanges= {()=> handleSubmitChanges(x)}
                 cate= {x.category}
+                handleDeleteProduct={()=> handleDeleteProduct(x)}
                 
              
-                />                 
+                />                
                
-                <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button>
+                {/* <Button  variant="contained" color="error" onClick={()=> handleDeleteProduct(x)}> Eliminar Producto </Button> */}
+                </Paper> 
             </div>                        
                 })   
-            }     
+            } 
+
     <h1> Tu inversion en SportsMarket: <b> $ {investment} </b> </h1>
         </div>
     )

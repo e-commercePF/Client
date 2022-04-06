@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from '@mui/styles';
-import { Button } from "@mui/material";
+import {  FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import InputOrders from './InputOrders';
 
 const {REACT_APP_BACKEND_URL} = process.env 
@@ -37,7 +37,7 @@ export default function Orders() {
                 Authorization: 'Bearer ' + token}}
          axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
-                console.log(res.data)
+            //    console.log(res.data)
             }).catch(err => {
                 console.log(err)
                 navigate('/')
@@ -69,23 +69,31 @@ if(typeof orders === 'object' && typeof orders.then === 'function'){
        }, [])
     
     const [activeOrder, setActiveOrder] = useState('')
-       console.log(activeOrder)
+     //  console.log(activeOrder)
     let orderInList
        activeOrder === 'all' || activeOrder === '' ? orderInList = allOrders :
         orderInList = allOrders.filter(x=> x.status === activeOrder)
 
-        console.log(orderInList)
-
     return (<>
 
         <h1> Estas son tus ordenes de venta </h1> 
-        <select onChange={e=> setActiveOrder(e.target.value)}> 
+        {/* <select onChange={e=> setActiveOrder(e.target.value)}  > 
             <option value='all'> Selecciona el status que deseas filtrar </option>
             {
                 orderStatusToShow.map(x=> <option value={x}> {x} </option> )
                
             }
-        </select>    
+        </select>     */}
+        <FormControl fullWidth>
+            <InputLabel id='demo-simple-select-label'> Status del pedido</InputLabel>
+        <Select onChange={e=> setActiveOrder(e.target.value)}  > 
+            <MenuItem value='all'> Todas </MenuItem>
+            {
+                orderStatusToShow.map(x=> <MenuItem value={x}> {x} </MenuItem> )
+               
+            }
+        </Select>    
+        </FormControl>
         {            
             orderInList.map(x=> {
                 return <div>
@@ -94,11 +102,11 @@ if(typeof orders === 'object' && typeof orders.then === 'function'){
                     <span>UserId: {x.userId} </span> 
                     <span>Fecha de compra: <b>{x.createdAt.slice(0, 10)}</b> </span>                    
                     {x.products.map(x=> {
-                        return <div>
+                        return <div style={{borderBottom: '1.5px solid black'}}>
                             
-                            <span> <b> Product Name:</b> {x.name} </span>
+                            <span style={{marginTop:'2rem', marginBottom: '-2.5rem'}}>  Product Name: <h2> {x.name} </h2> </span>
                             <span> Price: <b>$ {x.price}</b> </span>
-                            <span> <b> Cantidad: </b>{x.quantity} </span>
+                            <span>  Cantidad:<b> {x.quantity} </b></span>
                         </div> 
                     })}
                    <span> Valor Total: <b> $ {x.amount}</b> </span>

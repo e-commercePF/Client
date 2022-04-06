@@ -1,24 +1,16 @@
-import { Input, AppBar, Toolbar } from "@material-ui/core"
-import { Avatar, Button, Typography } from "@mui/material";
-import { Login, Home, ShoppingCart, Search, Rowing } from '@mui/icons-material';
+import { Button } from "@mui/material";
+import { Search } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Link, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
-import { getAllProducts, searchProduct } from "../Redux/actions";
+import { searchProduct } from "../Redux/actions";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from "axios";
 import Grid from '@mui/material/Grid';
+import Swal from 'sweetalert2'
 
 
-
-const useStyles = makeStyles((theme) => ({
-    burguerButton: {
-        backgroundColor: 'blue',
-        color: 'white'
-    },
-}));
 
 export default function SearchBar() {
 
@@ -36,6 +28,7 @@ export default function SearchBar() {
     function onHandleSearch(event) {
         event.preventDefault()
         setSearch(event.target.value)
+        console.log(222, event.target.value)
     }
     const getProductFromBack = async () => {
         const productillos = await axios.get("http://localhost:3000/api/products")
@@ -53,6 +46,7 @@ export default function SearchBar() {
                 <Grid container spacing={2} justifyContent="center"
                     alignItems="center">
                     <Autocomplete
+                        name="search"
                         style={{
                             backgroundColor: "white",
                             borderRadius: "5px",
@@ -86,14 +80,17 @@ export default function SearchBar() {
 
                             onClick={() => {
                                 if (!search) {
-                                    navigate("/home")
-                                    alert("Debes ingresar tu búsqueda")
-                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'We need something to search',
+                                    })
+                                } else if (search.length > 0) {
                                     dispatch((searchProduct(search)))
                                     setSearch("")
+                                    console.log(11111, search)
                                 }
                             }}
-
                         >
                             Buscar
                         </Button>

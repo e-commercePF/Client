@@ -20,7 +20,7 @@ export default function Users(){
             Authorization: 'Bearer ' + token}}
       axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
         .then(res => {
-            console.log(res.data)
+           // console.log(res.data)
         }).catch(err => {
             console.log(err)
             navigate('/')
@@ -51,8 +51,6 @@ export default function Users(){
         setRole(e) 
             
     }
-  console.log(role) 
-
 
     const [user, setUser] = useState({
         createdAt: '',
@@ -93,9 +91,9 @@ export default function Users(){
                     'success'
                   )                            
                 }
-               setTimeout(()=> {
-                window.location.reload()
-               }, 3000) 
+              //  setTimeout(()=> {
+              //   window.location.reload()
+              //  }, 3000) 
               })
         }  
     }
@@ -119,18 +117,18 @@ export default function Users(){
                 'success'
               )                            
             }
-           setTimeout(()=> {
-            window.location.reload()
-           }, 3000) 
+          //  setTimeout(()=> {
+          //   window.location.reload()
+          //  }, 3000) 
           })     
     }
 
     return(
         <div> 
-            Aqui puedes editar a los Usuarios 
+            <h1> Aquí puedes editar a los Usuarios </h1>
 
             { users.map(x=> {
-                return <div>                    
+                return <div key={x._id}>                    
               
                 <InputUsers 
                 id= {x._id}
@@ -139,9 +137,10 @@ export default function Users(){
                 email= {x.email}
                 handleChangeRole= {handleChangeRole}
                 handleEditUser= {()=> handleEditUser(x)}
+                deleteUser= {()=> deleteUser(x._id)}
                 />
-
-                <Button variant="contained" color="error" onClick={()=> deleteUser(x._id)} > Eliminar Usuario </Button>
+{/* 
+                <Button variant="contained" color="error" onClick={()=> deleteUser(x._id)} > Eliminar Usuario </Button> */}
                     
                 </div>
             })}

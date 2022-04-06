@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        padding:"2em",
+        padding: "2em",
     },
 
 }));
@@ -19,7 +19,7 @@ export default function Home() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(GetFilters({page: 1}))
+        dispatch(GetFilters({ page: 1 }))
     }, [])
 
     const { product } = useSelector(state => state)
@@ -34,9 +34,9 @@ export default function Home() {
     })
 
     return (
-        <div  className={classes.root}>
+        <div className={classes.root}>
 
-            <Menu/>
+            <Menu />
             <Grid container spacing={2} >
                 {
                     (product.length !== 0) ?
@@ -57,12 +57,16 @@ export default function Home() {
                                     __v={e.__v} />
                             </Grid>
 
-                        )) : <></>}
+                        )) : <><img
+                            src="https://c.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif"
+                            alt="image-loading"
+                            style={{ justifyContent: "center", height: "50px", margin: "auto", marginTop: "150px" }}
+                        ></img></>}
             </Grid>
             {/* <Paginado /> */}
 
 
-            
+
         </div>
     )
 }

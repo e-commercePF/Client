@@ -71,7 +71,7 @@ const Regtrister = () => {
             color="navBtnColor"
             variant="contained"
             endIcon={<Login />} >
-         Registrarse
+           Register
         </Button> 
        </Link> 
     )
