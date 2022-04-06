@@ -65,15 +65,21 @@ export default function Categories() {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(createCategory(objeto))
-                Swal.fire(
-                    `${newCategory} has been added to the categories of Sports Market`,
-                    'The database has been updated.',
-                    'success'
-                )
-            }
-            setTimeout(() => {
-                window.location.reload()
-            }, 3000)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-center',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                  })
+                  Toast.fire({
+                    icon: 'success',
+                    title: `${newCategory} has been added to the categories of Sports Market`
+                  })
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 3000)
+            }            
         })
     }
 
