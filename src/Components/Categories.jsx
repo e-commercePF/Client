@@ -92,7 +92,7 @@ export default function Categories(){
                 <Button variant="contained" style={{backgroundColor: "black", color: 'white', borderRadius: '5px'}} onClick={()=> handleSubmitNewCategory(newCategory)}> Cargar Nueva Categoria </Button>
             </Paper>           
             <h1> Ver o editar las categorias de tus productos: </h1>
-            { categories.map(x=>  <InputCategories category={ x } />) }
+            { categories.map((x,i)=>  <InputCategories key={i} category={ x } />) }
 
             
 

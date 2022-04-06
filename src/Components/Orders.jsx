@@ -37,7 +37,7 @@ export default function Orders() {
                 Authorization: 'Bearer ' + token}}
          axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
-                console.log(res.data)
+            //    console.log(res.data)
             }).catch(err => {
                 console.log(err)
                 navigate('/')
@@ -69,12 +69,10 @@ if(typeof orders === 'object' && typeof orders.then === 'function'){
        }, [])
     
     const [activeOrder, setActiveOrder] = useState('')
-       console.log(activeOrder)
+     //  console.log(activeOrder)
     let orderInList
        activeOrder === 'all' || activeOrder === '' ? orderInList = allOrders :
         orderInList = allOrders.filter(x=> x.status === activeOrder)
-
-        console.log(orderInList)
 
     return (<>
 
