@@ -23,6 +23,7 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
 import { makeStyles } from "@mui/styles";
 
+const { REACT_APP_BACKEND_URL } = process.env
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -107,7 +108,7 @@ export default function Formulario() {
                 Authorization: 'Bearer ' + token
             }
         }
-        axios.get('http://localhost:3000/api/users/admin/verify', config)
+        axios.get(`${REACT}/api/users/admin/verify`, config)
             .then(res => {
                 //console.log(res.data)
             }).catch(err => {
@@ -122,7 +123,7 @@ export default function Formulario() {
             if (imagen.length >= 1) {
                 valores.img = imagen
             }
-            let infoproduct = await axios.post("http://localhost:3000/api/products/create", valores)
+            let infoproduct = await axios.post(`${REACT_APP_BACKEND_URL}/api/products/create`, valores)
             if (infoproduct.data.message) {
                 Swal.fire({
                     icon: 'error',
@@ -335,9 +336,10 @@ export default function Formulario() {
 
 
 
-                <FormControl style={{ marginTop: "20px" }} sx={{ m: 10, width: 500 }}>
+                <FormControl style={{ marginTop: "20%" }} sx={{  width: '100%'}}>
                     <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
                     <Select
+                        sx={{maxWidth: '90%'}}
                         labelId="demo-multiple-chip-label"
                         id="demo-multiple-chip"
                         multiple
@@ -369,9 +371,10 @@ export default function Formulario() {
                     </Select>
                 </FormControl>
 
-                <FormControl style={{ margin: "20px" }} sx={{ m: 10, width: 500 }}>
+                <FormControl style={{ marginTop: "5%" }} sx={{ width: '100%' }}>
                     <InputLabel id="demo-simple-select-label">Brand</InputLabel>
                     <Select
+                         sx={{maxWidth: '90%'}}
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={formik.values.brand}
@@ -393,7 +396,7 @@ export default function Formulario() {
                     </Select>
                 </FormControl>
 
-                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px' }} color="primary" variant="contained" fullWidth type="submit">
+                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', marginTop: '2em' }} color="primary" variant="contained" fullWidth type="submit">
                     Submit
                 </Button>
 

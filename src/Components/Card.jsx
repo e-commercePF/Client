@@ -28,6 +28,7 @@ export default function Productcard({ id, price, name, description, img, rating,
   const classes = useStyles();
 
   const _id = id
+  name = name.charAt(0).toUpperCase() + name.slice(1)
   let myProduct = { _id, name, price, img, rating, quantity, description }
   const functionToAddProductsToMyCart = () => {
     dispatch(addCart(myProduct))
@@ -84,7 +85,7 @@ export default function Productcard({ id, price, name, description, img, rating,
           </Link>}
 
       />
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="h5" color="text.secondary">
         ${price}
       </Typography>
 

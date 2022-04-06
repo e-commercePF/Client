@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import Swal from 'sweetalert2'
 import { makeStyles } from "@mui/styles";
 
-
+const { REACT_APP_BACKEND_URL } = process.env
 
 
 const useStyles = makeStyles({
@@ -38,7 +38,7 @@ export function Review() {
 
     const formik = useFormik({
         onSubmit: async (valores, { resetForm }) => {
-            let review = await axios.post(`http://localhost:3000/api/review/create?userId=${myShop[0].userId}&productId=${productId}`, valores)
+            let review = await axios.post(`${REACT_APP_BACKEND_URL}/api/review/create?userId=${myShop[0].userId}&productId=${productId}`, valores)
             if (review.data.status === false) {
                 Swal.fire({
                     icon: 'error',

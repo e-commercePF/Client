@@ -10,7 +10,7 @@ import axios from "axios";
 import Grid from '@mui/material/Grid';
 import Swal from 'sweetalert2'
 
-
+const { REACT_APP_BACKEND_URL } = process.env
 
 export default function SearchBar() {
 
@@ -46,7 +46,7 @@ export default function SearchBar() {
         console.log(222, event.target.value)
     }
     const getProductFromBack = async () => {
-        const productillos = await axios.get("http://localhost:3000/api/products")
+        const productillos = await axios.get(`${REACT_APP_BACKEND_URL}/api/products`)
         setProductos(productillos.data)
     }
     const optionProduct = []

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { makeStyles } from "@mui/styles";
 import { useEffect } from "react";
 
-
+const { REACT_APP_BACKEND_URL } = process.env
 
 
 const useStyles = makeStyles({
@@ -38,7 +38,7 @@ export default function Newsletter() {
                 Authorization: 'Bearer ' + token
             }
         }
-        axios.get(`http://localhost:3000/api/users/admin/verify`, config)
+        axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
                 //console.log(res.data)
             }).catch(err => {
@@ -53,7 +53,7 @@ export default function Newsletter() {
             try {
                 axios({
                     method: 'POST',
-                    url: "http://localhost:3000/api/users/sendNewsletter",
+                    url: `${REACT_APP_BACKEND_URL}/api/users/sendNewsletter`,
                     data: {
                         content: valores.content,
                         title: valores.title,

@@ -160,7 +160,7 @@ export default function Carrito() {
                                             </Grid>
 
                                             <Grid item sm={1}>
-                                                <Button size='small' color="secondary" sx={{ marginTop: "2em", marginBottom: "2em" }} onClick={() => deleteAllSingleItems(x)}> Eliminar </Button>
+                                                <Button size='small' color="secondary" sx={{ marginTop: "2em", marginBottom: "2em" }} onClick={() => deleteAllSingleItems(x)}> Delete </Button>
                                             </Grid>
                                         </Grid>
                                     )
