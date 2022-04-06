@@ -24,7 +24,7 @@ import ResetPassword from './Components/ResetPassword'
 import ForgotPassword from './Components/ForgotPassword'
 import { Review } from './Components/Reviews';
 import Categories from './Components/Categories';
-
+import Newsletter from './Components/Newsletter'
 
 function App() {
   return (
@@ -54,6 +54,7 @@ function App() {
             <Route path='/resetpassword/:token' element={<ResetPassword />} />
             <Route path='/forgotpassword' element={<ForgotPassword />} />
             <Route path="/review/:productId" element={<Review />} />
+            <Route path="/admin/Newsletter" element={<Newsletter />} />
           </Routes>
         </Container>
       </div>

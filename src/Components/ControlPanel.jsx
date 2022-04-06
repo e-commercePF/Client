@@ -137,6 +137,25 @@ export default function ControlPanel() {
                     <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em'}}>Ver y editar Categorias </Button></Link>
                 </CardActions>
             </Card>
+            <Card sx={{ width: 350 }} className={clases.card}>
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                    newsletter
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    create your newsletters
+                    </Typography>
+                    <Typography variant="body2">
+                    to create your newsletters
+                        <br />
+                    and send them click here
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Link to="/admin/Newsletter" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em'}}>  newsletters </Button></Link>
+                </CardActions>
+            </Card>
+
         </Grid>
     </div>
 }
