@@ -29,17 +29,17 @@ export default function Footer(){
 
         <footer className={classes.root}>
             <Grid container  direction="row" >
-                <Grid item  sm={6} >
+                <Grid item  sm={2} >
                     <Typography variant="h7">SportsMarket™</Typography>
                 </Grid>
 
-                <Grid container  sm={6} direction="row-reverse"  >
+                <Grid container  sm={9} direction="row-reverse"  >
                 <Grid>
                         <FacebookIcon/>
                         <InstagramIcon/>
                         <TwitterIcon/>
                    </Grid>
-                    <Grid sx={{marginBottom:"0.3em"}}>
+                    <Grid sx={{marginBottom:"0.2em"}}>
                         <Typography variant="h7"> FollowUS: </Typography> 
                     </Grid>
                 </Grid>
