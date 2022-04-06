@@ -26,14 +26,6 @@ export default function Profile() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const config = { headers: { Authorization: "Bearer " + token } }
-        // axios.get('http://localhost:3000/api/orders/allUser', config)
-        //     .then(response => {
-        //         setMyShop(response.data)
-        //         //  console.log(myShop)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
         dispatch(getShopsByUser(config))
     }, [])
 
@@ -93,7 +85,6 @@ export default function Profile() {
 
 
     }
-    //console.log(myShop)
 
     let contador = 1
     return (

@@ -101,7 +101,6 @@ export default function Carrito() {
                 }).catch(error => {
                     console.log(error)
                 })
-                console.log("toy aca", countMyItemResult)
                 navigate("/success", {
                     state: {
                         userId: res.userId,

@@ -3,23 +3,22 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 
-export default function EmailActivate (){
+export default function EmailActivate() {
     const navigate = useNavigate()
     const { token } = useParams()
 
-    console.log(token)
     useEffect(() => {
         axios.post(`http://localhost:3000/api/auth/email-activate/${token}`)
-        .then(response =>{
-            console.log(response)
-            
-        }) 
-        .catch(error =>{
-            console.log(error)
-            
-        })
-        
-        
+            .then(response => {
+                console.log(response)
+
+            })
+            .catch(error => {
+                console.log(error)
+
+            })
+
+
 
     }, [navigate, token])
 

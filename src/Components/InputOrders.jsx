@@ -40,9 +40,22 @@ export default function InputOrders({ send, id }) {
                     .then(x => {
                         console.log(x)
                         if (x._id) {
-                            Swal.fire(
-                                'The database has been updated'
-                            )
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-center',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                            })
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'The status has been updated'
+                            })
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 3000)
+
                         } else {
                             Swal.fire(
                                 x
