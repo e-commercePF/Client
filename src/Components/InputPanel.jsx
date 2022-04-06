@@ -54,7 +54,7 @@ export default function InputPanel({name, quantity, price, brand, description, i
             <div>
             <select onChange={e=> handleAddCategory(e.target.value)}> 
                 <option value={category}> Selecciona las categorias de tu producto </option>
-                { categories.map(x=> <option value={x}> {x} </option>)}
+                { categories.map(x=> <option key={x} value={x}> {x} </option>)}
                 
             </select> 
             <Paper>
