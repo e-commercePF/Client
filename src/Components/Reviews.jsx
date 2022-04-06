@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import Swal from 'sweetalert2'
 import { makeStyles } from "@mui/styles";
 
-
+const { REACT_APP_BACKEND_URL } = process.env
 
 
 const useStyles = makeStyles({
@@ -38,20 +38,21 @@ export function Review() {
 
     const formik = useFormik({
         onSubmit: async (valores, { resetForm }) => {
-            let review = await axios.post(`http://localhost:3000/api/review/create?userId=${myShop[0].userId}&productId=${productId}`, valores)
-            //console.log(44444, review.data)
+            let review = await axios.post(`${REACT_APP_BACKEND_URL}/api/review/create?userId=${myShop[0].userId}&productId=${productId}`, valores)
             if (review.data.status === false) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Algo ha salido mal, parece que ya haz hecho una review a este producto, o aún no lo compras.',
+                    text: `Something was wrong, you can't submmit a review of a product if you don't buy yet, 
+                    or give a review twice.`,
+                   
 
                 })
 
             } else {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Gracias por tus comentarios!',
+                    title: 'Thanks for your comments!',
                 })
                 resetForm("")
             }
@@ -64,33 +65,33 @@ export function Review() {
             let errors = {}
 
             if (!valores.description) {
-                errors.description = "Debes agregar un comentario alproducto"
+                errors.description = "You must add a comment about the product"
             }
 
             if (!valores.rating) {
-                errors.rating = "debes asignar una puntiación de 0 a 5"
+                errors.rating = "You must add a rating of the product between 0 to 5"
             } else if (valores.rating > 5 || valores.rating < 0) {
-                errors.rating = "Solo puedes asignar puntado de 0 a 5"
+                errors.rating = "Only can submit values between 0 to 5"
             } else if (!/^[0-9.0-9]{1,3}$/.test(valores.rating)) {
-                errors.rating = "Solo números y un decimal"
+                errors.rating = "Only numbers and a decimal"
             }
 
             return errors
         }
     })
-    return (<div style={{ display: "flex", maxWidth: "50%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-        <h2> Déjanos tu comentario del producto:</h2>
-        <form onSubmit={formik.handleSubmit} style={{}}>
+    return (<div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", }}>
+        <h2> Give us some comments about the product:</h2>
+         <form onSubmit={formik.handleSubmit}  style={{width: '70%'}}>
             <Card
-                style={{ backgroundColor: "#e9e9e9", display: "flex", alignItems: "center", color: 'white', borderRadius: '5px', justifyContent: "center", flexDirection: "column" }}
-                sx={{ width: 500 }} className={clases.card}>
+                style={{ backgroundColor: "#e9e9e9", display: "flex", alignItems: "center", color: 'white', borderRadius: '5px', justifyContent: "center", flexDirection: "column", width: '90%'  }}
+                sx={{ width: '95%' }} className={clases.card}>
                 <TextField
                     multiline
                     minRows={5}
-                    style={{ marginTop: "30px", width: "450px", justifyContent: "center", backgroundColor: "white" }}
+                    style={{ marginTop: "30px", width: "90%", justifyContent: "center", backgroundColor: "white" }}
                     id="description"
                     name="description"
-                    label="Déjanos tu comentario"
+                    label="Give us your comments"
                     value={formik.values.description}
                     onChange={formik.handleChange}
                     error={formik.touched.description && Boolean(formik.errors.description)}
@@ -100,18 +101,18 @@ export function Review() {
 
                 <TextField
 
-                    style={{ marginTop: "30px", width: "450px", justifySelf: "center", backgroundColor: "white" }}
+                    style={{ marginTop: "30px", width: '80%', justifySelf: "center", backgroundColor: "white" }}
                     id="rating"
                     name="rating"
-                    label="Puntuación"
+                    label="Rating"
                     value={formik.values.rating}
                     onChange={formik.handleChange}
                     error={formik.touched.rating && Boolean(formik.errors.rating)}
                     helperText={formik.touched.rating && formik.errors.rating}
                     onBlur={formik.handleBlur}
                 />
-                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', width: "300px", margin: "15px" }} color="primary" variant="contained" fullWidth type="submit">
-                    Enviar Comentarios
+                <Button style={{ backgroundColor: "black", color: 'white', borderRadius: '5px', width: "80%", margin: "15px" }} color="primary" variant="contained" fullWidth type="submit">
+                    Send comments
                 </Button>
 
             </Card>

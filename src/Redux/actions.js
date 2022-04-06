@@ -421,7 +421,7 @@ export function deleteCategory(category) {
 export function getShopsByUser(config) {
   return async function (dispatch) {
     try {
-      let shop = await axios.get("http://localhost:3000/api/orders/allUser", config)
+      let shop = await axios.get(`${REACT_APP_BACKEND_URL}/api/orders/allUser`, config)
       return dispatch({
         type: GET_SHOP,
         payload: shop.data

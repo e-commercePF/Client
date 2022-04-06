@@ -101,6 +101,7 @@ export default function Carrito() {
                 }).catch(error => {
                     console.log(error)
                 })
+                dispatch(clearCart())
                 navigate("/success", {
                     state: {
                         userId: res.userId,
@@ -159,12 +160,12 @@ export default function Carrito() {
                                             </Grid>
 
                                             <Grid item sm={1}>
-                                                <Button size='small' color="secondary" sx={{ marginTop: "2em", marginBottom: "2em" }} onClick={() => deleteAllSingleItems(x)}> Eliminar </Button>
+                                                <Button size='small' color="secondary" sx={{ marginTop: "2em", marginBottom: "2em" }} onClick={() => deleteAllSingleItems(x)}> Delete </Button>
                                             </Grid>
                                         </Grid>
                                     )
                                 }
-                                ) : 'Tu carrito esta vacio' :
+                                ) : 'Your cart is empty' :
 
                             shopingCart.length > 0 ? countMyItemResult.map(x => {
                                 return (

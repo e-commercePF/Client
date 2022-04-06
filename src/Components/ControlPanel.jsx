@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Paper } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { Link, useNavigate } from "react-router-dom"
 import CardActions from "@mui/material/CardActions";
@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Card from '@mui/material/Card';
 import axios from 'axios'
 
+const { REACT_APP_BACKEND_URL } = process.env
 
 const useStyles = makeStyles({
     container: {
@@ -33,7 +34,7 @@ export default function ControlPanel() {
                 Authorization: 'Bearer ' + token
             }
         }
-        axios.get('http://localhost:3000/api/users/admin/verify', config)
+        axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
                 // console.log(res.data)
             }).catch(err => {
@@ -46,8 +47,8 @@ export default function ControlPanel() {
         <h1>Welcome Administrator</h1>
 
         <Grid container spacing={1} >
-            <Card sx={{ width: 350 }} className={clases.card}>
-                <CardContent>
+            <Paper sx={{ width: 350 }} className={clases.card}>
+                
                     <Typography variant="h5" component="div">
                         Available Stock List
                     </Typography>
@@ -59,14 +60,14 @@ export default function ControlPanel() {
                         <br />
                         click here.
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to="/admin/stock" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '10em' }}> Stock </Button></Link>
-                </CardActions>
-            </Card>
+                
+              
+                    <Link to="/admin/stock" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ margin: '2em' }}> Stock </Button></Link>
+               
+            </Paper>
 
-            <Card sx={{ width: 350 }} className={clases.card}>
-                <CardContent>
+            <Paper sx={{ width: 350 }} className={clases.card}>
+               
                     <Typography variant="h5" component="div">
                         Users list
                     </Typography>
@@ -78,14 +79,14 @@ export default function ControlPanel() {
                         <br />
                         an user, click here.
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to="/admin/users" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '5em' }}>See and edit users </Button></Link>
-                </CardActions>
-            </Card>
+                
+               
+                    <Link to="/admin/users" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ margin: '2em' }}>See and edit users </Button></Link>
+                
+            </Paper>
 
-            <Card sx={{ width: 350 }} className={clases.card}>
-                <CardContent>
+            <Paper sx={{ width: 350 }} className={clases.card}>
+              
                     <Typography variant="h5" component="div">
                         Upload a new product
                     </Typography>
@@ -97,14 +98,14 @@ export default function ControlPanel() {
                         <br />
                         your page, click here.
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to="/admin/createproduct" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em' }}> Upload a new product </Button></Link>
-                </CardActions>
-            </Card>
+             
+               
+                    <Link to="/admin/createproduct" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ margin: '2em' }}> Upload a new product </Button></Link>
+               
+            </Paper>
 
-            <Card sx={{ width: 350 }} className={clases.card}>
-                <CardContent>
+            <Paper sx={{ width: 350 }} className={clases.card}>
+               
                     <Typography variant="h5" component="div">
                         See your sales Orders
                     </Typography>
@@ -116,13 +117,13 @@ export default function ControlPanel() {
                         <br />
                         of a sale order, click here.
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to="/admin/orders" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em' }}>See your sales orders</Button></Link>                </CardActions>
-            </Card>
+                
+                
+                    <Link to="/admin/orders" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ margin: '2em' }}>See your sales orders</Button></Link>                
+            </Paper>
 
-            <Card sx={{ width: 350 }} className={clases.card}>
-                <CardContent>
+            <Paper sx={{ width: 350 }} className={clases.card}>
+              
                     <Typography variant="h5" component="div">
                         Categories
                     </Typography>
@@ -134,13 +135,12 @@ export default function ControlPanel() {
                         <br />
                         categories, click here.
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ marginLeft: '4em' }}>See and edit categories </Button></Link>
-                </CardActions>
-            </Card>
-            <Card sx={{ width: 350 }} className={clases.card}>
-                <CardContent>
+                
+                    <Link to="/admin/categories" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" sx={{ margin: '2em' }}>See and edit categories </Button></Link>
+                
+            </Paper>
+            <Paper sx={{ width: 350 }} className={clases.card}>
+                
                     <Typography variant="h5" component="div">
                         Newsletter
                     </Typography>
@@ -153,11 +153,10 @@ export default function ControlPanel() {
                         <br />
                         and send them, click here.
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to="/admin/Newsletter" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ marginLeft: '5.5em' }}>  newsletters </Button></Link>
-                </CardActions>
-            </Card>
+               
+                    <Link to="/admin/Newsletter" style={{ textDecoration: "none", }}><Button variant="contained" color="secondary" className={clases.btn1} sx={{ margin: '2em' }}>  newsletters </Button></Link>
+                
+            </Paper>
 
         </Grid>
     </div>
