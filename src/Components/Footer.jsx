@@ -34,7 +34,7 @@ export default function Footer(){
                 </Grid>
 
                 <Grid container  sm={9} direction="row-reverse"  >
-                <Grid>
+                    <Grid>
                         <FacebookIcon/>
                         <InstagramIcon/>
                         <TwitterIcon/>

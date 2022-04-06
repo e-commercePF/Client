@@ -101,14 +101,10 @@ export default function Detail() {
                                         <Rating name="half-rating-read" value={detailproduct.rating} precision={0.5} readOnly />
                                     </Grid>
                                     <Typography variant="subtitle1">Stock: {stock}</Typography>
-                                </Box>
-
-                                
+                                </Box>                                
                                     <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }}  onClick={() => handleAddCart()} >
                                         Add to cart
                                     </Button>
-                              
-
                             </Grid>
                         </Grid>
 

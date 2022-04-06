@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 
-const primaryColor = '#000000'
+const primaryColor = '#000000';
 
 const CustomTheme = createTheme({
   palette: {
@@ -36,6 +36,6 @@ const CustomTheme = createTheme({
       },
     }
   }
-});
+}); 
 
 export default CustomTheme

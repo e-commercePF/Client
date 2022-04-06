@@ -33,7 +33,8 @@ export default function Menu() {
   
   const dispatch = useDispatch();
   const [input,setInput] = useState(filter);
-  const { categories ,  brands  ,pages, filters} = useSelector((state) => state);
+  const [hiddenMenu,setHiddenMenu] = useState(true)
+  const { categories ,  brands  ,pages} = useSelector((state) => state);
 
   useEffect(() => {
       dispatch(getAllBrand())
@@ -97,6 +98,8 @@ export default function Menu() {
 
 return (
  <div>
+
+   {hiddenMenu == false ?     
   <Grid container sm={12} sx={{padding:"1em"}}> 
     <Grid container sm = {12} direction="row"  sx={{marginLeft:"21em"}}>
           <TextField
@@ -172,7 +175,6 @@ return (
       </Grid>
       
       <Grid container sm = {12} direction="row"   sx={{marginLeft:"20em"}} >
-
         <FormControl>
           <FormLabel id="filter-buttons-group-label">Sort by..</FormLabel>
           <RadioGroup
@@ -214,8 +216,11 @@ return (
           </RadioGroup>
         </FormControl>
         <Button onClick={clearFilter} sx={{padding:"2em"}} color="secondary"> clear filter </Button>
+        <Button onClick={() => setHiddenMenu(true)}> hide menu </Button>
       </Grid>
-    </Grid>
+    </Grid>: null}
+
+      {hiddenMenu == false ?  null :  <Button onClick={() => setHiddenMenu(false)} > Display filter menu</Button>}
 
     
   <Stack >
