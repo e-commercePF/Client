@@ -108,7 +108,7 @@ export default function Formulario() {
                 Authorization: 'Bearer ' + token
             }
         }
-        axios.get(`${REACT}/api/users/admin/verify`, config)
+        axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
                 //console.log(res.data)
             }).catch(err => {
