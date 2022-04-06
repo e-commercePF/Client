@@ -65,38 +65,38 @@ export default function SearchBar() {
 
                     />
 
-                    {/* <Link to="/result" style={{ textDecoration: "none" }}> */}
-                    <Button
-                        style={{
+                    <Link to="/result" style={{ textDecoration: "none" }}>
+                        <Button
+                            style={{
 
-                            borderRadius: "5px",
-                            margin: "5px"
-                        }}
-                        type="submit"
-                        color="navBtnColor"
-                        variant="contained"
-                        startIcon={<Search />}
+                                borderRadius: "5px",
+                                margin: "5px"
+                            }}
+                            type="submit"
+                            color="navBtnColor"
+                            variant="contained"
+                            startIcon={<Search />}
 
-                        onClick={() => {
-                            if (!search) {
-                                alert("ingresa algo")
-                                // Swal.fire({
-                                //     icon: 'error',
-                                //     title: 'Oops...',
-                                //     text: 'We need something to search',
-                                // })
-                            } else if (search.length > 0) {
-                                dispatch((searchProduct(search)))
-                                // setSearch("")
-                                navigate("/result")
+                            onClick={() => {
+                                if (!search) {
 
-                                console.log(11111, search)
-                            }
-                        }}
-                    >
-                        Search
-                    </Button>
-                    {/* </Link> */}
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'We need something to search',
+                                    })
+                                } else if (search.length > 0) {
+                                    dispatch((searchProduct(search)))
+                                    setSearch("")
+                                    // navigate("/result")
+
+                                    console.log(11111, search)
+                                }
+                            }}
+                        >
+                            Search
+                        </Button>
+                    </Link>
                 </Grid>
             </form>
 
