@@ -20,8 +20,8 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         border: 'solid 1px black',
         alignSelf: "center",
-        justifyContent: "center"
-
+        justifyContent: "center",
+        display: "flex",
     }
 })
 
@@ -78,7 +78,7 @@ export function Review() {
             return errors
         }
     })
-    return (<div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+    return (<div style={{ display: "flex", maxWidth: "50%", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
         <h2> Déjanos tu comentario del producto:</h2>
         <form onSubmit={formik.handleSubmit} style={{}}>
             <Card

@@ -32,7 +32,7 @@ export default function Categories() {
         }
         axios.get(`${REACT_APP_BACKEND_URL}/api/users/admin/verify`, config)
             .then(res => {
-                //console.log(res.data)
+
             }).catch(err => {
                 console.log(err)
                 navigate('/')

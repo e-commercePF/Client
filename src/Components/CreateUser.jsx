@@ -80,10 +80,10 @@ export default function CreateUser() {
 				tokenId: response.tokenId
 			}
 		}).then(response => {
-			console.log("Google login success", response); /*{
-                                                              googleToken,
-                                                              user: {_id, name, email}
-                                                              } */
+			/*{
+															 googleToken,
+															 user: {_id, name, email}
+															 } */
 			window.localStorage.setItem("token", response.data.tokenId);
 			window.location.reload(false)
 			navigate("/")
@@ -97,7 +97,7 @@ export default function CreateUser() {
 	}
 	const handleRegister = async (event) => {
 		try {
-			console.log(checked)
+
 			axios({
 				method: 'POST',
 				url: `${REACT_APP_BACKEND_URL}/api/auth/signup`,
@@ -120,7 +120,7 @@ export default function CreateUser() {
 			console.log("HandleRegister", e)
 		}
 	}
-	console.log(checked)
+
 	return (
 
 		<React.StrictMode>
