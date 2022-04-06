@@ -46,6 +46,7 @@ export function searchProduct(search) {
   return async function (dispatch) {
     try {
       let busqueda = await axios.get(`${REACT_APP_BACKEND_URL}/api/products/name/` + search)
+      console.log(11111, busqueda.date)
       return dispatch({
         type: SEARCH_PRODUCTS,
         payload: busqueda.data

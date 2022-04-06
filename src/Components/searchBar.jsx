@@ -59,42 +59,44 @@ export default function SearchBar() {
                         id="combo-box-demo"
                         options={optionProduct}
                         sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} placeholder="¿Qué estás buscando?" />}
+                        renderInput={(params) => <TextField {...params} placeholder="Search..." />}
                         type="submit"
                         disableListWrap={false}
 
-
                     />
-                    <Link to="/result" style={{ textDecoration: "none" }}
+
+                    {/* <Link to="/result" style={{ textDecoration: "none" }}> */}
+                    <Button
+                        style={{
+
+                            borderRadius: "5px",
+                            margin: "5px"
+                        }}
+                        type="submit"
+                        color="navBtnColor"
+                        variant="contained"
+                        startIcon={<Search />}
+
+                        onClick={() => {
+                            if (!search) {
+                                alert("ingresa algo")
+                                // Swal.fire({
+                                //     icon: 'error',
+                                //     title: 'Oops...',
+                                //     text: 'We need something to search',
+                                // })
+                            } else if (search.length > 0) {
+                                dispatch((searchProduct(search)))
+                                // setSearch("")
+                                navigate("/result")
+
+                                console.log(11111, search)
+                            }
+                        }}
                     >
-                        <Button
-                            style={{
-
-                                borderRadius: "5px",
-                                margin: "5px"
-                            }}
-                            type="submit"
-                            color="navBtnColor"
-                            variant="contained"
-                            startIcon={<Search />}
-
-                            onClick={() => {
-                                if (!search) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'We need something to search',
-                                    })
-                                } else if (search.length > 0) {
-                                    dispatch((searchProduct(search)))
-                                    setSearch("")
-                                    console.log(11111, search)
-                                }
-                            }}
-                        >
-                            Buscar
-                        </Button>
-                    </Link>
+                        Search
+                    </Button>
+                    {/* </Link> */}
                 </Grid>
             </form>
 

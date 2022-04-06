@@ -56,8 +56,8 @@ export default function ResultSearch() {
 
 
         {(haveResult) ? <div>
-            <img src="https://cdn-icons-png.flaticon.com/512/6134/6134116.png" alt="img" width={300} style={{ marginTop: 50 }} />
-            <h2>No hemos encontrado un producto </h2>
+            <img src="https://c.tenor.com/L50odLAEKNgAAAAi/lifting-weights-gyms.gif" alt="img" width={300} style={{ marginTop: 50 }} />
+            <h2>We have not found a product </h2>
 
         </div> : <></>}
         <Link to="/" style={{ textDecoration: "none" }}
@@ -70,7 +70,7 @@ export default function ResultSearch() {
                 style={{ backgroundColor: 'black', marginTop: "30px" }}
                 className={classes.burguerButton}
             >
-                Volver
+                Home
             </Button>
         </Link>
     </div>)

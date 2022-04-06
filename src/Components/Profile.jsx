@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getShopsByUser } from "../Redux/actions";
 import Swal from 'sweetalert2';
-const {REACT_APP_BACKEND_URL} = process.env 
+const { REACT_APP_BACKEND_URL } = process.env
 const useStyles = makeStyles({
     card: {
         margin: '1.5rem',
@@ -34,7 +34,7 @@ export default function Profile() {
         //     .catch(err => {
         //         console.log(err)
         //     })
-        dispatch(getShopsByUser(config))        
+        dispatch(getShopsByUser(config))
     }, [])
 
 
@@ -56,39 +56,43 @@ export default function Profile() {
 
     const unsuscribe = async () => {
         const token = localStorage.getItem('token');
-       const config = { headers: { Authorization: "Bearer " + token }}
-        try { const news = await axios.put(`${REACT_APP_BACKEND_URL}/api/users/suscribe`,{
-            newsLetter:false,
-            },config).then(response =>{
-				Swal.fire(response.data.message)
-			  }).catch(err=>{ 
-				if(err.response.status === 400){
-				 Swal.fire(err.response.data.error)
-                }}) 
-           }catch(e) { 
+        const config = { headers: { Authorization: "Bearer " + token } }
+        try {
+            const news = await axios.put(`${REACT_APP_BACKEND_URL}/api/users/suscribe`, {
+                newsLetter: false,
+            }, config).then(response => {
+                Swal.fire(response.data.message)
+            }).catch(err => {
+                if (err.response.status === 400) {
+                    Swal.fire(err.response.data.error)
+                }
+            })
+        } catch (e) {
             console.log("HandleRegister", e)
         }
 
 
-}
+    }
 
     const suscribe = async () => {
         const token = localStorage.getItem('token');
-       const config = { headers: { Authorization: "Bearer " + token }}
-        try { const news = await axios.put(`${REACT_APP_BACKEND_URL}/api/users/suscribe`,{
-            newsLetter:true,
-            },config).then(response =>{
-				Swal.fire(response.data.message)
-			  }).catch(err=>{ 
-				if(err.response.status === 400){
-				 Swal.fire(err.response.data.error)
-                }}) 
-           }catch(e) { 
+        const config = { headers: { Authorization: "Bearer " + token } }
+        try {
+            const news = await axios.put(`${REACT_APP_BACKEND_URL}/api/users/suscribe`, {
+                newsLetter: true,
+            }, config).then(response => {
+                Swal.fire(response.data.message)
+            }).catch(err => {
+                if (err.response.status === 400) {
+                    Swal.fire(err.response.data.error)
+                }
+            })
+        } catch (e) {
             console.log("HandleRegister", e)
         }
 
 
-}
+    }
     //console.log(myShop)
 
     let contador = 1
@@ -101,38 +105,38 @@ export default function Profile() {
             >
 
             </Avatar>
-            <h1> Bienvenido a tu perfil </h1>
+            <h1> Welcome to your Profile </h1>
 
             {
-                !edit ? <Button onClick={() => setEdit(!edit)}> Cambiar Imagen de perfil </Button>
+                !edit ? <Button onClick={() => setEdit(!edit)}> Change profile image </Button>
                     : <div> <input type='text' placeholder='selecciona la url de tu imagen' onChange={e => setUrl(e.target.value)} />
-                        <Button onClick={() => handeSelectPic(url)}> Cargar imagen </Button>
+                        <Button onClick={() => handeSelectPic(url)}>Upload  image </Button>
                     </div>
             }
 
-           <Button  onClick={() => suscribe()}>subscribe to newsletter</Button>  or    <Button  onClick={() => unsuscribe()}>unsubscribe</Button>
+            <Button onClick={() => suscribe()}>subscribe to newsletter</Button>  or    <Button onClick={() => unsuscribe()}>unsubscribe</Button>
 
             {
-                myShop.length < 1 ? <h2> Aún no compras nada,
-                    ¿que esperas?, ve el catalogo de Sports Market, la mejor tienda deportiva de América Latina
+                myShop.length < 1 ? <h2> You haven't bought anything yet.
+                    What are you waiting for? See the Sports Market catalog, the best sports store in Latin America
                 </h2> :
                     myShop.map(x => {
                         return <div>
                             <Paper elevation={3} className={clases.card}>
                                 <h4>Compra # {contador++} </h4>
-                                <span>Fecha de compra: {x.createdAt.slice(0, 10)} </span>
-                                <span>Hora de compra {x.createdAt.slice(11, 19)} </span>
+                                <span>Date of purchase: {x.createdAt.slice(0, 10)} </span>
+                                <span>Purchase time: {x.createdAt.slice(11, 19)} </span>
                                 {x.products.map(x => {
                                     return <div>
-                                        <a href={`/product/${x.productId}`}>Producto: {x.name} </a>
-                                        <span> Cantidad: {x.quantity} </span>
-                                        <span> Precio: $ {x.price} </span>
-                                        <h5> ¿Quieres dejar un comentario del producto? <Link to={`/review/${x.productId}`}> Haz click acá</Link></h5>
+                                        <a href={`/product/${x.productId}`}>Product: {x.name} </a>
+                                        <span> Quantity: {x.quantity} </span>
+                                        <span> Price: $ {x.price} </span>
+                                        <h5> Do you want to leave a comment? <Link to={`/review/${x.productId}`}> Click here</Link></h5>
                                     </div>
                                 }
                                 )}
-                                <span> Status de la compra: {x.status}</span>
-                                <h4> Valor de tu compra: $ {x.amount} </h4>
+                                <span> Status of the order: {x.status}</span>
+                                <h4> Total: $ {x.amount} </h4>
 
 
                             </Paper>
