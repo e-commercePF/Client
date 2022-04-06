@@ -144,7 +144,7 @@ export default function Carrito(){
                         return (
                             <Grid container sx={{padding:"2em"}}>
                             <Grid item sm={2}>
-                                <img src={x.img} alt={x.name}  width={"80%"} height={"100"}/>
+                                <img src={x.img[0]} alt={x.name}  width={"80%"} height={"100"}/>
                             </Grid>
                             <Grid item sm={3}>
                                 <Typography variant="h6" sx={{marginTop:"1.5em" }} >{x.name}</Typography>
@@ -164,13 +164,13 @@ export default function Carrito(){
                             </Grid>
                         </Grid>
                         )}
-                        ) : 'Your cart is empty'   :             
+                        ) : 'Tu carrito esta vacio'   :             
                     
                     shopingCart.length > 0 ? countMyItemResult.map(x=> {
                         return (
                         <Grid container sx={{padding:"2em"}}>
                             <Grid item sm={2}>
-                                <img src={x.img} alt={x.name}  width={"80%"} height={"100"}/>
+                                <img src={x.img[0]} alt={x.name}  width={"80%"} height={"100"}/>
                             </Grid>
                             <Grid item sm={3}>
                                 <Typography variant="h6" sx={{marginTop:"1.5em" }} >{x.name}</Typography>

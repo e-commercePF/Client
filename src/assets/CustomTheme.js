@@ -1,8 +1,7 @@
 import { createTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
 
-const primaryColor = purple[600]
 
+const primaryColor = '#000000'
 
 const CustomTheme = createTheme({
   palette: {

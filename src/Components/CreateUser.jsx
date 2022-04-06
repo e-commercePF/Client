@@ -96,7 +96,7 @@ const useStyles =  makeStyles(theme => ({
         console.log(response)
       }    
  const handleRegister = async (event) => {
-	  try {
+	  try {console.log(checked)
             axios({
                 method: 'POST',
                 url: `${REACT_APP_BACKEND_URL}/api/auth/signup`,
@@ -104,7 +104,7 @@ const useStyles =  makeStyles(theme => ({
                   name: name,
                   email: email,
                   password: password,
-				  checked: checked,
+				  newsLetter: checked,
                 }
               }).then(response =>{
 				Swal.fire(response.data.message)
@@ -118,6 +118,7 @@ const useStyles =  makeStyles(theme => ({
             console.log("HandleRegister", e)
         }
  }
+ console.log(checked)
 return(
 
 	<React.StrictMode>
