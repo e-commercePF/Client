@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 
-const primaryColor = '#000000'
+const primaryColor = '#000000';
 
 const CustomTheme = createTheme({
   palette: {
@@ -22,12 +22,20 @@ const CustomTheme = createTheme({
     MuiCardHeader:{
       styleOverrides: {
         root:{     
-       maxHeight:"6.5vh",
-       minHeight:"6.5vh" 
+       maxHeight:"8vh",
+       minHeight:"8vh" 
+      }
+      },
+    },
+    MuiCardContent:{
+      styleOverrides: {
+        root:{     
+       maxHeight:"5.5vh",
+       minHeight:"5.5vh" 
       }
       },
     }
   }
-});
+}); 
 
 export default CustomTheme
