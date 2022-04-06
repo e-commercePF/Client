@@ -108,7 +108,7 @@ export default function Formulario() {
         }
         axios.get('http://localhost:3000/api/users/admin/verify', config)
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
             }).catch(err => {
                 console.log(err)
                 return navigate('/')
@@ -218,7 +218,7 @@ export default function Formulario() {
                     value={formik.values.description}
                     onChange={formik.handleChange}
                     error={formik.touched.description && Boolean(formik.errors.description)}
-                    helperText={formik.touched.description && formik.errors.description}
+                   helperText={formik.touched.description && formik.errors.description}
                     onBlur={formik.handleBlur}
                 />
                 <TextField
@@ -230,7 +230,7 @@ export default function Formulario() {
                     value={formik.values.price}
                     onChange={formik.handleChange}
                     error={formik.touched.price && Boolean(formik.errors.price)}
-                    helperText={formik.touched.price && formik.errors.price}
+                   helperText={formik.touched.price && formik.errors.price}
                     onBlur={formik.handleBlur}
                 />
 
@@ -257,7 +257,7 @@ export default function Formulario() {
                         value={formik.values.img}
                         onChange={formik.handleChange}
                         error={formik.touched.img && Boolean(formik.errors.img)}
-                        helperText={formik.touched.img && formik.errors.img}
+                       helperText={formik.touched.img && formik.errors.img}
                         onBlur={formik.handleBlur}
                     />
                     <Button
@@ -344,7 +344,7 @@ export default function Formulario() {
                         value={formik.values.category}
                         onChange={formik.handleChange}
                         error={formik.touched.category && Boolean(formik.errors.category)}
-                        helperText={formik.touched.category && formik.errors.category}
+                        //helperText={formik.touched.category && formik.errors.category}
                         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                         renderValue={(selected) => (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -377,7 +377,7 @@ export default function Formulario() {
                         onChange={formik.handleChange}
                         name="brand"
                         error={formik.touched.brand && Boolean(formik.errors.brand)}
-                        helperText={formik.touched.brand && formik.errors.brand}
+                       // helperText={formik.touched.brand && formik.errors.brand}
                     >
                         {brands.map((name) => (
                             <MenuItem

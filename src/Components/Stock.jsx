@@ -61,6 +61,7 @@ export default function Stock(){
     
     let productsValue = product.map(x=> x.quantity * x.price)
     let investment =  productsValue.reduce((acc, el) => acc + el, 0) 
+    investment = investment.toFixed(2)
 
     const [myNewDataProduct, setMyNewDataProduct] = useState({
         brand: "",
@@ -122,11 +123,11 @@ export default function Stock(){
                 if (result.isConfirmed) {
                   dispatch(editTheProduct(myNewDataProduct))
                   window.location.reload()
-                  Swal.fire(
-                    'Producto modificado!',
-                    'La base de datos se ha actualizado.',
-                    'success'
-                  )                            
+                //   Swal.fire(
+                //     'Producto modificado!',
+                //     'La base de datos se ha actualizado.',
+                //     'success'
+                //   )                            
                 }
             //    setTimeout(()=> {
             //     window.location.reload()
@@ -166,9 +167,10 @@ export default function Stock(){
 
             {
         product.map(x=> {
-            return <div> 
+            return <div key={x._id}> 
                 <Paper className={clases.paper}>
                 <InputPanel 
+                key={x._id}
                 name= {x.name}
                 quantity= {x.quantity}
                 price= {x.price}

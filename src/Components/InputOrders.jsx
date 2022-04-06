@@ -62,7 +62,7 @@ export default function InputOrders({send, id}){
         <div> 
             {  edit ? <div style={{marginBottom: '1rem'}}>            
                 <select onChange={e=> handleStatus(e.target.value)}>
-                    <option > Selecciona el status del pedido </option>
+                    <option value='s'> Selecciona el status del pedido </option>
                     <option value= 'pending'> Pendiente </option>   
                     <option value='dispatched'> Despachada </option>
                     <option value='completed'> Completada </option>    

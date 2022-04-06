@@ -1,4 +1,4 @@
-import { Button, Typography, Grid, Divider, Box, Paper } from "@mui/material";
+import { IconButton, Button, Typography, Grid, Divider, Box, Paper } from "@mui/material";
 import Rating from '@material-ui/lab/Rating';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,21 +60,6 @@ export default function Detail() {
         <div className={classes.root}>
             {(detailproduct.name) ?
                 <Grid >
-                    {/* <Grid style={{ justifyContent: "flex-start", alignItems: "flex-start" }}>
-                        <Link to="/" style={{ textDecoration: "none" }}
-                            onClick={() => dispatch(cleanDetail())}
-                        >
-                            <Button
-                                color="navBtnColor"
-                                variant="contained"
-                                endIcon={<Home />}
-                                style={{ backgroundColor: 'black', justifyContent: "flex-start" }}
-                                className={classes.burguerButton}
-                            >
-                                Home
-                            </Button>
-                        </Link>
-                    </Grid> */}
                     <Grid container spacing={1} style={{ maxWidth: 1100, }}>
 
                         <Grid item sm={1}>
@@ -114,22 +99,26 @@ export default function Detail() {
                                     </Grid>
                                     <Typography variant="subtitle1">Stock Actual: {stock}</Typography>
                                 </Box>
-                                <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }} onClick={() => handleAddCart()}>
-                                    Agregar al carrito
-                                </Button>
+                                
+                                <IconButton onClick={() => handleAddCart()}>                                    
+                                    <Button variant="contained" color="secondary" className={classes.btn} style={{ marginTop: "auto" }} >
+                                        Agregar al carrito
+                                    </Button>                                   
+                                </IconButton>
+                                
                             </Grid>
                         </Grid>
 
                         {stock === 0 ? <h1 style={{ color: 'red' }}> Lo siento, articulo no disponible </h1> : null}
 
 
-                        <Grid sm={12} sx={{ padding: "5em" }}>
+                        <Grid item sm={12} sx={{ padding: "5em" }}>
                             <Paper elevation={3}>
                                 <Typography variant="h5"> Comentarios del producto:</Typography>
                                 <Divider></Divider>
                                 {
                                     detailproduct.reviews.map((e, index) => (
-                                        <Grid item sm={12}>
+                                        <Grid item sm={12} key={index}>
                                             <Typography variant="h6">{e.users}</Typography>
                                             <Typography variant="h6">{e.description}</Typography>
                                             <Rating name="half-rating-read" value={e.rating} precision={0.5} readOnly />

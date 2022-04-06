@@ -164,7 +164,7 @@ export default function Carrito(){
                             </Grid>
                         </Grid>
                         )}
-                        ) : 'Tu carrito esta vacio'   :             
+                        ) : 'Your cart is empty'   :             
                     
                     shopingCart.length > 0 ? countMyItemResult.map(x=> {
                         return (
