@@ -41,7 +41,7 @@ export default function Stock() {
                 console.log(err)
                 navigate('/')
             })
-    }, [navigate])
+    }, [])
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -100,7 +100,7 @@ export default function Stock() {
             isOnStock: x.isOnStock,
             name: x.name,
             price: price || x.price,
-            quantity: quant,
+            quantity: quant || x.quantity,
             rating: x.rating,
             sku: x.sku,
             __v: x.__v,
